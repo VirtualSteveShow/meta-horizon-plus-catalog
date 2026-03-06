@@ -1383,6 +1383,19 @@
       <div class="changelog-body">
 
         <div class="changelog-entry">
+          <div class="changelog-version">V 1.2 <span class="changelog-date">March 2026</span></div>
+          <ul>
+            <li>Starred games no longer show the hide (✕) button — unstar first if you want to hide a game</li>
+            <li>Starring/unstarring a game now instantly updates the catalog without a page reload</li>
+            <li>7 broken store links fixed: iB Cricket, Pets & Stuff, Stupid Cars, The Curious Tale of Stolen Pets, The Pirate Queen with Lucy Liu, The Secret of Retropolis, Into Black</li>
+            <li>Removed games not included in Horizon+ subscription: Guardians Frontline, Disc Frenzy, Elysium Trials, Gravity League: Galactic Football, LAX VR, War of the Worlds</li>
+            <li>Orphaned hidden/starred entries from removed games are now automatically cleaned up on load</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
+
+        <div class="changelog-entry">
           <div class="changelog-version">V 1.1 <span class="changelog-date">March 2026</span></div>
           <ul>
             <li>Not Starred filter now works independently and can be combined with Main, Indie, Mar, and Jan filters</li>
@@ -1457,7 +1470,7 @@
     <h1>Meta Horizon+ Catalog</h1>
     <div class="header-sub">Complete game list · <span>March 2026</span> · <span id="header-total">107</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
-    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.1</span></div>
+    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.2</span></div>
   </header>
 
   <!-- STATS -->
@@ -1616,6 +1629,7 @@
 
 <script>
 const gamesData = [
+  { name: "Alvo",                               genre: "Tactical Shooter",    tag: "", type: "indie", mp: ["multi","coop"] },
   { name: "Angry Birds VR: Isle of Pigs",     genre: "Puzzle",              tag: "", type: "games", mp: [] },
   { name: "Arizona Sunshine Remake",          genre: "Co-op Zombie Shooter", tag: "MAR", type: "games", mp: ["coop"] },
   { name: "Asgard's Wrath 2",                 genre: "Action RPG",          tag: "", type: "games", mp: [] },
@@ -1671,7 +1685,6 @@ const gamesData = [
 ];
 
 const indieData = [
-  { name: "Alvo",                               genre: "Tactical Shooter",    tag: "", type: "indie", mp: ["multi","coop"] },
   { name: "Apex Construct",                     genre: "Action / Adventure",  tag: "", type: "indie", mp: [] },
   { name: "Arcade Paradise VR",                 genre: "Sim / Arcade",        tag: "", type: "indie", mp: [] },
   { name: "Bocce Time!",                        genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
@@ -1682,21 +1695,17 @@ const indieData = [
   { name: "Cybrix",                             genre: "Arcade",              tag: "", type: "indie", mp: [] },
   { name: "Darksword: Battle Eternity",         genre: "Fighting / RPG",      tag: "", type: "indie", mp: ["multi"] },
   { name: "DIG VR",                             genre: "Simulation",          tag: "", type: "indie", mp: [] },
-  { name: "Disc Frenzy",                        genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
   { name: "Discovery 2",                        genre: "Exploration",         tag: "", type: "indie", mp: [] },
-  { name: "Elysium Trials",                     genre: "Action",              tag: "", type: "indie", mp: [] },
   { name: "Espire 1: VR Operative",             genre: "Stealth FPS",         tag: "", type: "indie", mp: [] },
   { name: "Final Overs - VR Cricket",           genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
   { name: "Galaxy Kart",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"] },
   { name: "Ghost Signal: A Stellaris Game",     genre: "Sci-fi Shooter",      tag: "", type: "indie", mp: [] },
-  { name: "Gravity League: Galactic Football",  genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
   { name: "Hide The Corpse",                    genre: "Puzzle",              tag: "", type: "indie", mp: ["multi"] },
   { name: "I Am Hamster - Simulator",           genre: "Simulation",          tag: "", type: "indie", mp: [] },
   { name: "Innkeeper VR",                       genre: "Simulation",          tag: "", type: "indie", mp: [] },
   { name: "Iron Guard",                         genre: "Tower Defense",       tag: "", type: "indie", mp: [] },
   { name: "Ironlights",                         genre: "Fighting",            tag: "", type: "indie", mp: ["multi"] },
   { name: "Killer Frequency",                   genre: "Simulation / Horror", tag: "", type: "indie", mp: [] },
-  { name: "LAX VR",                             genre: "Sports",              tag: "", type: "indie", mp: [] },
   { name: "Laser Thief",                        genre: "Puzzle / Stealth",    tag: "", type: "indie", mp: [] },
   { name: "Make It Stable - Kids & Family",     genre: "Puzzle / Family",     tag: "", type: "indie", mp: [] },
   { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
@@ -1760,7 +1769,7 @@ function toggleStar(name, btn) {
     }
   });
   renderStarred();
-  if (catalogFilter.unstarred) renderCatalog();
+  renderCatalog();
 }
 
 function clearAllStars() {
@@ -1791,6 +1800,7 @@ const APP_IDS = {
   "Arizona Sunshine Remake":          "7000275296693016",
   "The Pirate: Republic of Nassau":   "7749043518464805",
   // ── GAMES CATALOG ──
+  "Alvo":                             "6937410016334124",
   "Angry Birds VR: Isle of Pigs":     "2718606324833775",
   "Asgard's Wrath 2":                 "2603836099654226",
   "Assassin's Creed Nexus VR":        "5812519008825194",
@@ -1807,12 +1817,11 @@ const APP_IDS = {
   "GOLF+":                            "2412327085529357",
   "Green Hell VR":                    "3815577785147028",
   "Grimlord":                         "6784503354964529",
-  "Guardians Frontline":              "5380153758692064",
   "Human Fall Flat VR":               "7274779852571833",
   "I Expect You To Die 3":            "4676322075753574",
-  "iB Cricket":                       "3916282738409128",
+  "iB Cricket":                       "5437449896288644",
   "In Death: Unchained":              "2334376869949242",
-  "Into Black":                       "6404967532884949",
+  "Into Black":                       "5289374691122516",
   "Into the Radius":                  "5817243991680545",
   "Job Simulator":                    "3235570703151406",
   "Kingspray Graffiti":               "2082941345119152",
@@ -1821,7 +1830,7 @@ const APP_IDS = {
   "Medieval Dynasty: New Settlement": "5900444653303887",
   "Moss":                             "1654565391314903",
   "Onward":                           "2677344882310094",
-  "Pets & Stuff":                     "5371120182965640",
+  "Pets & Stuff":                     "7818625474831202",
   "Pistol Whip":                      "2104963472963790",
   "Premium Bowling":                  "2773034772778845",
   "Project Demigod":                  "5288522424560925",
@@ -1841,10 +1850,8 @@ const APP_IDS = {
   "Titans Clinic":                    "6035422123217068",
   "Townsmen VR":                      "5155208571260698",
   "Walkabout Mini Golf":              "2462678267173943",
-  "War of the Worlds":                "4977720288960881",
   "Zero Caliber: Reloaded":           "3591949650852844",
   // ── INDIE CATALOG ──
-  "Alvo":                             "6937410016334124",
   "Apex Construct":                   "2096570290365140",
   "Arcade Paradise VR":               "5968301983261530",
   "Bocce Time!":                      "7851829064831043",
@@ -1855,21 +1862,17 @@ const APP_IDS = {
   "Cybrix":                           "4625005897550253",
   "Darksword: Battle Eternity":       "5912124212170208",
   "DIG VR":                           "6128709557192619",
-  "Disc Frenzy":                      "6236933846397747",
   "Discovery 2":                      "8734464566611164",
-  "Elysium Trials":                   "5936143996443728",
   "Espire 1: VR Operative":           "2228678273856228",
   "Final Overs - VR Cricket":         "3753844808017398",
   "Galaxy Kart":                      "5598654356882558",
   "Ghost Signal: A Stellaris Game":   "4302631119827554",
-  "Gravity League: Galactic Football":"5934280436582748",
   "Hide The Corpse":                  "8714253315313680",
   "I Am Hamster - Simulator":         "9101508319928510",
   "Innkeeper VR":                     "5563528830357731",
   "Iron Guard":                       "5153768677983339",
   "Ironlights":                       "2449350021843569",
   "Killer Frequency":                 "4629225960449550",
-  "LAX VR":                           "4894698900594738",
   "Laser Thief":                      "8601091189913934",
   "Make It Stable - Kids & Family":   "26313534838289915",
   "Motion Soccer PRO":                "7304829872906558",
@@ -1884,13 +1887,13 @@ const APP_IDS = {
   "Slot Car VR":                      "5725168237605851",
   "Space Elevator":                   "7107719756007453",
   "Squingle":                         "9288954704465499",
-  "Stupid Cars":                      "4742750672440095",
+  "Stupid Cars":                      "7376768975749759",
   "Sushi Ben":                        "5459391390744272",
   "Tactica":                          "26709789558666303",
   "Taiko Frenzy":                     "5801769383179330",
-  "The Curious Tale of Stolen Pets":  "2282125405211893",
-  "The Pirate Queen with Lucy Liu":   "4272537572835569",
-  "The Secret of Retropolis":         "3433460530052784",
+  "The Curious Tale of Stolen Pets":  "2439217169469931",
+  "The Pirate Queen with Lucy Liu":   "5420468924659233",
+  "The Secret of Retropolis":         "4148745208478773",
   "The Wizards":                      "2459503397416283",
   "Tiny Archers":                     "5072443666191114",
   "Towers and Powers":                "3535742746525560",
@@ -2053,7 +2056,7 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
     <button class="star-btn ${isStarred ? 'starred' : ''}" data-name="${g.name}"
       onclick="toggleStar('${safeName}', this)"
       title="${isStarred ? 'Unstar' : 'Star this game'}">&#11088;</button>
-    <button class="remove-btn" data-name="${g.name}" onclick="${xAction==='unstar'?`toggleStar('${safeName}',this.previousElementSibling)`:`removeGame('${safeName}')`}" title="${xAction==='unstar'?'Remove from starred':'Hide this game'}">✕</button>
+    ${xAction === 'unstar' ? `<button class="remove-btn" data-name="${g.name}" onclick="toggleStar('${safeName}',this.previousElementSibling)" title="Remove from starred">✕</button>` : (!isStarred ? `<button class="remove-btn" data-name="${g.name}" onclick="removeGame('${safeName}')" title="Hide this game">✕</button>` : '')}
     ${ribbon}
   `;
   return card;
@@ -2586,6 +2589,24 @@ if (statIndie) statIndie.textContent = indieCount;
 if (statTotal) statTotal.textContent = totalCount;
 const headerTotal = document.getElementById('header-total');
 if (headerTotal) headerTotal.textContent = totalCount;
+// ── PURGE ORPHANED ENTRIES ──
+// Remove any starred/removed game names that no longer exist in the catalog
+(function purgeOrphans() {
+  const validNames = new Set(allData.map(g => g.name));
+  let changed = false;
+  [...starred].forEach(n => {
+    if (!validNames.has(n)) { starred.delete(n); starredOrder = starredOrder.filter(x => x !== n); changed = true; }
+  });
+  [...removed].forEach(n => {
+    if (!validNames.has(n)) { removed.delete(n); changed = true; }
+  });
+  if (changed) {
+    saveStars();
+    localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
+    localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed]));
+  }
+})();
+
 renderCatalog();
 renderStarred();
 
