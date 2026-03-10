@@ -446,6 +446,28 @@
   .game-card[data-genre-group="Casual"]     { border-left-color: #94a3b8; }
   .game-card[data-genre-group="Other"]      { border-left-color: #64748b; }
 
+  /* ── GAME RATING ── */
+  .game-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 4px 0 5px;
+  }
+  .game-rating .stars {
+    color: #f59e0b;
+    font-size: 11px;
+    letter-spacing: 0px;
+  }
+  .game-rating .rating-num {
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .game-rating .review-count {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
   /* ── MP BADGES ── */
   .mp-badge {
     display: inline-flex;
@@ -1347,7 +1369,10 @@
           <span class="help-badge-item"><strong>Not Starred</strong> — find games you haven't evaluated yet</span>
           <span class="help-badge-item"><strong>Genre dropdown</strong> — narrow by category</span>
           <span class="help-badge-item"><strong>A→Z / Z→A</strong> — sort alphabetically</span>
+          <span class="help-badge-item"><strong>⭐ Top Rated</strong> — sorts by rating adjusted for review count, so a 4.8 with 10,000 reviews ranks higher than a 4.8 with 12 reviews</span>
+          <span class="help-badge-item"><strong>Rating filter (4.5+ to 4.9+)</strong> — show only games at or above a minimum rating</span>
         </div>
+        <p style="margin-top:10px;color:var(--muted);font-size:12px;">★ Ratings and review counts are a snapshot from the last time this tool was updated and may not reflect the current Meta store.</p>
       </div>
 
       <div class="help-section">
@@ -1383,7 +1408,20 @@
       <div class="changelog-body">
 
         <div class="changelog-entry">
-          <div class="changelog-version">V 1.2 <span class="changelog-date">March 2026</span></div>
+          <div class="changelog-version">V 1.3 <span class="changelog-date">March 9, 2026</span></div>
+          <ul>
+            <li>Star ratings and review counts added to every game card</li>
+            <li>⭐ Top Rated sort — ranks by Bayesian adjusted score so highly reviewed games are weighted more fairly</li>
+            <li>Rating filter — show only games at 4.5, 4.6, 4.7, 4.8, or 4.9 and above</li>
+            <li>Both rating filters available in the Options menu filter panel and stay in sync with the main filter bar</li>
+            <li>Ratings are a snapshot from last update and may not reflect current Meta store values</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
+
+        <div class="changelog-entry">
+          <div class="changelog-version">V 1.2 <span class="changelog-date">March 6, 2026</span></div>
           <ul>
             <li>Starred games no longer show the hide (✕) button — unstar first if you want to hide a game</li>
             <li>Starring/unstarring a game now instantly updates the catalog without a page reload</li>
@@ -1396,7 +1434,7 @@
         <hr class="changelog-divider">
 
         <div class="changelog-entry">
-          <div class="changelog-version">V 1.1 <span class="changelog-date">March 2026</span></div>
+          <div class="changelog-version">V 1.1 <span class="changelog-date">March 5, 2026</span></div>
           <ul>
             <li>Not Starred filter now works independently and can be combined with Main, Indie, Mar, and Jan filters</li>
             <li>Starring a game while Not Starred filter is active now immediately removes it from the list</li>
@@ -1407,7 +1445,7 @@
         <hr class="changelog-divider">
 
         <div class="changelog-entry">
-          <div class="changelog-version">V 1.0 <span class="changelog-date">March 2026</span></div>
+          <div class="changelog-version">V 1.0 <span class="changelog-date">March 4, 2026</span></div>
           <ul>
             <li>Initial launch — full interactive Meta Horizon+ catalog with 109 titles</li>
             <li>Filter by Main / Indie catalog, New in March / January, Not Starred</li>
@@ -1456,9 +1494,17 @@
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="JAN"      onclick="menuSetCat('JAN',this)">Jan</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="UNSTARRED" onclick="menuSetCat('UNSTARRED',this)">Not Starred</button>
       </div>
-      <div class="filter-bar" style="flex-wrap:wrap;gap:5px;margin-bottom:8px;">
+      <div class="filter-bar" style="flex-wrap:wrap;gap:5px;margin-bottom:5px;">
         <button class="filter-btn menu-cat-btn" id="menu-mp-btn" onclick="menuCycleMp(this)" data-mp="all">Play Mode</button>
         <button class="filter-btn menu-sort-btn active" id="menu-sort-btn" onclick="menuToggleSort(this)">A → Z</button>
+        <button class="filter-btn" id="menu-sort-top-btn" onclick="setSortTop(this);syncMenuFilters()">⭐ Top Rated</button>
+      </div>
+      <div class="filter-bar" style="flex-wrap:wrap;gap:5px;margin-bottom:8px;">
+        <button class="filter-btn menu-rating-btn" data-val="4.5" onclick="menuPickRating(4.5,this)">4.5+</button>
+        <button class="filter-btn menu-rating-btn" data-val="4.6" onclick="menuPickRating(4.6,this)">4.6+</button>
+        <button class="filter-btn menu-rating-btn" data-val="4.7" onclick="menuPickRating(4.7,this)">4.7+</button>
+        <button class="filter-btn menu-rating-btn" data-val="4.8" onclick="menuPickRating(4.8,this)">4.8+</button>
+        <button class="filter-btn menu-rating-btn" data-val="4.9" onclick="menuPickRating(4.9,this)">4.9+</button>
         <button class="reset-filters-btn" onclick="resetAllFilters()" id="menu-reset-btn" style="flex:1;text-align:center;">✕ Reset</button>
       </div>
     </div>
@@ -1470,7 +1516,7 @@
     <h1>Meta Horizon+ Catalog</h1>
     <div class="header-sub">Complete game list · <span>March 2026</span> · <span id="header-total">107</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
-    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.2</span></div>
+    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.3</span></div>
   </header>
 
   <!-- STATS -->
@@ -1604,6 +1650,20 @@
           </div>
         </div>
         <button class="filter-btn sort-btn active" id="sort-toggle-btn" onclick="toggleSort()">A → Z</button>
+        <button class="filter-btn" id="sort-top-btn" onclick="setSortTop(this)">⭐ Top Rated</button>
+        <div style="position:relative;display:inline-block;">
+          <button class="filter-btn genre-trigger" id="rating-trigger" onclick="toggleRatingDropdown(event)">
+            <span id="rating-label">All Ratings</span> ▾
+          </button>
+          <div class="genre-panel" id="rating-panel">
+            <button class="genre-opt active" data-val="0"   onclick="pickRating(0,'All Ratings',this)">All Ratings</button>
+            <button class="genre-opt"        data-val="4.5" onclick="pickRating(4.5,'4.5+ ★',this)">4.5+ ★</button>
+            <button class="genre-opt"        data-val="4.6" onclick="pickRating(4.6,'4.6+ ★',this)">4.6+ ★</button>
+            <button class="genre-opt"        data-val="4.7" onclick="pickRating(4.7,'4.7+ ★',this)">4.7+ ★</button>
+            <button class="genre-opt"        data-val="4.8" onclick="pickRating(4.8,'4.8+ ★',this)">4.8+ ★</button>
+            <button class="genre-opt"        data-val="4.9" onclick="pickRating(4.9,'4.9+ ★',this)">4.9+ ★</button>
+          </div>
+        </div>
         <button class="reset-filters-btn inline-reset" onclick="resetAllFilters()">✕ Reset</button>
       </div>
     </div>
@@ -1629,113 +1689,113 @@
 
 <script>
 const gamesData = [
-  { name: "Alvo",                               genre: "Tactical Shooter",    tag: "", type: "indie", mp: ["multi","coop"] },
-  { name: "Angry Birds VR: Isle of Pigs",     genre: "Puzzle",              tag: "", type: "games", mp: [] },
-  { name: "Arizona Sunshine Remake",          genre: "Co-op Zombie Shooter", tag: "MAR", type: "games", mp: ["coop"] },
-  { name: "Asgard's Wrath 2",                 genre: "Action RPG",          tag: "", type: "games", mp: [] },
-  { name: "Assassin's Creed Nexus VR",        genre: "Action / Adventure",  tag: "JAN", type: "games", mp: [] },
-  { name: "Beat Saber",                       genre: "Rhythm",              tag: "MAR", type: "games", mp: ["multi"] },
-  { name: "Blacktop Hoops",                   genre: "Sports",              tag: "", type: "games", mp: ["multi"] },
-  { name: "Cubism",                           genre: "Puzzle",              tag: "", type: "games", mp: [] },
-  { name: "Deisim",                           genre: "Strategy / Sim",      tag: "", type: "games", mp: [] },
-  { name: "Demeo",                            genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi","coop"] },
-  { name: "Demeo Battles",                    genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi"] },
-  { name: "Dungeons of Eternity",             genre: "Co-op Action",        tag: "", type: "games", mp: ["coop"] },
-  { name: "Final Fury",                       genre: "Fighting",            tag: "", type: "games", mp: ["multi"] },
-  { name: "Fruit Ninja 2",                    genre: "Arcade",              tag: "", type: "games", mp: ["multi"] },
-  { name: "Ghosts of Tabor",                  genre: "Survival Shooter",    tag: "", type: "games", mp: ["multi"] },
-  { name: "GOLF+",                            genre: "Sports",              tag: "MAR", type: "games", mp: ["multi"] },
-  { name: "Green Hell VR",                    genre: "Survival",            tag: "JAN", type: "games", mp: ["coop"] },
-  { name: "Grimlord",                         genre: "Action",              tag: "", type: "games", mp: [] },
-  { name: "Human Fall Flat VR",               genre: "Puzzle / Comedy",     tag: "", type: "games", mp: ["multi","coop"] },
-  { name: "I Expect You To Die 3",            genre: "Puzzle / Spy",        tag: "", type: "games", mp: [] },
-  { name: "iB Cricket",                       genre: "Sports",              tag: "", type: "games", mp: ["multi"] },
-  { name: "In Death: Unchained",              genre: "Roguelike Shooter",   tag: "", type: "games", mp: [] },
-  { name: "Into Black",                       genre: "Adventure",           tag: "JAN", type: "games", mp: [] },
-  { name: "Into the Radius",                  genre: "Survival Shooter",    tag: "", type: "games", mp: [] },
-  { name: "Job Simulator",                    genre: "Simulation / Comedy", tag: "", type: "games", mp: [] },
-  { name: "Kingspray Graffiti",               genre: "Creative",            tag: "", type: "games", mp: ["multi"] },
-  { name: "Les Mills Bodycombat",             genre: "Fitness",             tag: "", type: "games", mp: [] },
-  { name: "Maestro",                          genre: "Music / Rhythm",      tag: "", type: "games", mp: [] },
-  { name: "Medieval Dynasty: New Settlement", genre: "Simulation",          tag: "", type: "games", mp: [] },
-  { name: "Moss",                             genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [] },
-  { name: "Onward",                           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["multi","coop"] },
-  { name: "Pets & Stuff",                     genre: "Simulation",          tag: "", type: "games", mp: ["multi"] },
-  { name: "Pistol Whip",                      genre: "Action / Rhythm",     tag: "", type: "games", mp: [] },
-  { name: "Premium Bowling",                  genre: "Sports",              tag: "", type: "games", mp: ["multi"] },
-  { name: "Project Demigod",                  genre: "Action",              tag: "", type: "games", mp: [] },
-  { name: "Puzzling Places",                  genre: "Puzzle",              tag: "", type: "games", mp: ["coop"] },
-  { name: "Racket Club",                      genre: "Sports",              tag: "", type: "games", mp: ["multi"] },
-  { name: "Real VR Fishing",                  genre: "Sports / Relaxation", tag: "", type: "games", mp: ["multi"] },
-  { name: "Red Matter",                       genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [] },
-  { name: "Red Matter 2",                     genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [] },
-  { name: "Spatial Ops",                      genre: "Shooter",             tag: "MAR", type: "games", mp: ["multi","coop"] },
-  { name: "Starship Home",                    genre: "Simulation / MR",     tag: "", type: "games", mp: [] },
-  { name: "Synth Riders",                     genre: "Rhythm",              tag: "", type: "games", mp: ["multi"] },
-  { name: "The 7th Guest VR",                 genre: "Horror / Puzzle",     tag: "MAR", type: "games", mp: [] },
-  { name: "The Climb 2",                      genre: "Sports / Adventure",  tag: "", type: "games", mp: [] },
-  { name: "The Light Brigade",                genre: "Roguelite Shooter",   tag: "", type: "games", mp: [] },
-  { name: "The Thrill of the Fight",          genre: "Boxing / Fitness",    tag: "", type: "games", mp: [] },
-  { name: "Thief Simulator VR: Greenview Street", genre: "Simulation",      tag: "", type: "games", mp: [] },
-  { name: "Titans Clinic",                    genre: "Sports",              tag: "", type: "games", mp: [] },
-  { name: "Townsmen VR",                      genre: "Strategy / Sim",      tag: "", type: "games", mp: [] },
-  { name: "War of Wizards",                   genre: "Fighting",            tag: "", type: "games", mp: ["multi"] },
-  { name: "Walkabout Mini Golf",              genre: "Sports",              tag: "", type: "games", mp: ["multi"] },
-  { name: "Zero Caliber: Reloaded",           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["coop"] },
+  { name: "Alvo",                               genre: "Tactical Shooter",    tag: "", type: "indie", mp: ["multi","coop"], rating: 4.0, reviews: 802 },
+  { name: "Angry Birds VR: Isle of Pigs",     genre: "Puzzle",              tag: "", type: "games", mp: [], rating: 4.5, reviews: 1600 },
+  { name: "Arizona Sunshine Remake",          genre: "Co-op Zombie Shooter", tag: "MAR", type: "games", mp: ["coop"], rating: 4.3, reviews: 1200 },
+  { name: "Asgard's Wrath 2",                 genre: "Action RPG",          tag: "", type: "games", mp: [], rating: 4.2, reviews: 6000 },
+  { name: "Assassin's Creed Nexus VR",        genre: "Action / Adventure",  tag: "JAN", type: "games", mp: [], rating: 4.3, reviews: 5300 },
+  { name: "Beat Saber",                       genre: "Rhythm",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.5, reviews: 54000 },
+  { name: "Blacktop Hoops",                   genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.9, reviews: 23000 },
+  { name: "Cubism",                           genre: "Puzzle",              tag: "", type: "games", mp: [], rating: 4.8, reviews: 1000 },
+  { name: "Deisim",                           genre: "Strategy / Sim",      tag: "", type: "games", mp: [], rating: 4.6, reviews: 1900 },
+  { name: "Demeo",                            genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi","coop"], rating: 4.6, reviews: 7500 },
+  { name: "Demeo Battles",                    genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi"], rating: 4.1, reviews: 324 },
+  { name: "Dungeons of Eternity",             genre: "Co-op Action",        tag: "", type: "games", mp: ["coop"], rating: 4.9, reviews: 13000 },
+  { name: "Final Fury",                       genre: "Fighting",            tag: "", type: "games", mp: ["multi"], rating: 4.1, reviews: 160 },
+  { name: "Fruit Ninja 2",                    genre: "Arcade",              tag: "", type: "games", mp: ["multi"], rating: 3.8, reviews: 209 },
+  { name: "Ghosts of Tabor",                  genre: "Survival Shooter",    tag: "", type: "games", mp: ["multi"], rating: 4.2, reviews: 28000 },
+  { name: "GOLF+",                            genre: "Sports",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.8, reviews: 52000 },
+  { name: "Green Hell VR",                    genre: "Survival",            tag: "JAN", type: "games", mp: ["coop"], rating: 4.2, reviews: 5500 },
+  { name: "Grimlord",                         genre: "Action",              tag: "", type: "games", mp: [], rating: 4.0, reviews: 572 },
+  { name: "Human Fall Flat VR",               genre: "Puzzle / Comedy",     tag: "", type: "games", mp: ["multi","coop"], rating: 3.8, reviews: 295 },
+  { name: "I Expect You To Die 3",            genre: "Puzzle / Spy",        tag: "", type: "games", mp: [], rating: 4.7, reviews: 1300 },
+  { name: "iB Cricket",                       genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 1700 },
+  { name: "In Death: Unchained",              genre: "Roguelike Shooter",   tag: "", type: "games", mp: [], rating: 4.7, reviews: 4900 },
+  { name: "Into Black",                       genre: "Adventure",           tag: "JAN", type: "games", mp: [], rating: 4.7, reviews: 712 },
+  { name: "Into the Radius",                  genre: "Survival Shooter",    tag: "", type: "games", mp: [], rating: 4.7, reviews: 7600 },
+  { name: "Job Simulator",                    genre: "Simulation / Comedy", tag: "", type: "games", mp: [], rating: 4.6, reviews: 21000 },
+  { name: "Kingspray Graffiti",               genre: "Creative",            tag: "", type: "games", mp: ["multi"], rating: 4.4, reviews: 2800 },
+  { name: "Les Mills Bodycombat",             genre: "Fitness",             tag: "", type: "games", mp: [], rating: 4.5, reviews: 5100 },
+  { name: "Maestro",                          genre: "Music / Rhythm",      tag: "", type: "games", mp: [], rating: 4.8, reviews: 1000 },
+  { name: "Medieval Dynasty: New Settlement", genre: "Simulation",          tag: "", type: "games", mp: [], rating: 4.7, reviews: 7400 },
+  { name: "Moss",                             genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [], rating: 4.8, reviews: 7700 },
+  { name: "Onward",                           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["multi","coop"], rating: 4.2, reviews: 18000 },
+  { name: "Pets & Stuff",                     genre: "Simulation",          tag: "", type: "games", mp: ["multi"], rating: 4.8, reviews: 4700 },
+  { name: "Pistol Whip",                      genre: "Action / Rhythm",     tag: "", type: "games", mp: [], rating: 4.8, reviews: 10000 },
+  { name: "Premium Bowling",                  genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 2100 },
+  { name: "Project Demigod",                  genre: "Action",              tag: "", type: "games", mp: [], rating: 3.9, reviews: 2400 },
+  { name: "Puzzling Places",                  genre: "Puzzle",              tag: "", type: "games", mp: ["coop"], rating: 4.8, reviews: 2700 },
+  { name: "Racket Club",                      genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 876 },
+  { name: "Real VR Fishing",                  genre: "Sports / Relaxation", tag: "", type: "games", mp: ["multi"], rating: 4.6, reviews: 8400 },
+  { name: "Red Matter",                       genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [], rating: 4.6, reviews: 5100 },
+  { name: "Red Matter 2",                     genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [], rating: 4.8, reviews: 2600 },
+  { name: "Spatial Ops",                      genre: "Shooter",             tag: "MAR", type: "games", mp: ["multi","coop"], rating: 4.8, reviews: 1100 },
+  { name: "Starship Home",                    genre: "Simulation / MR",     tag: "", type: "games", mp: [], rating: 4.3, reviews: 166 },
+  { name: "Synth Riders",                     genre: "Rhythm",              tag: "", type: "games", mp: ["multi"], rating: 4.6, reviews: 3400 },
+  { name: "The 7th Guest VR",                 genre: "Horror / Puzzle",     tag: "MAR", type: "games", mp: [], rating: 4.6, reviews: 766 },
+  { name: "The Climb 2",                      genre: "Sports / Adventure",  tag: "", type: "games", mp: [], rating: 4.3, reviews: 3100 },
+  { name: "The Light Brigade",                genre: "Roguelite Shooter",   tag: "", type: "games", mp: [], rating: 4.4, reviews: 1200 },
+  { name: "The Thrill of the Fight",          genre: "Boxing / Fitness",    tag: "", type: "games", mp: [], rating: 4.7, reviews: 13000 },
+  { name: "Thief Simulator VR: Greenview Street", genre: "Simulation",      tag: "", type: "games", mp: [], rating: 4.1, reviews: 3100 },
+  { name: "Titans Clinic",                    genre: "Sports",              tag: "", type: "games", mp: [], rating: 4.8, reviews: 16000 },
+  { name: "Townsmen VR",                      genre: "Strategy / Sim",      tag: "", type: "games", mp: [], rating: 4.5, reviews: 404 },
+  { name: "War of Wizards",                   genre: "Fighting",            tag: "", type: "games", mp: ["multi"], rating: 4.7, reviews: 6300 },
+  { name: "Walkabout Mini Golf",              genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.8, reviews: 14000 },
+  { name: "Zero Caliber: Reloaded",           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["coop"], rating: 4.4, reviews: 3900 },
 ];
 
 const indieData = [
-  { name: "Apex Construct",                     genre: "Action / Adventure",  tag: "", type: "indie", mp: [] },
-  { name: "Arcade Paradise VR",                 genre: "Sim / Arcade",        tag: "", type: "indie", mp: [] },
-  { name: "Bocce Time!",                        genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Cactus Cowboy - Desert Warfare",     genre: "Shooter",             tag: "", type: "indie", mp: ["multi"] },
-  { name: "Chess Club",                         genre: "Strategy",            tag: "", type: "indie", mp: ["multi"] },
-  { name: "Coffee Quest VR",                    genre: "Puzzle",              tag: "", type: "indie", mp: [] },
-  { name: "Crumbling",                          genre: "Action",              tag: "", type: "indie", mp: [] },
-  { name: "Cybrix",                             genre: "Arcade",              tag: "", type: "indie", mp: [] },
-  { name: "Darksword: Battle Eternity",         genre: "Fighting / RPG",      tag: "", type: "indie", mp: ["multi"] },
-  { name: "DIG VR",                             genre: "Simulation",          tag: "", type: "indie", mp: [] },
-  { name: "Discovery 2",                        genre: "Exploration",         tag: "", type: "indie", mp: [] },
-  { name: "Espire 1: VR Operative",             genre: "Stealth FPS",         tag: "", type: "indie", mp: [] },
-  { name: "Final Overs - VR Cricket",           genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Galaxy Kart",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Ghost Signal: A Stellaris Game",     genre: "Sci-fi Shooter",      tag: "", type: "indie", mp: [] },
-  { name: "Hide The Corpse",                    genre: "Puzzle",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "I Am Hamster - Simulator",           genre: "Simulation",          tag: "", type: "indie", mp: [] },
-  { name: "Innkeeper VR",                       genre: "Simulation",          tag: "", type: "indie", mp: [] },
-  { name: "Iron Guard",                         genre: "Tower Defense",       tag: "", type: "indie", mp: [] },
-  { name: "Ironlights",                         genre: "Fighting",            tag: "", type: "indie", mp: ["multi"] },
-  { name: "Killer Frequency",                   genre: "Simulation / Horror", tag: "", type: "indie", mp: [] },
-  { name: "Laser Thief",                        genre: "Puzzle / Stealth",    tag: "", type: "indie", mp: [] },
-  { name: "Make It Stable - Kids & Family Fun!",     genre: "Puzzle / Family",     tag: "", type: "indie", mp: [] },
-  { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Mythic Realms",                      genre: "RPG / Action",        tag: "", type: "indie", mp: ["multi","coop"] },
-  { name: "Noun Town Language Learning",        genre: "Educational",         tag: "", type: "indie", mp: [] },
-  { name: "Operation Serpens",                  genre: "Action",              tag: "", type: "indie", mp: [] },
-  { name: "Retropolis 2: Never Say Goodbye",    genre: "Adventure",           tag: "", type: "indie", mp: [] },
-  { name: "Rogue Ascent VR",                    genre: "Roguelike Shooter",   tag: "", type: "indie", mp: [] },
-  { name: "Rogue Piñatas: VRmageddon",          genre: "Action",              tag: "", type: "indie", mp: [] },
-  { name: "RUNNER",                             genre: "Platformer",          tag: "", type: "indie", mp: [] },
-  { name: "Shooty Fruity",                      genre: "Arcade Shooter",      tag: "", type: "indie", mp: [] },
-  { name: "Slot Car VR",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Space Elevator",                     genre: "Casual",              tag: "", type: "indie", mp: [] },
-  { name: "Squingle",                           genre: "Puzzle",              tag: "", type: "indie", mp: [] },
-  { name: "Stupid Cars",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Sushi Ben",                          genre: "Social / Adventure",  tag: "", type: "indie", mp: [] },
-  { name: "Tactica",                            genre: "Strategy",            tag: "", type: "indie", mp: [] },
-  { name: "Taiko Frenzy",                       genre: "Rhythm",              tag: "", type: "indie", mp: [] },
-  { name: "The Curious Tale of the Stolen Pets",    genre: "Puzzle",              tag: "", type: "indie", mp: [] },
-  { name: "The Pirate Queen with Lucy Liu",     genre: "Narrative Adventure", tag: "", type: "indie", mp: [] },
-  { name: "The Pirate: Republic of Nassau",     genre: "Naval Strategy",      tag: "MAR", type: "indie", mp: [] },
-  { name: "The Secret of Retropolis",           genre: "Adventure",           tag: "", type: "indie", mp: [] },
-  { name: "The Wizards",                        genre: "Magic Action",        tag: "", type: "indie", mp: [] },
-  { name: "Tiny Archers",                       genre: "Tower Defense",       tag: "", type: "indie", mp: [] },
-  { name: "Towers and Powers",                  genre: "Strategy",            tag: "", type: "indie", mp: [] },
-  { name: "Ultimate Swing Golf",                genre: "Sports",              tag: "", type: "indie", mp: ["multi"] },
-  { name: "Underworld Overseer",                genre: "Strategy",            tag: "", type: "indie", mp: [] },
-  { name: "Vibe Punch",                         genre: "Fitness / Rhythm",    tag: "", type: "indie", mp: [] },
-  { name: "We Are One",                         genre: "Puzzle",              tag: "", type: "indie", mp: [] },
-  { name: "Windlands 2",                        genre: "Adventure",           tag: "", type: "indie", mp: ["coop"] },
+  { name: "Apex Construct",                     genre: "Action / Adventure",  tag: "", type: "indie", mp: [], rating: 4.1, reviews: 1100 },
+  { name: "Arcade Paradise VR",                 genre: "Sim / Arcade",        tag: "", type: "indie", mp: [], rating: 4.3, reviews: 349 },
+  { name: "Bocce Time!",                        genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.8, reviews: 95 },
+  { name: "Cactus Cowboy - Desert Warfare",     genre: "Shooter",             tag: "", type: "indie", mp: ["multi"], rating: 4.8, reviews: 237 },
+  { name: "Chess Club",                         genre: "Strategy",            tag: "", type: "indie", mp: ["multi"], rating: 4.0, reviews: 1200 },
+  { name: "Coffee Quest VR",                    genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 265 },
+  { name: "Crumbling",                          genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.4, reviews: 82 },
+  { name: "Cybrix",                             genre: "Arcade",              tag: "", type: "indie", mp: [], rating: 4.6, reviews: 224 },
+  { name: "Darksword: Battle Eternity",         genre: "Fighting / RPG",      tag: "", type: "indie", mp: ["multi"], rating: 4.0, reviews: 281 },
+  { name: "DIG VR",                             genre: "Simulation",          tag: "", type: "indie", mp: [], rating: 4.6, reviews: 163 },
+  { name: "Discovery 2",                        genre: "Exploration",         tag: "", type: "indie", mp: [], rating: 4.0, reviews: 98 },
+  { name: "Espire 1: VR Operative",             genre: "Stealth FPS",         tag: "", type: "indie", mp: [], rating: 4.2, reviews: 3000 },
+  { name: "Final Overs - VR Cricket",           genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 219 },
+  { name: "Galaxy Kart",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.2, reviews: 217 },
+  { name: "Ghost Signal: A Stellaris Game",     genre: "Sci-fi Shooter",      tag: "", type: "indie", mp: [], rating: 4.6, reviews: 303 },
+  { name: "Hide The Corpse",                    genre: "Puzzle",              tag: "", type: "indie", mp: ["multi"], rating: 4.5, reviews: 261 },
+  { name: "I Am Hamster - Simulator",           genre: "Simulation",          tag: "", type: "indie", mp: [], rating: 4.5, reviews: 2000 },
+  { name: "Innkeeper VR",                       genre: "Simulation",          tag: "", type: "indie", mp: [], rating: 4.4, reviews: 319 },
+  { name: "Iron Guard",                         genre: "Tower Defense",       tag: "", type: "indie", mp: [], rating: 4.6, reviews: 372 },
+  { name: "Ironlights",                         genre: "Fighting",            tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 2200 },
+  { name: "Killer Frequency",                   genre: "Simulation / Horror", tag: "", type: "indie", mp: [], rating: 4.5, reviews: 366 },
+  { name: "Laser Thief",                        genre: "Puzzle / Stealth",    tag: "", type: "indie", mp: [], rating: 4.2, reviews: 110 },
+  { name: "Make It Stable - Kids & Family Fun!",     genre: "Puzzle / Family",     tag: "", type: "indie", mp: [], rating: 4.5, reviews: 169 },
+  { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 154 },
+  { name: "Mythic Realms",                      genre: "RPG / Action",        tag: "", type: "indie", mp: ["multi","coop"], rating: 4.4, reviews: 182 },
+  { name: "Noun Town Language Learning",        genre: "Educational",         tag: "", type: "indie", mp: [], rating: 3.9, reviews: 421 },
+  { name: "Operation Serpens",                  genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.5, reviews: 315 },
+  { name: "Retropolis 2: Never Say Goodbye",    genre: "Adventure",           tag: "", type: "indie", mp: [], rating: 4.7, reviews: 347 },
+  { name: "Rogue Ascent VR",                    genre: "Roguelike Shooter",   tag: "", type: "indie", mp: [], rating: 4.5, reviews: 175 },
+  { name: "Rogue Piñatas: VRmageddon",          genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 259 },
+  { name: "RUNNER",                             genre: "Platformer",          tag: "", type: "indie", mp: [], rating: 4.7, reviews: 390 },
+  { name: "Shooty Fruity",                      genre: "Arcade Shooter",      tag: "", type: "indie", mp: [], rating: 4.1, reviews: 275 },
+  { name: "Slot Car VR",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.5, reviews: 135 },
+  { name: "Space Elevator",                     genre: "Casual",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 39 },
+  { name: "Squingle",                           genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.8, reviews: 91 },
+  { name: "Stupid Cars",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.7, reviews: 53 },
+  { name: "Sushi Ben",                          genre: "Social / Adventure",  tag: "", type: "indie", mp: [], rating: 4.5, reviews: 315 },
+  { name: "Tactica",                            genre: "Strategy",            tag: "", type: "indie", mp: [], rating: 4.5, reviews: 78 },
+  { name: "Taiko Frenzy",                       genre: "Rhythm",              tag: "", type: "indie", mp: [], rating: 4.6, reviews: 74 },
+  { name: "The Curious Tale of the Stolen Pets",    genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.4, reviews: 779 },
+  { name: "The Pirate Queen with Lucy Liu",     genre: "Narrative Adventure", tag: "", type: "indie", mp: [], rating: 3.9, reviews: 132 },
+  { name: "The Pirate: Republic of Nassau",     genre: "Naval Strategy",      tag: "MAR", type: "indie", mp: [], rating: 4.5, reviews: 209 },
+  { name: "The Secret of Retropolis",           genre: "Adventure",           tag: "", type: "indie", mp: [], rating: 4.4, reviews: 596 },
+  { name: "The Wizards",                        genre: "Magic Action",        tag: "", type: "indie", mp: [], rating: 4.1, reviews: 628 },
+  { name: "Tiny Archers",                       genre: "Tower Defense",       tag: "", type: "indie", mp: [], rating: 4.6, reviews: 189 },
+  { name: "Towers and Powers",                  genre: "Strategy",            tag: "", type: "indie", mp: [], rating: 4.4, reviews: 75 },
+  { name: "Ultimate Swing Golf",                genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.3, reviews: 226 },
+  { name: "Underworld Overseer",                genre: "Strategy",            tag: "", type: "indie", mp: [], rating: 4.7, reviews: 192 },
+  { name: "Vibe Punch",                         genre: "Fitness / Rhythm",    tag: "", type: "indie", mp: [], rating: 4.4, reviews: 105 },
+  { name: "We Are One",                         genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.8, reviews: 337 },
+  { name: "Windlands 2",                        genre: "Adventure",           tag: "", type: "indie", mp: ["coop"], rating: 4.3, reviews: 147 },
 ];
 
 const monthlyData = [];
@@ -1784,7 +1844,7 @@ function clearAllStars() {
 }
 
 // ── FILTERS ──
-let catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all', unstarred: false };
+let catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
 let starredSearch = '';
 let starredOrder = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]'); // manual sort order
 
@@ -2021,6 +2081,28 @@ document.addEventListener('click', e => {
   if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== btn) {
     panel.classList.remove('open');
   }
+  // Close dropdown panels on click away
+  const ratingTrigger = document.getElementById('rating-trigger');
+  const ratingPanel = document.getElementById('rating-panel');
+  if (ratingPanel && ratingPanel.classList.contains('open')) {
+    if (!ratingPanel.contains(e.target) && e.target !== ratingTrigger) {
+      ratingPanel.classList.remove('open');
+    }
+  }
+  const genrePanel = document.getElementById('genre-panel');
+  const genreTrigger = document.getElementById('genre-trigger');
+  if (genrePanel && genrePanel.classList.contains('open')) {
+    if (!genrePanel.contains(e.target) && e.target !== genreTrigger) {
+      genrePanel.classList.remove('open');
+    }
+  }
+  const mpPanel = document.getElementById('mp-panel');
+  const mpTrigger = document.getElementById('mp-trigger');
+  if (mpPanel && mpPanel.classList.contains('open')) {
+    if (!mpPanel.contains(e.target) && e.target !== mpTrigger) {
+      mpPanel.classList.remove('open');
+    }
+  }
 });
 
 
@@ -2028,6 +2110,14 @@ function storeUrl(name) {
   const id = APP_IDS[name];
   if (id) return 'https://www.meta.com/experiences/app/' + id + '/';
   return 'https://www.meta.com/experiences/?q=' + encodeURIComponent(name);
+}
+
+function ratingHTML(g) {
+  const full = Math.floor(g.rating);
+  const half = g.rating % 1 >= 0.5 ? '½' : '';
+  const stars = '★'.repeat(full) + half;
+  const count = g.reviews >= 1000 ? (g.reviews / 1000).toFixed(1).replace('.0', '') + 'K' : g.reviews;
+  return `<div class="game-rating"><span class="stars">${stars}</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
 }
 
 function makeCard(g, idx, extraClass = '', xAction = 'remove') {
@@ -2048,6 +2138,7 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
     <div class="game-info">
       <div class="game-name" title="${g.name}">${g.name}</div>
       <div class="game-genre">${g.genre}${g.type === 'indie' ? ' · <span style="color:#a855f7;font-size:10px">INDIE</span>' : ''}</div>
+      ${g.rating ? ratingHTML(g) : ''}
       ${isClaimable ? '<div class="claim-notice">⚡ Free to claim — expires Mar 31</div>' : ''}
       ${mpBadges ? `<div class="mp-row">${mpBadges}</div>` : ''}
     </div>
@@ -2063,6 +2154,15 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
   return card;
 }
 
+// Bayesian average: blends game rating toward global mean based on review count
+const GLOBAL_MEAN = 4.45;
+const BAYES_M = 100; // confidence threshold (reviews)
+function bayesScore(g) {
+  if (!g.rating) return GLOBAL_MEAN;
+  return (g.reviews / (g.reviews + BAYES_M)) * g.rating +
+         (BAYES_M / (g.reviews + BAYES_M)) * GLOBAL_MEAN;
+}
+
 function renderCatalog() {
   const grid = document.getElementById('catalog-grid');
   const f = catalogFilter;
@@ -2076,9 +2176,11 @@ function renderCatalog() {
     const matchUnstarred = !f.unstarred || !starred.has(g.name);
     const matchGenre   = f.genre === 'all' || genreGroup(g.genre) === f.genre;
     const matchMp      = f.mp === 'all' || (g.mp||[]).includes(f.mp);
-    return matchSearch && matchCat && matchUnstarred && matchGenre && matchMp;
+    const matchRating = f.minRating === 0 || (g.rating && g.rating >= f.minRating);
+    return matchSearch && matchCat && matchUnstarred && matchGenre && matchMp && matchRating;
   });
   if (f.sort === 'za') filtered.sort((a, b) => b.name.localeCompare(a.name));
+  else if (f.sort === 'top') filtered.sort((a, b) => bayesScore(b) - bayesScore(a));
   else filtered.sort((a, b) => a.name.localeCompare(b.name));
   const frag = document.createDocumentFragment();
   filtered.forEach((g, i) => frag.appendChild(makeCard(g, i)));
@@ -2119,6 +2221,9 @@ function renderStarred() {
 
 function toggleGenreDropdown(e) {
   e.stopPropagation();
+  // Close other dropdowns
+  document.getElementById('mp-panel').classList.remove('open');
+  const rp = document.getElementById('rating-panel'); if (rp) rp.classList.remove('open');
   const panel = document.getElementById('genre-panel');
   const trigger = document.getElementById('genre-trigger');
   const rect = trigger.getBoundingClientRect();
@@ -2149,6 +2254,9 @@ function toggleGenreDropdown(e) {
 }
 function toggleMpDropdown(e) {
   e.stopPropagation();
+  // Close other dropdowns
+  document.getElementById('genre-panel').classList.remove('open');
+  const rp = document.getElementById('rating-panel'); if (rp) rp.classList.remove('open');
   const panel = document.getElementById('mp-panel');
   const trigger = document.getElementById('mp-trigger');
   const rect = trigger.getBoundingClientRect();
@@ -2204,6 +2312,9 @@ document.addEventListener('click', function(e) {
 
 function toggleSort() {
   const btn = document.getElementById('sort-toggle-btn');
+  const topBtn = document.getElementById('sort-top-btn');
+  // Clear top rated if active
+  if (topBtn) { topBtn.classList.remove('active'); }
   if (catalogFilter.sort === 'az') {
     catalogFilter.sort = 'za';
     btn.textContent = 'Z → A';
@@ -2215,6 +2326,93 @@ function toggleSort() {
   }
   btn.blur();
   renderCatalog();
+}
+
+function setSortTop(btn) {
+  const azBtn = document.getElementById('sort-toggle-btn');
+  if (catalogFilter.sort === 'top') {
+    // Toggle off — revert to A-Z
+    catalogFilter.sort = 'az';
+    btn.classList.remove('active');
+    if (azBtn) { azBtn.textContent = 'A → Z'; azBtn.classList.add('active'); }
+  } else {
+    catalogFilter.sort = 'top';
+    btn.classList.add('active');
+    if (azBtn) { azBtn.classList.remove('active'); }
+  }
+  btn.blur();
+  renderCatalog();
+  updateResetBtn();
+}
+
+function setMinRating(val) {
+  catalogFilter.minRating = parseFloat(val);
+  renderCatalog();
+  updateResetBtn();
+}
+
+function toggleRatingDropdown(e) {
+  e.stopPropagation();
+  // Close other dropdowns (not rating itself)
+  document.getElementById('genre-panel').classList.remove('open');
+  document.getElementById('mp-panel').classList.remove('open');
+  const panel = document.getElementById('rating-panel');
+  const trigger = document.getElementById('rating-trigger');
+  const rect = trigger.getBoundingClientRect();
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    const panelW = 140;
+    const panelH = 175;
+    const spaceBelow = window.innerHeight - rect.bottom - 10;
+    const spaceAbove = rect.top - 10;
+    let top = (spaceBelow >= panelH || spaceBelow >= spaceAbove) ? rect.bottom + 6 : rect.top - panelH - 6;
+    if (top < 10) top = 10;
+    let left = rect.right - panelW;
+    if (left < 8) left = 8;
+    panel.style.top = top + 'px';
+    panel.style.left = left + 'px';
+    panel.style.width = panelW + 'px';
+  }
+}
+
+function menuPickRating(val, btn) {
+  // Toggle off if already active
+  if (catalogFilter.minRating === val) {
+    catalogFilter.minRating = 0;
+    document.querySelectorAll('.menu-rating-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    catalogFilter.minRating = val;
+    document.querySelectorAll('.menu-rating-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  // Sync main dropdown
+  const mainLabel = document.getElementById('rating-label');
+  const mainTrigger = document.getElementById('rating-trigger');
+  const label = catalogFilter.minRating > 0 ? catalogFilter.minRating.toFixed(1) + '+ ★' : 'All Ratings';
+  if (mainLabel) mainLabel.textContent = label;
+  if (mainTrigger) mainTrigger.classList.toggle('active', catalogFilter.minRating > 0);
+  document.querySelectorAll('#rating-panel .genre-opt').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.val) === catalogFilter.minRating || (catalogFilter.minRating === 0 && b.dataset.val === '0'));
+  });
+  renderCatalog();
+  updateResetBtn();
+}
+
+function pickRating(val, label, btn) {
+  catalogFilter.minRating = parseFloat(val);
+  document.getElementById('rating-label').textContent = label;
+  document.getElementById('rating-trigger').classList.toggle('active', val > 0);
+  document.querySelectorAll('#rating-panel .genre-opt').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rating-panel').classList.remove('open');
+  // Sync menu rating buttons
+  document.querySelectorAll('.menu-rating-btn').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.val) === catalogFilter.minRating);
+  });
+  btn.blur();
+  renderCatalog();
+  updateResetBtn();
 }
 
 function filterCatalog() {
@@ -2396,7 +2594,8 @@ function isAnyFilterActive() {
          catalogFilter.mp !== 'all' ||
          catalogFilter.sort !== 'az' ||
          (catalogFilter.search && catalogFilter.search.trim() !== '') ||
-         catalogFilter.unstarred;
+         catalogFilter.unstarred ||
+         catalogFilter.minRating > 0;
 }
 
 function updateNavBtns() {
@@ -2414,7 +2613,7 @@ function updateResetBtn() {
 }
 
 function resetAllFilters() {
-  catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all' };
+  catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
   // Reset search
   document.getElementById('catalog-search').value = '';
   // Reset cat buttons
@@ -2426,9 +2625,22 @@ function resetAllFilters() {
   document.querySelectorAll('#mp-panel .genre-opt').forEach(b => b.classList.remove('active'));
   const allMpOpt = document.querySelector('#mp-panel .genre-opt[data-val="all"]');
   if (allMpOpt) allMpOpt.classList.add('active');
-  // Reset sort button label
+  // Reset sort buttons
   const sortBtn = document.getElementById('sort-toggle-btn');
   if (sortBtn) { sortBtn.textContent = 'A → Z'; sortBtn.classList.add('active'); }
+  const topBtn = document.getElementById('sort-top-btn');
+  if (topBtn) topBtn.classList.remove('active');
+  const menuTopBtn2 = document.getElementById('menu-sort-top-btn');
+  if (menuTopBtn2) menuTopBtn2.classList.remove('active');
+  document.querySelectorAll('.menu-rating-btn').forEach(b => b.classList.remove('active'));
+  // Reset rating dropdown
+  const ratingLabel = document.getElementById('rating-label');
+  if (ratingLabel) ratingLabel.textContent = 'All Ratings';
+  const ratingTrigger = document.getElementById('rating-trigger');
+  if (ratingTrigger) ratingTrigger.classList.remove('active');
+  document.querySelectorAll('#rating-panel .genre-opt').forEach(b => b.classList.remove('active'));
+  const allRatingOpt = document.querySelector('#rating-panel .genre-opt[data-val="0"]');
+  if (allRatingOpt) allRatingOpt.classList.add('active');
   // Reset genre dropdown
   document.getElementById('genre-label').textContent = 'All Genres';
   document.getElementById('genre-trigger').classList.remove('active');
@@ -2437,7 +2649,6 @@ function resetAllFilters() {
   if (allGenreOpt) allGenreOpt.classList.add('active');
   renderCatalog();
   syncMenuFilters();
-  // Close options panel if open — keep open so user sees reset took effect
   updateResetBtn();
 }
 
@@ -2488,7 +2699,13 @@ function syncMenuFilters() {
   const sortBtn = document.getElementById('menu-sort-btn');
   if (sortBtn) {
     sortBtn.textContent = catalogFilter.sort === 'za' ? 'Z → A' : 'A → Z';
+    sortBtn.classList.toggle('active', catalogFilter.sort !== 'top');
   }
+  const menuTopBtn = document.getElementById('menu-sort-top-btn');
+  if (menuTopBtn) menuTopBtn.classList.toggle('active', catalogFilter.sort === 'top');
+  document.querySelectorAll('.menu-rating-btn').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.val) === catalogFilter.minRating);
+  });
   // Sync reset btn
   const resetBtn = document.getElementById('menu-reset-btn');
   if (resetBtn) resetBtn.disabled = !isAnyFilterActive();
