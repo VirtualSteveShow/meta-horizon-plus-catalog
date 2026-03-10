@@ -1408,6 +1408,16 @@
       <div class="changelog-body">
 
         <div class="changelog-entry">
+          <div class="changelog-version">V 1.4 <span class="changelog-date">March 10, 2026</span></div>
+          <ul>
+            <li>Star rating display simplified — full star row replaced with a clean ★ prefix alongside the numeric rating and review count</li>
+            <li>Visit tracking added via GoatCounter — privacy friendly, no personal data collected</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
+
+        <div class="changelog-entry">
           <div class="changelog-version">V 1.3 <span class="changelog-date">March 9, 2026</span></div>
           <ul>
             <li>Star ratings and review counts added to every game card</li>
@@ -1516,7 +1526,7 @@
     <h1>Meta Horizon+ Catalog</h1>
     <div class="header-sub">Complete game list · <span>March 2026</span> · <span id="header-total">107</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
-    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.3</span></div>
+    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.4</span></div>
   </header>
 
   <!-- STATS -->
@@ -2113,11 +2123,8 @@ function storeUrl(name) {
 }
 
 function ratingHTML(g) {
-  const full = Math.floor(g.rating);
-  const half = g.rating % 1 >= 0.5 ? '½' : '';
-  const stars = '★'.repeat(full) + half;
   const count = g.reviews >= 1000 ? (g.reviews / 1000).toFixed(1).replace('.0', '') + 'K' : g.reviews;
-  return `<div class="game-rating"><span class="stars">${stars}</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
+  return `<div class="game-rating"><span class="stars">★</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
 }
 
 function makeCard(g, idx, extraClass = '', xAction = 'remove') {
@@ -2896,5 +2903,7 @@ document.addEventListener('fullscreenchange', () => {
   btn.title = document.fullscreenElement ? 'Exit fullscreen' : 'Toggle fullscreen';
 });
 </script>
+<script data-goatcounter="https://virtualsteve.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
