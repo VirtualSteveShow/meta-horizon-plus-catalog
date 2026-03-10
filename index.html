@@ -1291,8 +1291,6 @@
     .top-nav-group { position: fixed; left: 50%; transform: translateX(-50%); }
     .catalog-filter-sticky {
       max-width: 860px;
-      left: 50%;
-      transform: translateX(-50%);
       box-sizing: border-box;
     }
     .game-name  { font-size: 16px; }
@@ -2095,21 +2093,21 @@ document.addEventListener('click', e => {
   const ratingTrigger = document.getElementById('rating-trigger');
   const ratingPanel = document.getElementById('rating-panel');
   if (ratingPanel && ratingPanel.classList.contains('open')) {
-    if (!ratingPanel.contains(e.target) && e.target !== ratingTrigger) {
+    if (!ratingPanel.contains(e.target) && !ratingTrigger.contains(e.target)) {
       ratingPanel.classList.remove('open');
     }
   }
   const genrePanel = document.getElementById('genre-panel');
   const genreTrigger = document.getElementById('genre-trigger');
   if (genrePanel && genrePanel.classList.contains('open')) {
-    if (!genrePanel.contains(e.target) && e.target !== genreTrigger) {
+    if (!genrePanel.contains(e.target) && !genreTrigger.contains(e.target)) {
       genrePanel.classList.remove('open');
     }
   }
   const mpPanel = document.getElementById('mp-panel');
   const mpTrigger = document.getElementById('mp-trigger');
   if (mpPanel && mpPanel.classList.contains('open')) {
-    if (!mpPanel.contains(e.target) && e.target !== mpTrigger) {
+    if (!mpPanel.contains(e.target) && !mpTrigger.contains(e.target)) {
       mpPanel.classList.remove('open');
     }
   }
@@ -2239,20 +2237,13 @@ function toggleGenreDropdown(e) {
   if (!isOpen) {
     const panelW = 165;
     const panelH = Math.min(window.innerHeight * 0.7, 420);
-    // Decide: open above or below trigger
     const spaceBelow = window.innerHeight - rect.bottom - 10;
     const spaceAbove = rect.top - 10;
-    let top;
-    if (spaceBelow >= panelH || spaceBelow >= spaceAbove) {
-      top = rect.bottom + 6;
-    } else {
-      // Open upward
-      top = rect.top - panelH - 6;
-      if (top < 10) top = 10;
-    }
-    let left = rect.right - panelW;
+    let top = (spaceBelow >= panelH || spaceBelow >= spaceAbove) ? rect.bottom + 6 : rect.top - panelH - 6;
+    if (top < 10) top = 10;
+    let left = rect.left;
+    if (left + panelW > window.innerWidth - 8) left = rect.right - panelW;
     if (left < 8) left = 8;
-    if (left + panelW > window.innerWidth - 8) left = window.innerWidth - panelW - 8;
     panel.style.top    = top + 'px';
     panel.style.left   = left + 'px';
     panel.style.width  = panelW + 'px';
@@ -2271,13 +2262,14 @@ function toggleMpDropdown(e) {
   panel.classList.toggle('open', !isOpen);
   if (!isOpen) {
     const panelW = 165;
-    let left = rect.right - panelW;
-    if (left < 8) left = 8;
+    const panelH = 130;
     const spaceBelow = window.innerHeight - rect.bottom - 10;
     const spaceAbove = rect.top - 10;
-    const panelH = 130;
     let top = (spaceBelow >= panelH || spaceBelow >= spaceAbove) ? rect.bottom + 6 : rect.top - panelH - 6;
     if (top < 10) top = 10;
+    let left = rect.left;
+    if (left + panelW > window.innerWidth - 8) left = rect.right - panelW;
+    if (left < 8) left = 8;
     panel.style.top = top + 'px';
     panel.style.left = left + 'px';
     panel.style.width = panelW + 'px';
@@ -2375,7 +2367,8 @@ function toggleRatingDropdown(e) {
     const spaceAbove = rect.top - 10;
     let top = (spaceBelow >= panelH || spaceBelow >= spaceAbove) ? rect.bottom + 6 : rect.top - panelH - 6;
     if (top < 10) top = 10;
-    let left = rect.right - panelW;
+    let left = rect.left;
+    if (left + panelW > window.innerWidth - 8) left = rect.right - panelW;
     if (left < 8) left = 8;
     panel.style.top = top + 'px';
     panel.style.left = left + 'px';
