@@ -3,8 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- ── DESCRIPTION ── -->
+<meta name="description" content="Meta Horizon+ Full Game Catalog — browse, filter, star, and track all 109 games in the Meta Horizon+ VR subscription. Updated March 2026.">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ── THEME COLOR (tints Android Chrome address bar) ── -->
+<meta name="theme-color" content="#080e18">
+
+<!-- ── OPEN GRAPH (link previews on Discord, iMessage, etc.) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Meta Horizon+ Catalog">
+<meta property="og:title"       content="Meta Horizon+ Full Catalog — March 2026">
+<meta property="og:description" content="Browse all 109 games in the Meta Horizon+ VR subscription. Filter by genre, rating, multiplayer, and more.">
+<meta property="og:image"       content="https://virtualsteveshow.github.io/Meta_Horizon_Plus_Catalog_Testing/og_image.jpg">
+<meta property="og:url"         content="https://virtualsteveshow.github.io/Meta_Horizon_Plus_Catalog_Testing/">
+
+<!-- ── FAVICON PLACEHOLDER — replace favicon.ico with your custom art ── -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<!-- Fallback inline favicon until custom one is ready -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080e18'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='16' fill='%230ea5e9'>H+</text></svg>">
+
+<!-- ── PWA MANIFEST (Android — Add to Home Screen) ── -->
+<link rel="manifest" href="data:application/manifest+json,{
+  &quot;name&quot;: &quot;Meta Horizon+ Catalog&quot;,
+  &quot;short_name&quot;: &quot;Horizon+&quot;,
+  &quot;description&quot;: &quot;Browse and track all games in the Meta Horizon+ VR subscription&quot;,
+  &quot;start_url&quot;: &quot;.&quot;,
+  &quot;display&quot;: &quot;standalone&quot;,
+  &quot;background_color&quot;: &quot;%23080e18&quot;,
+  &quot;theme_color&quot;: &quot;%23080e18&quot;,
+  &quot;orientation&quot;: &quot;portrait&quot;,
+  &quot;icons&quot;: [
+    {
+      &quot;src&quot;: &quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='24' fill='%23080e18'/><text x='96' y='130' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='100' fill='%230ea5e9'>H+</text></svg>&quot;,
+      &quot;sizes&quot;: &quot;192x192&quot;,
+      &quot;type&quot;: &quot;image/svg+xml&quot;,
+      &quot;purpose&quot;: &quot;any maskable&quot;
+    }
+  ]
+}">
+
 <title>Meta Horizon+ Full Catalog — March 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -51,6 +92,8 @@
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   /* ── SCANLINE OVERLAY ── */
@@ -67,6 +110,8 @@
     );
     pointer-events: none;
     z-index: 0;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .wrapper {
@@ -87,14 +132,14 @@
     top: 14px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 999;
+    z-index: 1500;
     display: flex;
     align-items: center;
     gap: 6px;
   }
   .top-nav-btn {
-    background: rgba(14,165,233,0.12);
-    border: 1px solid rgba(14,165,233,0.35);
+    background: rgba(8,14,24,0.75);
+    border: 1px solid rgba(14,165,233,0.6);
     color: var(--blue);
     font-size: 17px;
     width: 38px;
@@ -111,8 +156,8 @@
   .inline-help {
     position: static;
     transform: none;
-    background: rgba(14,165,233,0.12);
-    border: 1px solid rgba(14,165,233,0.35);
+    background: rgba(8,14,24,0.75);
+    border: 1px solid rgba(14,165,233,0.6);
     color: var(--blue);
     font-size: 15px;
     font-weight: 700;
@@ -134,8 +179,8 @@
   .help-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 1100;
+    background: rgba(0,0,0,0.85);
+    z-index: 8000;
     display: none;
     align-items: center;
     justify-content: center;
@@ -256,9 +301,9 @@
     position: fixed;
     top: 14px;
     right: 16px;
-    z-index: 999;
-    background: rgba(14,165,233,0.12);
-    border: 1px solid rgba(14,165,233,0.35);
+    z-index: 1500;
+    background: rgba(8,14,24,0.75);
+    border: 1px solid rgba(14,165,233,0.6);
     color: var(--blue);
     font-size: 18px;
     width: 38px;
@@ -280,9 +325,9 @@
     position: fixed;
     top: 14px;
     left: 16px;
-    z-index: 999;
-    background: rgba(14,165,233,0.12);
-    border: 1px solid rgba(14,165,233,0.35);
+    z-index: 1500;
+    background: rgba(8,14,24,0.75);
+    border: 1px solid rgba(14,165,233,0.6);
     color: var(--blue);
     font-size: 18px;
     width: 38px;
@@ -295,6 +340,53 @@
     transition: background 0.2s, border-color 0.2s;
   }
   .options-btn:hover { background: rgba(14,165,233,0.25); border-color: var(--blue); }
+  /* Match options-btn appearance to top-nav-btn when help overlay is open */
+  .help-overlay.open ~ * .options-btn,
+  body.help-open .options-btn { opacity: 0.4; pointer-events: none; }
+
+  /* ── UNDO TOAST ── */
+  #undo-toast {
+    position: fixed;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d1a2e;
+    border: 1px solid rgba(239,68,68,0.5);
+    border-radius: 10px;
+    padding: 12px 18px;
+    z-index: 9999;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    white-space: nowrap;
+  }
+  #undo-toast.visible { opacity: 1; pointer-events: auto; }
+  #undo-toast .undo-msg { font-size: 14px; font-weight: 600; color: #fca5a5; }
+  #undo-toast .undo-btn {
+    background: rgba(239,68,68,0.2);
+    border: 1px solid rgba(239,68,68,0.5);
+    color: #fca5a5;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  body.can-hover .undo-btn:hover { background: rgba(239,68,68,0.4); }
+  @media (min-width: 900px) {
+    #undo-toast { bottom: 60px; }
+    #undo-toast .undo-msg { font-size: 18px; }
+    #undo-toast .undo-btn { font-size: 16px; padding: 8px 20px; }
+  }
 
   .options-panel {
     position: fixed;
@@ -330,6 +422,7 @@
     color: var(--text);
   }
   .options-panel .opt-row:last-child { border-bottom: none; }
+
   .opt-row-toggle:hover { background: rgba(14,165,233,0.05); border-radius: 6px; }
   #menu-filter-panel .filter-btn { font-size: 10px; padding: 5px 9px; }
   #menu-filter-panel input { font-size: 12px; }
@@ -355,29 +448,40 @@
 
   /* ── REMOVED GAMES PANEL ── */
   .removed-section {
-    background: rgba(239,68,68,0.04);
-    border: 1px solid rgba(239,68,68,0.2);
-    border-radius: 10px;
-    padding: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
     margin-bottom: 32px;
     display: none;
+    isolation: isolate;
+    position: relative;
+    z-index: 0;
   }
   .removed-section.has-removed { display: block; }
   .removed-section .removed-body {
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.5s ease;
   }
   .removed-section.expanded .removed-body {
-    max-height: 2000px;
+    max-height: 99999px;
   }
   .removed-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
+    padding: 14px 16px;
+    margin-bottom: 0;
     flex-wrap: wrap;
     gap: 8px;
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+  }
+  .removed-section:not(.expanded) .removed-header {
+    border-radius: 10px;
+    border-bottom: 1px solid rgba(239,68,68,0.25);
   }
   .removed-title {
     font-family: 'Rajdhani', sans-serif;
@@ -387,39 +491,24 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
+  /* Full-art hidden card grid */
   .removed-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .removed-card {
-    background: rgba(239,68,68,0.06);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(239,68,68,0.04);
     border: 1px solid rgba(239,68,68,0.2);
-    border-left: 3px solid rgba(239,68,68,0.5);
-    border-radius: 8px;
-    padding: 11px 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 56px;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
   }
-  .removed-info { flex: 1; min-width: 0; }
-  .removed-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #fca5a5;
-    word-break: normal;
-    overflow-wrap: break-word;
-    line-height: 1.3;
-  }
-  .removed-genre {
-    font-size: 11px;
-    color: rgba(252,165,165,0.5);
-    margin-top: 1px;
+  /* Red tint overlay on hidden cards */
+  .game-card.hidden-card::after {
+    background: linear-gradient(rgba(120,0,0,0.28) 0%, rgba(60,0,0,0.10) 45%, rgba(120,0,0,0.48) 100%) !important;
   }
   .restore-btn {
-    background: transparent;
-    border: 1px solid rgba(239,68,68,0.35);
+    background: rgba(239,68,68,0.18);
+    border: 1px solid rgba(239,68,68,0.5);
     color: #fca5a5;
     font-size: 11px;
     padding: 5px 10px;
@@ -428,8 +517,9 @@
     white-space: nowrap;
     transition: all 0.15s;
     flex-shrink: 0;
+    font-family: inherit;
   }
-  .restore-btn:hover { background: rgba(239,68,68,0.15); border-color: #ef4444; }
+  body.can-hover .restore-btn:hover { background: rgba(239,68,68,0.35); border-color: #ef4444; color: #fff; }
 
   /* ── GENRE BORDER COLORS ── */
   .game-card[data-genre-group="Shooter"]    { border-left-color: #ef4444; }
@@ -464,7 +554,7 @@
     font-size: 12px;
   }
   .game-rating .review-count {
-    color: var(--muted);
+    color: #f1f5f9;
     font-size: 11px;
   }
 
@@ -488,37 +578,19 @@
   .mp-filter-btn[data-mp="coop"].active { border-color: #4ade80; color: #4ade80; }
 
   /* ── REMOVE ANIMATION ── */
-  @keyframes slideOut {
-    0%   { opacity: 1; transform: translateX(0); max-height: 100px; }
-    40%  { background: rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.6); transform: translateX(0); }
-    100% { opacity: 0; transform: translateX(40px); max-height: 0; padding-top: 0; padding-bottom: 0; margin: 0; border-width: 0; }
+  @keyframes collapseOut {
+    0%   { opacity: 1; max-height: 300px; padding-top: var(--card-pad,0); padding-bottom: var(--card-pad,0); margin-bottom: 8px; }
+    30%  { opacity: 0; }
+    100% { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; border-width: 0; }
   }
   .game-card.removing {
-    animation: slideOut 0.35s ease forwards;
+    animation: collapseOut 0.35s ease forwards;
     pointer-events: none;
     overflow: hidden;
   }
 
   /* ── REMOVE BUTTON on game cards ── */
-  .remove-btn {
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--muted);
-    font-size: 13px;
-    width: 26px;
-    height: 26px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-    opacity: 0.4;
-    align-self: flex-start;
-    margin-right: 18px;
-  }
-  .remove-btn:hover { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); color: #fca5a5; }
+
 
 
   .header::before {
@@ -606,7 +678,7 @@
   .stat.gold  .stat-num { color: var(--gold); }
 
   /* ── SECTION ── */
-  .section { margin-bottom: 52px; }
+  .section { margin-bottom: 52px; isolation: isolate; position: relative; z-index: 0; }
 
   .section-header {
     display: flex;
@@ -739,66 +811,97 @@
 
   /* ── GAME GRID ── */
   .draggable-card {
-    cursor: default;
-  }
-  .drag-handle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    min-width: 28px;
-    color: rgba(255,255,255,0.2);
-    font-size: 14px;
     cursor: grab;
-    touch-action: none;
-    user-select: none;
-    align-self: stretch;
-    padding: 0 2px;
-    letter-spacing: -2px;
   }
-  .drag-handle:active { cursor: grabbing; color: var(--gold); }
+  .draggable-card:active {
+    cursor: grabbing;
+  }
+  /* Buttons/links inside draggable cards keep default cursor */
+  .draggable-card button,
+  .draggable-card a {
+    cursor: pointer;
+  }
   .draggable-card.dragging {
     opacity: 0.4;
+    cursor: grabbing;
   }
   .draggable-card.drag-over {
     border-color: var(--gold) !important;
-    background: rgba(245,158,11,0.08) !important;
+    box-shadow: 0 0 0 2px rgba(245,158,11,0.3) !important;
   }
+
+  /* ── MOBILE DRAG HANDLE — center-right, between star and X ── */
+  .drag-handle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 32px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    color: rgba(255,255,255,0.45);
+    font-size: 14px;
+    letter-spacing: -1px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+  .drag-handle:active { color: var(--gold); background: rgba(245,158,11,0.15); }
 
   .game-grid {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    contain: layout style;
   }
 
+  /* ══════════════════════════════════════════
+     GAME CARD — fully absolute overlay system
+     All children position:absolute, no flex inside card
+     Mobile: 130px tall  /  PC: 280px (via media query)
+     Placeholder: two-tone bg shows mobile safe zone vs PC-only
+  ══════════════════════════════════════════ */
   .game-card {
-    background: var(--card);
+    background-image: linear-gradient(to right,
+      #0d1a2e 0%, #0d1a2e 29%,
+      #0a2540 29%, #0a2540 71%,
+      #0d1a2e 71%, #0d1a2e 100%
+    );
+    background-size: cover;
+    background-position: center;
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 11px 14px 11px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
     cursor: default;
-    transition: border-color 0.15s, background 0.15s;
     position: relative;
     overflow: hidden;
+    height: 130px;
+    box-sizing: border-box;
+    transition: border-color 0.15s, background-color 0.15s;
   }
-  .game-card.monthly      { border-color: rgba(34,197,94,0.4); background: #0d1a14; }
-  .game-card.claimable    {
-    border-color: rgba(34,197,94,0.5);
-    background: linear-gradient(135deg, #0a1a10 0%, #0d1520 100%);
-    border-left-color: #22c55e !important;
+  .game-card.has-art {
+    background-image: var(--bg-img);
   }
-  .claim-notice {
-    font-size: 10px;
-    font-weight: 700;
-    color: #4ade80;
-    letter-spacing: 0.04em;
-    margin-top: 4px;
-    font-family: 'JetBrains Mono', monospace;
+  /* Gradient overlay on all cards for text legibility */
+  .game-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.25) 0%,
+      rgba(0,0,0,0.05) 45%,
+      rgba(0,0,0,0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
   }
-
+  /* Left accent bar */
   .game-card::before {
     content: '';
     position: absolute;
@@ -807,19 +910,120 @@
     background: var(--blue);
     opacity: 0;
     transition: opacity 0.15s;
+    z-index: 3;
   }
-  .game-card.indie::before        { background: var(--purple); }
-  .game-card.monthly::before      { background: var(--green); opacity: 1; }
+  .game-card.indie::before   { background: var(--purple); }
+  .game-card.monthly::before { background: var(--green); opacity: 1; }
+  .game-card.monthly         { border-color: rgba(34,197,94,0.4); }
+  .game-card.claimable       { border-color: rgba(34,197,94,0.5); border-left-color: #22c55e !important; }
 
-  /* hover states applied only when body.can-hover is set by JS */
-  body.can-hover .game-card:hover            { border-color: var(--blue); background: #141e2e; }
-  body.can-hover .game-card.indie:hover      { border-color: var(--purple); background: #130f1e; }
+  /* ── TOP-LEFT: game name + genre ── */
+  .card-title-block {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    max-width: 65%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .card-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .game-name {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.3;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
+    background: rgba(0,0,0,0.55);
+    border-radius: 5px;
+    padding: 4px 8px;
+  }
+  .game-genre {
+    display: inline-block;
+    font-size: 10px;
+    color: #f1f5f9;
+    font-weight: 300;
+    margin-top: 4px;
+    background: rgba(0,0,0,0.45);
+    border-radius: 4px;
+    padding: 2px 7px;
+  }
+
+  /* ── TOP-RIGHT: star button ── */
+  .card-top-right {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  /* ── BOTTOM-LEFT: rating + tags + X ── */
+  .card-bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .card-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+
+  /* ── BOTTOM-RIGHT: X button ── */
+  .card-bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    z-index: 2;
+  }
+
+  /* ── BOTTOM-CENTER: store only ── */
+  .card-bottom-center {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .game-card.monthly      { border-color: rgba(34,197,94,0.4); background-color: #0d1a14; }
+  .game-card.claimable    {
+    border-color: rgba(34,197,94,0.5);
+    background-image: linear-gradient(135deg, #0a1a10 0%, #0d1520 100%);
+    border-left-color: #22c55e !important;
+  }
+
+
+
+
+  /* hover states — can-hover only (real pointer devices) */
+  body.can-hover .game-card:hover            { border-color: var(--blue); }
+  body.can-hover .game-card.indie:hover      { border-color: var(--purple); }
   body.can-hover .game-card.monthly:hover    { border-color: var(--green); }
   body.can-hover .game-card:hover::before    { opacity: 1; }
-  body.can-hover .game-card:hover .star-btn  { opacity: 0.5; }
+  body.can-hover .game-card:hover .star-btn  { opacity: 0.6; }
   body.can-hover .game-card:hover .remove-btn{ opacity: 1; }
 
-  .game-info { flex: 1; min-width: 0; padding-top: 1px; }
+
   .game-name {
     font-size: 13px;
     font-weight: 600;
@@ -828,19 +1032,8 @@
     word-break: normal;
     line-height: 1.3;
   }
-  .game-genre {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 300;
-    margin-top: 2px;
-    display: block;
-  }
-  .mp-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 5px;
-  }
+  /* .game-genre base styles defined in card overlay section above */
+
 
   .tag {
     font-family: 'JetBrains Mono', monospace;
@@ -857,30 +1050,33 @@
   .tag-new  { background: rgba(168,85,247,0.15);  color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
 
   /* ── CORNER RIBBON ── */
-  .corner-ribbon {
-    position: absolute;
-    bottom: 10px;
-    right: -22px;
-    width: 80px;
-    text-align: center;
+  .tag-mar-inline {
+    display: inline-block;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.1em;
-    padding: 3px 0;
-    transform: rotate(-45deg);
-    pointer-events: none;
-    z-index: 2;
-  }
-  .corner-ribbon.mar {
+    padding: 2px 6px;
+    border-radius: 3px;
     background: rgba(239,68,68,0.85);
     color: #fff;
-    box-shadow: 0 1px 6px rgba(239,68,68,0.4);
+    vertical-align: middle;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
   }
-  .corner-ribbon.jan {
+  .tag-jan-inline {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 3px;
     background: rgba(14,165,233,0.85);
     color: #fff;
-    box-shadow: 0 1px 6px rgba(14,165,233,0.4);
+    vertical-align: middle;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
   }
   .tag-free { background: rgba(34,197,94,0.15);   color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
 
@@ -898,7 +1094,27 @@
     padding: 18px 20px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
+  .monthly-card.has-art {
+    background-size: cover;
+    background-position: center;
+  }
+  .monthly-card.has-art::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.3) 0%,
+      rgba(0,0,0,0.1) 40%,
+      rgba(0,0,0,0.65) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .monthly-card.has-art > * { position: relative; z-index: 1; }
   .monthly-card::before {
     content: '';
     position: absolute;
@@ -913,21 +1129,33 @@
     color: #fff;
     margin-bottom: 4px;
     line-height: 1.2;
+    display: inline-block;
+    background: rgba(0,0,0,0.6);
+    border-radius: 6px;
+    padding: 4px 10px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
   }
   .monthly-card-genre {
     font-size: 11px;
-    color: var(--green);
+    color: #f1f5f9;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 10px;
     font-family: 'JetBrains Mono', monospace;
+    display: inline-block;
+    background: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 2px 8px;
   }
   .monthly-card-desc {
     font-size: 13px;
-    color: #94a3b8;
+    color: #f1f5f9;
     line-height: 1.5;
     font-weight: 300;
+    background: rgba(0,0,0,0.6);
+    border-radius: 6px;
+    padding: 7px 10px;
   }
   .monthly-badge {
     display: inline-block;
@@ -947,7 +1175,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 14px;
+    margin-top: auto;
+    padding-top: 14px;
   }
   .monthly-card .store-btn {
     flex: 1;
@@ -1035,6 +1264,34 @@
     line-height: 1.5;
     display: block;
   }
+  .footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+  }
+  .footer-meta-sep { color: var(--border); }
+  .footer-meta-item { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .footer-meta-label {
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-size: 9px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+  .footer-meta-value { color: var(--muted); font-weight: 300; }
+  .footer-meta-link { color: var(--blue); text-decoration: none; font-weight: 600; }
+  .footer-meta-link:hover { color: #fff; }
 
   /* ── LEGEND ── */
   .reset-filters-btn {
@@ -1076,48 +1333,111 @@
     color: var(--muted);
   }
 
-  /* ── STAR ── */
-  .star-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    line-height: 1;
-    padding: 2px 4px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    opacity: 0.25;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .star-btn.starred { opacity: 1; transform: scale(1.15); }
+
 
   /* ── STORE BUTTON ── */
   .store-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    background: rgba(8,14,24,0.88);
+    border: 1px solid rgba(14,165,233,0.5);
+    color: #7dd3fc;
     cursor: pointer;
     font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
-    padding: 3px 7px;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 5px;
     flex-shrink: 0;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 4px;
-    transition: all 0.15s;
+    transition: border-color 0.15s, background 0.15s;
     white-space: nowrap;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7));
   }
   .store-btn:hover {
     border-color: var(--blue);
-    color: var(--blue);
-    background: rgba(14,165,233,0.08);
+    color: #fff;
+    background: rgba(14,165,233,0.25);
   }
-  .game-card.indie .store-btn:hover {
-    border-color: var(--purple);
-    color: var(--purple);
-    background: rgba(168,85,247,0.08);
+  .game-card.indie .store-btn:hover { border-color: var(--blue); color: #fff; background: rgba(14,165,233,0.25); }
+
+  /* ── STAR ── */
+  @keyframes starPop {
+    0%   { transform: scale(1.4); }
+    40%  { transform: scale(1.75); }
+    70%  { transform: scale(1.3); }
+    100% { transform: scale(1.4); }
+  }
+  .star-btn {
+    background: rgba(8,14,24,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.2s, transform 0.2s, background 0s, border-color 0s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .star-btn.starred {
+    opacity: 1;
+    transform: scale(1.4);
+    background: transparent;
+    border-color: transparent;
+    filter: drop-shadow(0 2px 6px rgba(245,158,11,0.4));
+  }
+  .star-btn.star-just-starred {
+    animation: starPop 0.35s ease forwards;
+    opacity: 1;
+    background: transparent;
+    border-color: transparent;
+    filter: drop-shadow(0 2px 6px rgba(245,158,11,0.4));
+  }
+  .star-canvas { display: block; }
+
+  /* ── REMOVE BTN ── */
+  .remove-btn {
+    background: rgba(8,14,24,0.7);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--muted);
+    font-size: 13px;
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: all 0.15s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  }
+  .remove-btn:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.5); color: #fca5a5; opacity: 1; }
+
+  /* ── CLAIM BADGE ── */
+  .claim-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    color: #4ade80;
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 3px;
+    padding: 2px 5px;
+    letter-spacing: 0.06em;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+  }
+  .game-genre-indie {
+    color: #a855f7;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
   }
 
   /* ── STARRED SECTION ── */
@@ -1293,16 +1613,30 @@
       max-width: 860px;
       box-sizing: border-box;
     }
-    .game-name  { font-size: 16px; }
-    .game-genre { font-size: 13px; }
-    .store-btn  { font-size: 13px; padding: 6px 14px; }
-    .star-btn   { font-size: 17px; }
-    .remove-btn { font-size: 15px; width: 30px; height: 30px; }
+    .game-name  { font-size: 22px; }
+    .game-genre { font-size: 16px; }
+    .store-btn  { font-size: 17px; padding: 10px 20px; }
+    .star-btn   { font-size: 28px; padding: 6px 10px; }
+    .remove-btn { font-size: 20px; width: 42px; height: 42px; }
     .section-title { font-size: 18px; }
     .tag { font-size: 10px; padding: 3px 8px; }
-    .game-card { padding: 14px 18px; }
+    .game-card { height: 280px; }
     .filter-btn { font-size: 13px; padding: 8px 18px; }
     .section-search { font-size: 14px; }
+    .card-title-block { top: 16px; left: 16px; max-width: 55%; gap: 6px; }
+    .card-top-right   { top: 16px; right: 16px; }
+    .card-bottom-left { bottom: 16px; left: 16px; gap: 8px; }
+    .card-bottom-center { bottom: 16px; gap: 14px; }
+    .card-bottom-right { bottom: 16px; right: 16px; }
+    .drag-handle { display: none; }
+    #toast-msg { font-size: 22px !important; padding: 20px 40px !important; bottom: 60px !important; border-radius: 12px !important; }
+    #list-name-display { font-size: 36px !important; }
+    .mp-badge { font-size: 16px; padding: 5px 12px; }
+    .claim-badge { font-size: 14px; padding: 5px 10px; }
+    .tag-mar-inline, .tag-jan-inline { font-size: 13px; padding: 4px 9px; }
+    .game-rating .stars        { font-size: 18px; }
+    .game-rating .rating-num   { font-size: 20px; }
+    .game-rating .review-count { font-size: 16px; }
     /* ── PC LAYOUT ── */
     .monthly-grid { justify-content: center; }
     .monthly-card { max-width: 420px; }
@@ -1312,18 +1646,71 @@
 <body>
 <div class="wrapper">
 
+  <!-- SHARED LIST BANNER -->
+  <div id="shared-banner" style="display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:1050;background:linear-gradient(135deg,#0d1a2e,#0a1520);border:1px solid rgba(14,165,233,0.5);border-radius:10px;padding:12px 18px;max-width:820px;width:calc(100% - 32px);box-sizing:border-box;box-shadow:0 4px 24px rgba(0,0,0,0.7);">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:18px;">📋</span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">You're viewing a shared list</div>
+        <div id="shared-banner-name" style="font-size:11px;color:var(--muted);margin-top:2px;"></div>
+      </div>
+      <button onclick="dismissSharedBanner()" style="background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.3);color:var(--blue);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;">✕ Dismiss</button>
+    </div>
+  </div>
+
   <!-- FULLSCREEN BUTTON -->
   <button class="fullscreen-btn" id="fs-btn" onclick="toggleFullscreen()" title="Toggle fullscreen">⛶</button>
 
   <!-- HELP BUTTON (top-center) -->
   <!-- TOP NAV BUTTONS GROUP -->
   <div class="top-nav-group">
-    <button class="top-nav-btn trash-btn" onclick="navToRemoved()" title="View hidden games">🗑</button>
-    <button class="help-btn inline-help" onclick="toggleHelp()" title="How to use this tool">? How to Use</button>
     <button class="top-nav-btn star-nav-btn" onclick="navToStarred()" title="View starred games">⭐</button>
+    <button class="top-nav-btn" onclick="navToCatalog()" title="Jump to catalog">📋</button>
+    <button class="top-nav-btn trash-btn" onclick="navToRemoved()" title="View hidden games">🗑</button>
+    <button class="help-btn inline-help" onclick="toggleHelp()" title="How to use this tool">?</button>
+  </div>
+
+  <!-- IMPORT CONFIRM MODAL -->
+  <div class="help-overlay" id="import-overlay" onclick="if(event.target===this)closeImportModal()" style="display:none;">
+    <div class="help-modal" style="max-width:420px;">
+      <button class="help-close" onclick="closeImportModal()">✕</button>
+      <div class="help-modal-body" style="padding:24px;">
+        <div style="font-size:22px;text-align:center;margin-bottom:12px;">💾</div>
+        <h3 style="text-align:center;color:#e2e8f0;margin-bottom:8px;">Save Imported List?</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:16px;">This will replace your current stars and hidden games with the imported list. This cannot be undone.</p>
+        <div style="background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.2);border-radius:8px;padding:10px 14px;margin-bottom:20px;">
+          <span style="color:var(--blue);font-size:11px;font-weight:600;">💡 TIP</span>
+          <p style="color:var(--muted);font-size:12px;margin:4px 0 0;">Export your current list first from the options menu to preserve it.</p>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button onclick="closeImportModal()" style="flex:1;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:13px;">Cancel</button>
+          <button onclick="confirmSaveImport()" style="flex:1;padding:10px;background:rgba(14,165,233,0.2);border:1px solid rgba(14,165,233,0.5);color:var(--blue);border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">Yes, Save It</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- HELP MODAL -->
+  <!-- LIST NAME MODAL -->
+  <div class="help-overlay" id="list-name-overlay" onclick="if(event.target===this)closeListNameModal()" style="display:none;">
+    <div class="help-modal" style="max-width:420px;padding:28px 28px 24px;">
+      <h3 style="margin-bottom:12px;font-size:20px;">✏️ Name Your List</h3>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px;">Give your list a custom name — shown under the page title and included when you share your list.</p>
+      <input id="list-name-input" type="text" placeholder="e.g. My VR Wishlist"
+        maxlength="60"
+        style="width:100%;box-sizing:border-box;background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.4);color:#e2e8f0;padding:14px 16px;border-radius:8px;font-size:16px;font-family:inherit;margin-bottom:8px;outline:none;letter-spacing:0.02em;"
+        onkeydown="if(event.key==='Enter')confirmListName();if(event.key==='Escape')closeListNameModal()">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:22px;text-align:right;" id="list-name-char-count">0 / 60</div>
+      <div style="display:flex;gap:10px;margin-bottom:18px;">
+        <button onclick="closeListNameModal()" style="flex:1;padding:14px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit;">Cancel</button>
+        <button onclick="confirmListName()" style="flex:1;padding:14px;background:rgba(14,165,233,0.2);border:1px solid rgba(14,165,233,0.5);color:var(--blue);border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;">Save Name</button>
+      </div>
+      <div style="text-align:center;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);">
+        <button onclick="clearListName()" style="background:none;border:none;color:rgba(239,68,68,0.6);font-size:13px;cursor:pointer;font-family:inherit;padding:6px 0;">✕ Remove name</button>
+      </div>
+    </div>
+  </div>
+
   <div class="help-overlay" id="help-overlay" onclick="if(event.target===this)toggleHelp()">
     <div class="help-modal">
       <div class="help-modal-header">
@@ -1340,15 +1727,19 @@
 
       <div class="help-section">
         <h3>⭐ Star a Game</h3>
-        <p>Tap the <strong>⭐</strong> on any game to add it to your personal <strong>Starred Games List</strong> at the top of the page. Use this for games you want to try, revisit, or keep track of. Your stars are saved locally so they'll still be there next time you open the tool.</p>
-        <p>To unstar a game, tap the <strong>⭐</strong> again from anywhere in the catalog, or tap the <strong>✕</strong> directly inside the Starred Games List — this removes it from the list without hiding it from the catalog.</p>
-        <p><strong>Reordering:</strong> Inside the Starred Games List, each card has a <strong>⋮⋮ grip handle</strong> on the left edge. Press and hold it to drag the card up or down into your preferred order. Your ranking is saved automatically and persists between sessions.</p>
-        <p>The <strong>⭐ button</strong> in the top navigation bar jumps straight to your Starred Games List — it dims when your list is empty.</p>
+        <p>Tap the star on any game to add it to your personal <strong>Starred Games List</strong> at the top of the page. Starred games show a larger gold star with no button background — easy to spot at a glance. Your stars are saved locally so they'll be there next time you open the tool.</p>
+        <p>To unstar a game, tap the star again from anywhere in the catalog, or tap the <strong>✕</strong> directly inside the Starred Games List — this removes it from the list without hiding it from the catalog.</p>
+        <p><strong>Reordering:</strong> Inside the Starred Games List you can drag cards into your preferred order:</p>
+        <ul style="margin: 6px 0 0 18px; line-height: 1.8; color: var(--muted); font-size: 13px;">
+          <li><strong style="color:#f1f5f9;">PC / Mouse —</strong> click and drag anywhere on the card (outside of buttons) to move it.</li>
+          <li><strong style="color:#f1f5f9;">Mobile / Touch —</strong> use the <strong>⋮⋮</strong> grip handle on the right side of the card to drag. Touching anywhere else on the card will scroll normally.</li>
+        </ul>
+        <p style="margin-top: 8px;">Your order is saved automatically and persists between sessions.</p>
       </div>
 
       <div class="help-section">
-        <h3>✕ Remove a Game</h3>
-        <p>Already beaten it? Know it's not your thing? Hit the <strong>✕</strong> to remove it from the list. This doesn't delete anything permanently — removed games are collected in the <em>Hidden Games</em> panel where you can restore them anytime. A shorter list feels a lot less daunting.</p>
+        <h3>✕ Hide a Game</h3>
+        <p>Already beaten it? Know it's not your thing? Hit the <strong>✕</strong> to hide it. This doesn't delete anything permanently — a brief <strong>Undo</strong> popup appears at the bottom so you can bring it right back. Hidden games are collected in the <strong>Hidden Games</strong> panel at the bottom of the page, shown with full card art and a red tint. Tap <strong>↩ Restore</strong> on any card to add it back to the catalog.</p>
       </div>
 
       <div class="help-section">
@@ -1362,7 +1753,7 @@
         <h3>🔍 Filters & Sorting</h3>
         <div class="help-badge-row">
           <span class="help-badge-item"><strong>Main / Indie</strong> — toggle between catalog tiers</span>
-          <span class="help-badge-item"><strong>New in March / January</strong> — recently added games</span>
+          <span class="help-badge-item"><strong>Mar / Jan</strong> — filter by when games were added. Both can be active at once</span>
           <span class="help-badge-item"><strong>👥 Multiplayer / 🤝 Co-op</strong> — filter by play style</span>
           <span class="help-badge-item"><strong>Not Starred</strong> — find games you haven't evaluated yet</span>
           <span class="help-badge-item"><strong>Genre dropdown</strong> — narrow by category</span>
@@ -1370,13 +1761,33 @@
           <span class="help-badge-item"><strong>⭐ Top Rated</strong> — sorts by rating adjusted for review count, so a 4.8 with 10,000 reviews ranks higher than a 4.8 with 12 reviews</span>
           <span class="help-badge-item"><strong>Rating filter (4.5+ to 4.9+)</strong> — show only games at or above a minimum rating</span>
         </div>
-        <p style="margin-top:10px;color:var(--muted);font-size:12px;">★ Ratings and review counts are a snapshot from the last time this tool was updated and may not reflect the current Meta store.</p>
+        <p style="margin-top:10px;">All filters stack — combine Main + Jan + Co-op + 4.7+ to drill down to exactly what you're looking for. When nothing matches, a message shows which filters are active with a one-tap reset.</p>
+        <p style="margin-top:8px;color:var(--muted);font-size:12px;">★ Ratings and review counts are a snapshot from the last time this tool was updated and may not reflect the current Meta store.</p>
       </div>
 
       <div class="help-section">
         <h3>☰ Options Menu</h3>
-        <p>Top-left corner. From here you can view and restore any removed games, restore everything at once, or clear all your stars to start fresh.</p>
-        <p style="margin-top:8px;">It also has a <strong>🔍 Filters</strong> section — tap it to expand a full set of filters and search without scrolling back to the top. Everything stays in sync with the main filter bar.</p>
+        <p>Top-left corner. From here you can:</p>
+        <ul style="margin: 6px 0 0 18px; line-height: 1.9; color: var(--muted); font-size: 13px;">
+          <li><strong style="color:#f1f5f9;">View / Restore</strong> — open the Hidden Games panel to restore individual games</li>
+          <li><strong style="color:#f1f5f9;">Restore All</strong> — bring all hidden games back to the catalog at once (asks for confirmation)</li>
+          <li><strong style="color:#f1f5f9;">Clear Stars</strong> — remove all starred games and start fresh (asks for confirmation)</li>
+          <li><strong style="color:#f1f5f9;">✏️ Name List</strong> — give your list a custom name shown under the page title and included when you share</li>
+          <li><strong style="color:#f1f5f9;">📤 Export My List</strong> — share your starred and hidden games as a short link. Recipients open it and see your exact list. On mobile this opens the share sheet directly</li>
+          <li><strong style="color:#f1f5f9;">🔍 Filters</strong> — tap to expand a full filter panel without scrolling back to the top</li>
+        </ul>
+      </div>
+
+      <div class="help-section">
+        <h3>📋 Navigation Bar</h3>
+        <p>The four buttons at the top of the screen are quick-jump shortcuts:</p>
+        <ul style="margin: 6px 0 0 18px; line-height: 1.9; color: var(--muted); font-size: 13px;">
+          <li><strong style="color:#f59e0b;">⭐</strong> — jump to your Starred Games List. Dims when empty</li>
+          <li><strong style="color:#f1f5f9;">📋</strong> — jump to the main catalog</li>
+          <li><strong style="color:#f1f5f9;">🗑</strong> — jump to the Hidden Games panel. Dims when nothing is hidden</li>
+          <li><strong style="color:#f1f5f9;">?</strong> — open this help guide</li>
+        </ul>
+        <p style="margin-top:8px;">All buttons auto-expand their section if it was collapsed.</p>
       </div>
 
       <div class="help-section">
@@ -1404,6 +1815,44 @@
         <button class="help-close" onclick="toggleChangelog()">✕</button>
       </div>
       <div class="changelog-body">
+
+        <div class="changelog-entry">
+          <div class="changelog-version">V 2.0 <span class="changelog-date">March 2026</span></div>
+          <ul>
+            <li>Custom hero art added for all 104 catalog games — cards now display full background artwork</li>
+            <li>Starred star redesigned — no button background, larger size, gleam animation on starred games</li>
+            <li>Hidden Games section fully redesigned — full card art with red tint overlay, Restore button on each card</li>
+            <li>Undo toast — brief popup after hiding a game with a one-tap Undo button</li>
+            <li>Restore All and Clear Stars now use a styled in-app confirmation dialog instead of the native Android prompt</li>
+            <li>MAR and JAN month filters can now be used simultaneously</li>
+            <li>Empty filter state — when no games match, active filters are listed with a one-tap reset button</li>
+            <li>Custom list name redesigned — displayed in gold with quotes, more prominent under the page title</li>
+            <li>List naming uses a styled in-app dialog instead of the native Android prompt</li>
+            <li>Export share link compressed by 86% — much shorter URLs, cleaner sharing on Discord and SMS</li>
+            <li>Shared lists now auto-expand and scroll to the Starred section on load</li>
+            <li>New 📋 Catalog nav button — jumps to and expands the catalog section</li>
+            <li>Nav buttons reordered: ⭐ 📋 🗑 ? and all are now more opaque and readable over card art</li>
+            <li>Star, Catalog, and Hidden nav buttons now auto-expand their sections before scrolling</li>
+            <li>Help button shortened to ? to reduce nav bar clutter</li>
+            <li>General bug fixes: overlay z-index stacking, star/restore/hide flash animations, remove button reappearing after unstar, options button dimming during help overlay</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
+
+        <div class="changelog-entry">
+          <div class="changelog-version">V 1.5 <span class="changelog-date">March 2026</span></div>
+          <ul>
+            <li>Share curated lists via URL — stars and hidden games encoded into a shareable link</li>
+            <li>Named lists — give your list a custom name shown under the title</li>
+            <li>Save imported lists from the options menu with confirmation prompt</li>
+            <li>Starred Games section is now collapsible</li>
+            <li>Monthly Redeemables section is now collapsible — auto-expands when new monthly games are added</li>
+            <li>Hero art infrastructure added — background art appears automatically as images are added to the hero_art/ folder</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
 
         <div class="changelog-entry">
           <div class="changelog-version">V 1.4 <span class="changelog-date">March 10, 2026</span></div>
@@ -1474,6 +1923,25 @@
   </div>
 
   <!-- OPTIONS BUTTON + PANEL (top-left) -->
+  <!-- CONFIRM MODAL -->
+  <div class="help-overlay" id="confirm-overlay" onclick="if(event.target===this)closeConfirmModal()" style="display:none;">
+    <div class="help-modal" style="max-width:380px;padding:28px;">
+      <div id="confirm-icon" style="font-size:32px;text-align:center;margin-bottom:12px;"></div>
+      <h3 id="confirm-title" style="text-align:center;margin-bottom:10px;font-size:18px;"></h3>
+      <p id="confirm-msg" style="color:var(--muted);font-size:14px;text-align:center;line-height:1.6;margin-bottom:24px;"></p>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeConfirmModal()" style="flex:1;padding:14px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit;">Cancel</button>
+        <button id="confirm-ok-btn" style="flex:1;padding:14px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNDO TOAST -->
+  <div id="undo-toast">
+    <span class="undo-msg" id="undo-toast-msg"></span>
+    <button class="undo-btn" onclick="undoLastRemove()">Undo</button>
+  </div>
+
   <button class="options-btn" id="opt-btn" onclick="toggleOptions()" title="Options">☰</button>
   <div class="options-panel" id="options-panel">
     <h3>⚙ Options</h3>
@@ -1488,6 +1956,12 @@
     <div class="opt-row">
       <span>Clear all stars</span>
       <button class="opt-action-btn danger" onclick="clearAllStars()">Clear Stars</button>
+    </div>
+    <div class="opt-row" style="border-bottom:1px solid rgba(255,255,255,0.05);padding:8px 0;flex-direction:column;align-items:flex-start;gap:6px;">
+      <span style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.05em;">MY LIST</span>
+      <button class="opt-action-btn" id="name-list-btn" onclick="promptListName()" style="width:100%;text-align:center;padding:6px;">✏️ Name List</button>
+      <button class="opt-action-btn" onclick="exportList()" style="width:100%;text-align:center;padding:6px;">📤 Export My List</button>
+      <button id="save-import-btn" class="opt-action-btn" onclick="openImportModal()" style="display:none;width:100%;text-align:center;padding:6px;border-color:rgba(14,165,233,0.5);color:var(--blue);">💾 Save Imported List</button>
     </div>
     <div class="opt-row opt-row-toggle" onclick="toggleMenuFilters()" style="cursor:pointer;user-select:none;">
       <span>🔍 Filters</span>
@@ -1522,9 +1996,10 @@
   <header class="header">
     <div class="show-label">⬡ Meta Horizon+ Full Games Catalog — March 2026</div>
     <h1>Meta Horizon+ Catalog</h1>
+    <div id="list-name-display" style="display:none;font-size:18px;font-weight:700;letter-spacing:0.02em;color:#f59e0b;margin-bottom:6px;text-shadow:0 0 20px rgba(245,158,11,0.3);"></div>
     <div class="header-sub">Complete game list · <span>March 2026</span> · <span id="header-total">107</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
-    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 1.4</span></div>
+    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 2.0</span></div>
   </header>
 
   <!-- STATS -->
@@ -1549,70 +2024,43 @@
 
   <!-- MONTHLY SECTION -->
   <section class="section">
-    <div class="section-header sh-green">
+    <div class="section-header sh-green" onclick="toggleMonthly()" style="cursor:pointer;user-select:none;">
       <span class="section-icon">🎁</span>
       <span class="section-title">March 2026 Monthly Redeemables</span>
-      <span class="section-count">Yours to keep while subscribed</span>
+      <span class="section-count" style="margin-left:auto;">Yours to keep while subscribed</span>
+      <span id="monthly-chevron" style="margin-left:10px;font-size:13px;color:var(--muted);">▼</span>
     </div>
+    <div id="monthly-body">
     <div class="deadline">⏰ CLAIM DEADLINE: March 31, 2026 — these leave after this month</div>
-    <div class="monthly-grid">
-      <div class="monthly-card">
-        <div class="monthly-badge">FREE THIS MONTH</div>
-        <div class="monthly-card-title">Arizona Sunshine Remake</div>
-        <div class="monthly-card-genre">Co-op Zombie Shooter</div>
-        <div class="monthly-card-desc">Rebuilt from the ground up with high-res VR textures, gruesome co-op multiplayer, and every piece of DLC from the award-winning original included in one package.</div>
-        <div class="monthly-card-footer">
-          <a class="store-btn" href="https://www.meta.com/experiences/app/7000275296693016/" target="_blank" rel="noopener">🛒 Claim in Store</a>
-          <button class="star-btn" data-name="Arizona Sunshine Remake" onclick="toggleStar(this.dataset.name, this)" title="Star this game">⭐</button>
-        </div>
-      </div>
-      <div class="monthly-card">
-        <div class="monthly-badge">FREE THIS MONTH</div>
-        <div class="monthly-card-title">The Pirate: Republic of Nassau</div>
-        <div class="monthly-card-genre">Naval Strategy / Adventure</div>
-        <div class="monthly-card-desc">Command pirate ships in 18th-century Nassau. Recruit legendary pirates, engage in naval battles, and build your privateering fleet from the heart of pirate culture.</div>
-        <div class="monthly-card-footer">
-          <a class="store-btn" href="https://www.meta.com/experiences/app/7749043518464805/" target="_blank" rel="noopener">🛒 Claim in Store</a>
-          <button class="star-btn" data-name="The Pirate: Republic of Nassau" onclick="toggleStar(this.dataset.name, this)" title="Star this game">⭐</button>
-        </div>
-      </div>
-    </div>
+    <div class="game-grid" id="monthly-grid"></div>
+    </div><!-- end monthly-body -->
   </section>
-
-  <!-- REMOVED GAMES PANEL -->
-  <div class="removed-section" id="removed-section">
-    <div class="removed-header" onclick="collapseToggleRemoved()" style="cursor:pointer;">
-      <span class="removed-title">🗑 Hidden Games <span class="opt-count" id="removed-count-title">0 hidden</span></span>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <button class="opt-action-btn" onclick="event.stopPropagation();restoreAll()">↩ Restore All</button>
-        <button class="opt-action-btn" id="removed-toggle-btn" onclick="event.stopPropagation();collapseToggleRemoved()">▼ Show</button>
-      </div>
-    </div>
-    <div class="removed-body">
-      <div class="removed-grid" id="removed-grid" style="padding-top:10px;"></div>
-    </div>
-  </div>
 
   <!-- STARRED SECTION -->
   <section class="section starred-section" id="sec-starred">
-    <div class="section-header sh-gold">
+    <div class="section-header sh-gold" onclick="toggleStarred()" style="cursor:pointer;user-select:none;">
       <span class="section-icon">⭐</span>
       <span class="section-title">Starred Games</span>
-      <span class="section-count" id="starred-count">0 titles</span>
+      <span class="section-count" id="starred-count" style="margin-left:auto;">0 titles</span>
+      <span id="starred-chevron" style="margin-left:10px;font-size:13px;color:var(--muted);">▼</span>
     </div>
+    <div id="starred-body">
     <div class="filter-bar" style="justify-content:flex-end;">
       <button class="filter-btn" onclick="clearAllStars()" style="color:#ef4444;border-color:#ef4444;opacity:0.7">Clear All ✕</button>
     </div>
     <div class="game-grid" id="starred-grid"></div>
+    </div><!-- end starred-body -->
   </section>
 
   <!-- FULL CATALOG -->
   <section class="section" id="sec-catalog">
-    <div class="section-header sh-blue">
+    <div class="section-header sh-blue" onclick="toggleCatalog()" style="cursor:pointer;user-select:none;">
       <span class="section-icon">🎮</span>
       <span class="section-title">Full Catalog</span>
-      <span class="section-count" id="catalog-count"></span>
+      <span class="section-count" id="catalog-count" style="margin-left:auto;"></span>
+      <span id="catalog-chevron" style="margin-left:10px;font-size:13px;color:var(--muted);">▼</span>
     </div>
+    <div id="catalog-body">
     <div class="catalog-filter-sticky" id="catalog-filter-sticky">
       <div class="filter-bar" style="margin-bottom:6px;">
         <input type="text" id="catalog-search" placeholder="Search all games..." oninput="filterCatalog()">
@@ -1680,17 +2128,44 @@
       <div class="legend-item"><span class="tag tag-jan">JAN</span> Added January 2026</div>
     </div>
     <div class="game-grid" id="catalog-grid"></div>
+    </div><!-- end catalog-body -->
   </section>
 
-  <footer class="footer">
+  <!-- REMOVED GAMES PANEL -->
+  <div class="removed-section" id="removed-section">
+    <div class="removed-header" onclick="collapseToggleRemoved()" style="cursor:pointer;">
+      <span class="removed-title">🗑 Hidden Games <span class="opt-count" id="removed-count-title">0 hidden</span></span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="opt-action-btn" onclick="event.stopPropagation();restoreAll()">↩ Restore All</button>
+        <button class="opt-action-btn" id="removed-toggle-btn" onclick="event.stopPropagation();collapseToggleRemoved()">▼ Show</button>
+      </div>
+    </div>
+    <div class="removed-body">
+      <div class="removed-grid" id="removed-grid" style="padding-top:10px;"></div>
+    </div>
+  </div>
     <div class="footer-promo" id="vs-promo">
       <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener">
         ▶ This catalog was made by Virtual Steve — support his YouTube Channel by clicking here
       </a>
     </div>
-    <div>109 games · Updated March 4, 2026</div>
-    <div>Source: <a href="https://www.uploadvr.com/horizon-monthly-games-march-2026/" target="_blank">UploadVR</a> · <a href="https://www.meta.com/meta-horizon-plus/" target="_blank">Meta.com</a></div>
-    <div>Catalog rotates monthly · Indie Catalog is in beta and may vary by region</div>
+    <div class="footer-meta">
+      <div class="footer-meta-item">
+        <span class="footer-meta-label">CATALOG</span>
+        <span class="footer-meta-value">109 games · Updated March 4, 2026</span>
+      </div>
+      <div class="footer-meta-sep">·</div>
+      <div class="footer-meta-item">
+        <span class="footer-meta-label">SOURCE</span>
+        <a class="footer-meta-link" href="https://www.uploadvr.com/horizon-monthly-games-march-2026/" target="_blank">UploadVR</a>
+        <span style="color:var(--border);margin:0 4px;">·</span>
+        <a class="footer-meta-link" href="https://www.meta.com/meta-horizon-plus/" target="_blank">Meta.com</a>
+      </div>
+      <div class="footer-meta-sep">·</div>
+      <div class="footer-meta-item">
+        <span class="footer-meta-value">Catalog rotates monthly · Indie Catalog is in beta and may vary by region</span>
+      </div>
+    </div>
   </footer>
 
 </div>
@@ -1820,6 +2295,7 @@ function saveStars() {
 
 function toggleStar(name, btn) {
   if (btn && btn.blur) btn.blur();
+  const isStarring = !starred.has(name);
   if (starred.has(name)) {
     starred.delete(name);
     starredOrder = starredOrder.filter(n => n !== name);
@@ -1829,30 +2305,129 @@ function toggleStar(name, btn) {
     localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
   }
   saveStars();
-  // update all star buttons for this game (could appear in starred + main grid)
+
+  // Update all star buttons for this game in-place — no grid rebuild
   document.querySelectorAll('.star-btn').forEach(b => {
     if (b.dataset.name === name) {
-      b.classList.toggle('starred', starred.has(name));
-      b.title = starred.has(name) ? 'Unstar' : 'Star this game';
+      const isNowStarred = starred.has(name);
+      b.classList.toggle('starred', isNowStarred);
+      b.classList.remove('star-just-starred');
+      if (isNowStarred) {
+        void b.offsetWidth;
+        b.classList.add('star-just-starred');
+      }
+      b.title = isNowStarred ? 'Unstar' : 'Star this game';
+      // Update remove button visibility on catalog cards
+      const card = b.closest('.game-card');
+      if (card && card.closest('#catalog-grid')) {
+        const bottomRight = card.querySelector('.card-bottom-right');
+        if (bottomRight) {
+          const safeName = name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+          if (!isNowStarred) {
+            bottomRight.innerHTML = `<button class="remove-btn" data-name="${name}" onclick="removeGame('${safeName}')" title="Hide this game">✕</button>`;
+          } else {
+            bottomRight.innerHTML = '';
+          }
+        }
+      }
     }
   });
-  renderStarred();
-  renderCatalog();
+
+  if (!isStarring) {
+    // Unstarring — animate the card out of the starred section in-place
+    const starredCards = document.querySelectorAll('#starred-grid .game-card');
+    let starredCard = null;
+    starredCards.forEach(c => { if (c.dataset.name === name) starredCard = c; });
+    if (starredCard) {
+      starredCard.classList.add('removing');
+      starredCard.addEventListener('animationend', () => {
+        if (starredCard.parentNode) starredCard.parentNode.removeChild(starredCard);
+        // Update count in-place
+        const countEl = document.getElementById('starred-count');
+        if (countEl) {
+          const n = Math.max(0, (parseInt(countEl.textContent) || 0) - 1);
+          countEl.textContent = n + ' title' + (n !== 1 ? 's' : '');
+        }
+        const section = document.getElementById('sec-starred');
+        const remaining = document.querySelectorAll('#starred-grid .game-card').length;
+        if (section) section.classList.toggle('has-stars', remaining > 0);
+        updateNavBtns();
+      }, { once: true });
+    } else {
+      renderStarred();
+    }
+    // If unstarred filter is active in catalog, card needs to reappear — full render needed
+    if (catalogFilter.unstarred) renderCatalog();
+  } else {
+    // Starring — just append new card to starred grid, no wipe
+    const g = allData.find(x => x.name === name);
+    if (g) {
+      const grid = document.getElementById('starred-grid');
+      const card = makeCard(g, 0, 'draggable-card', 'unstar');
+      card.setAttribute('draggable', 'true');
+      card.dataset.name = g.name;
+      const handle = document.createElement('div');
+      handle.className = 'drag-handle';
+      handle.innerHTML = '&#8942;&#8942;';
+      handle.title = 'Drag to reorder';
+      card.appendChild(handle);
+      grid.appendChild(card);
+      initDragAndDrop(grid);
+      const countEl = document.getElementById('starred-count');
+      const n = (parseInt(countEl?.textContent) || 0) + 1;
+      if (countEl) countEl.textContent = n + ' title' + (n !== 1 ? 's' : '');
+      const section = document.getElementById('sec-starred');
+      if (section) section.classList.add('has-stars');
+      updateNavBtns();
+    }
+    // If unstarred filter is active, collapse the catalog card out
+    if (catalogFilter.unstarred) {
+      const catalogCards = document.querySelectorAll('#catalog-grid .game-card');
+      catalogCards.forEach(card => {
+        const cardBtn = card.querySelector('.star-btn');
+        if (cardBtn && cardBtn.dataset.name === name) {
+          card.classList.add('removing');
+          card.addEventListener('animationend', () => {
+            if (card.parentNode) card.parentNode.removeChild(card);
+            const countEl = document.getElementById('catalog-count');
+            if (countEl) {
+              const n = Math.max(0, (parseInt(countEl.textContent) || 0) - 1);
+              countEl.textContent = n + ' title' + (n !== 1 ? 's' : '');
+            }
+          }, { once: true });
+        }
+      });
+    }
+  }
 }
 
 function clearAllStars() {
   if (!starred.size) return;
-  if (!confirm(`Remove all ${starred.size} starred games?`)) return;
-  starred.clear();
-  starredOrder = [];
-  localStorage.removeItem(ORDER_KEY);
-  saveStars();
-  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('starred'));
-  renderStarred();
+  const n = starred.size;
+  showConfirmModal(
+    '⭐',
+    'Clear All Starred Games?',
+    `This will remove all ${n} starred game${n !== 1 ? 's' : ''} from your list. This cannot be undone.`,
+    'Clear All Stars',
+    'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.5);color:#fca5a5;',
+    () => {
+      starred.clear();
+      starredOrder = [];
+      localStorage.removeItem(ORDER_KEY);
+      saveStars();
+      document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('starred'));
+      renderStarred();
+      showToast(`Cleared ${n} starred game${n !== 1 ? 's' : ''}`);
+    }
+  );
 }
 
 // ── FILTERS ──
-let catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
+const GLEAM_PERIOD   = 3500;
+const GLEAM_DURATION =  500;
+let gleamRafId = null;
+
+let catalogFilter = { search: '', cat: 'all', catType: 'all', catTags: new Set(), sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
 let starredSearch = '';
 let starredOrder = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]'); // manual sort order
 
@@ -1981,7 +2556,6 @@ function saveRemoved() {
 }
 
 function removeGame(name) {
-  // Find the card in the DOM and animate it out first
   const allCards = document.querySelectorAll('.game-card');
   let targetCard = null;
   allCards.forEach(c => {
@@ -1990,15 +2564,27 @@ function removeGame(name) {
   });
   function doRemove() {
     removed.add(name);
-    if (starred.has(name)) { starred.delete(name); saveStarred(); }
+    if (starred.has(name)) { starred.delete(name); saveStarred(); renderStarred(); }
     saveRemoved();
-    reRenderAll();
+    // Card already gone from DOM via animation — no need to rebuild the grid
+    // Just update the count label in place (no innerHTML wipe = no art flash)
+    const countEl = document.getElementById('catalog-count');
+    if (countEl) {
+      const current = parseInt(countEl.textContent) || 0;
+      const next = Math.max(0, current - 1);
+      countEl.textContent = next + ' title' + (next !== 1 ? 's' : '');
+    }
     renderRemovedPanel();
     updateRemovedBadge();
+    updateNavBtns();
+    showUndoToast(name);
   }
   if (targetCard) {
     targetCard.classList.add('removing');
-    targetCard.addEventListener('animationend', doRemove, { once: true });
+    targetCard.addEventListener('animationend', () => {
+      if (targetCard.parentNode) targetCard.parentNode.removeChild(targetCard);
+      doRemove();
+    }, { once: true });
   } else {
     doRemove();
   }
@@ -2007,17 +2593,85 @@ function removeGame(name) {
 function restoreGame(name) {
   removed.delete(name);
   saveRemoved();
-  reRenderAll();
-  renderRemovedPanel();
-  updateRemovedBadge();
+
+  // Animate hidden card out first
+  const hiddenCards = document.querySelectorAll('#removed-grid .game-card');
+  let hiddenCard = null;
+  hiddenCards.forEach(c => {
+    const b = c.querySelector('.restore-btn');
+    if (b && b.dataset.name === name) hiddenCard = c;
+  });
+
+  function afterAnimate() {
+    // Add game back into catalog grid in-place (sorted position)
+    const g = allData.find(x => x.name === name);
+    if (g) {
+      const grid = document.getElementById('catalog-grid');
+      const f = catalogFilter;
+      const s = f.search.toLowerCase();
+      const matchSearch  = !s || g.name.toLowerCase().includes(s) || g.genre.toLowerCase().includes(s);
+      const matchCatType = f.catType === 'all' || f.catType === g.type;
+      const matchCatTag  = f.catTags.size === 0 || f.catTags.has(g.tag);
+      const matchUnstarred = !f.unstarred || !starred.has(g.name);
+      const matchGenre   = f.genre === 'all' || genreGroup(g.genre) === f.genre;
+      const matchMp      = f.mp === 'all' || (g.mp||[]).includes(f.mp);
+      const matchRating  = f.minRating === 0 || (g.rating && g.rating >= f.minRating);
+      const passes = matchSearch && matchCatType && matchCatTag && matchUnstarred && matchGenre && matchMp && matchRating;
+      if (passes && grid) {
+        const newCard = makeCard(g, 0);
+        const allCards = [...grid.querySelectorAll('.game-card')];
+        const insertBefore = allCards.find(c => {
+          const cname = c.querySelector('.game-name')?.textContent || '';
+          return g.name.localeCompare(cname) < 0;
+        });
+        if (insertBefore) grid.insertBefore(newCard, insertBefore);
+        else grid.appendChild(newCard);
+        const countEl = document.getElementById('catalog-count');
+        if (countEl) {
+          const n = (parseInt(countEl.textContent) || 0) + 1;
+          countEl.textContent = n + ' title' + (n !== 1 ? 's' : '');
+        }
+        const emptyEl = grid.querySelector('div[style*="No games match"]');
+        if (emptyEl) emptyEl.remove();
+      }
+    }
+    // Update hidden section state in-place — no grid rebuild
+    const remaining = removed.size;
+    const section = document.getElementById('removed-section');
+    if (section) section.classList.toggle('has-removed', remaining > 0);
+    updateRemovedBadge();
+    updateNavBtns();
+  }
+
+  if (hiddenCard) {
+    hiddenCard.classList.add('removing');
+    hiddenCard.addEventListener('animationend', () => {
+      if (hiddenCard.parentNode) hiddenCard.parentNode.removeChild(hiddenCard);
+      afterAnimate();
+    }, { once: true });
+  } else {
+    afterAnimate();
+  }
 }
 
 function restoreAll() {
-  removed.clear();
-  saveRemoved();
-  reRenderAll();
-  renderRemovedPanel();
-  updateRemovedBadge();
+  if (removed.size === 0) return;
+  const n = removed.size;
+  showConfirmModal(
+    '↩',
+    'Restore All Hidden Games?',
+    `This will add all ${n} hidden game${n !== 1 ? 's' : ''} back to your catalog.`,
+    'Restore All',
+    'background:rgba(14,165,233,0.2);border:1px solid rgba(14,165,233,0.5);color:var(--blue);',
+    () => {
+      removed.clear();
+      saveRemoved();
+      reRenderAll();
+      renderRemovedPanel();
+      updateRemovedBadge();
+      showToast(`↩ ${n} game${n !== 1 ? 's' : ''} restored`);
+    }
+  );
 }
 
 function reRenderAll() {
@@ -2042,22 +2696,23 @@ function renderRemovedPanel() {
   grid.innerHTML = '';
   [...removed].sort().forEach(name => {
     const g = allData.find(x => x.name === name);
-    const genre = g ? g.genre : '';
-    const isIndie = g && g.type === 'indie';
-    const safeName = name.replace(/'/g, "\\'");
-    const card = document.createElement('div');
-    card.className = 'removed-card';
-    card.innerHTML = `
-      <div class="removed-info">
-        <div class="removed-name">${name}</div>
-        <div class="removed-genre">${genre}${isIndie ? ' · <span style="color:rgba(168,85,247,0.6);font-size:10px">INDIE</span>' : ''}</div>
-      </div>
-      <a class="store-btn" href="${storeUrl(name)}" target="_blank" rel="noopener" style="opacity:0.6;" title="View in Meta Horizon Store">&#x1F6D2; <span>Store</span></a>
-      <button class="restore-btn" onclick="restoreGame('${safeName}')">↩ Restore</button>
-    `;
-    grid.appendChild(card);
+    if (g) {
+      const card = makeCard(g, 0, 'hidden-card', 'restore');
+      const topRight = card.querySelector('.card-top-right');
+      if (topRight) topRight.style.display = 'none';
+      grid.appendChild(card);
+    } else {
+      const safeName = name.replace(/'/g, "\\'");
+      const card = document.createElement('div');
+      card.className = 'game-card hidden-card';
+      card.style.cssText = 'position:relative;height:130px;display:flex;align-items:flex-end;padding:10px 12px;gap:8px;';
+      card.innerHTML = `<div style="flex:1;font-size:13px;font-weight:600;color:#fca5a5;">${name}</div>
+        <button class="restore-btn" onclick="restoreGame('${safeName}')">&#x21A9; Restore</button>`;
+      grid.appendChild(card);
+    }
   });
 }
+
 
 function collapseToggleRemoved() {
   const section = document.getElementById('removed-section');
@@ -2132,29 +2787,50 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
   // Monthly free = Arizona Sunshine Remake and The Pirate: Republic of Nassau (the actual claimables)
   const isClaimable = (g.name === 'Arizona Sunshine Remake' || g.name === 'The Pirate: Republic of Nassau');
   card.className = 'game-card' + (g.type === 'indie' ? ' indie' : '') + (isClaimable ? ' claimable' : '') + (extraClass ? ' ' + extraClass : '');
-  card.dataset.genreGroup = genreGroup(g.genre);
+  const gg = genreGroup(g.genre);
+  card.dataset.genreGroup = gg;
+  applyHeroArt(card, g.name, gg);
   const safeName = g.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
   const mpBadges = (g.mp||[]).map(m =>
     m === 'multi' ? '<span class="mp-badge multi">👥 MULTI</span>' :
     m === 'coop'  ? '<span class="mp-badge coop">🤝 CO-OP</span>' : ''
   ).join('');
-  const ribbon = g.tag ? `<div class="corner-ribbon ${g.tag.toLowerCase()}">${g.tag}</div>` : '';
+  const tagInline = g.tag ? `<span class="tag-${g.tag.toLowerCase()}-inline">${g.tag}</span>` : '';
+
   card.innerHTML = `
-    <div class="game-info">
-      <div class="game-name" title="${g.name}">${g.name}</div>
-      <div class="game-genre">${g.genre}${g.type === 'indie' ? ' · <span style="color:#a855f7;font-size:10px">INDIE</span>' : ''}</div>
-      ${g.rating ? ratingHTML(g) : ''}
-      ${isClaimable ? '<div class="claim-notice">⚡ Free to claim — expires Mar 31</div>' : ''}
-      ${mpBadges ? `<div class="mp-row">${mpBadges}</div>` : ''}
+    <div class="card-title-block">
+      <div class="card-name-row">
+        <div class="game-name" title="${g.name}">${g.name}</div>
+        ${tagInline}
+      </div>
+      <span class="game-genre">${g.genre}${g.type === 'indie' ? ' · <span class="game-genre-indie">INDIE</span>' : ''}</span>
+      ${mpBadges || isClaimable ? `<div class="card-tags-row">
+        ${isClaimable ? '<span class="claim-badge">⚡ FREE THIS MONTH</span>' : ''}
+        ${mpBadges}
+      </div>` : ''}
     </div>
-    <a class="store-btn" href="${storeUrl(g.name)}" target="_blank" rel="noopener" title="View in Meta Horizon Store">
-      &#x1F6D2; <span>Store</span>
-    </a>
-    <button class="star-btn ${isStarred ? 'starred' : ''}" data-name="${g.name}"
-      onclick="toggleStar('${safeName}', this)"
-      title="${isStarred ? 'Unstar' : 'Star this game'}">&#11088;</button>
-    ${xAction === 'unstar' ? `<button class="remove-btn" data-name="${g.name}" onclick="toggleStar('${safeName}',this.previousElementSibling)" title="Remove from starred">✕</button>` : (!isStarred ? `<button class="remove-btn" data-name="${g.name}" onclick="removeGame('${safeName}')" title="Hide this game">✕</button>` : '')}
-    ${ribbon}
+    <div class="card-top-right">
+      <button class="star-btn ${starred.has(g.name) ? 'starred' : ''}" data-name="${g.name}"
+        onclick="toggleStar('${safeName}', this)"
+        title="${starred.has(g.name) ? 'Unstar' : 'Star this game'}"><canvas class="star-canvas" width="28" height="28"></canvas></button>
+    </div>
+    <div class="card-bottom-left">
+      ${g.rating ? ratingHTML(g) : ''}
+    </div>
+    <div class="card-bottom-center">
+      <a class="store-btn" href="${storeUrl(g.name)}" target="_blank" rel="noopener" title="View in Meta Horizon Store">
+        &#x1F6D2; <span>Store</span>
+      </a>
+    </div>
+    <div class="card-bottom-right">
+      ${xAction === 'unstar'
+        ? `<button class="remove-btn" data-name="${g.name}" onclick="toggleStar('${safeName}',this.closest('.game-card').querySelector('.star-btn'))" title="Remove from starred">✕</button>`
+        : xAction === 'restore'
+        ? `<button class="restore-btn" data-name="${g.name}" onclick="restoreGame('${safeName}')" title="Restore to catalog">&#x21A9; Restore</button>`
+        : xAction === 'none'
+        ? ''
+        : (!starred.has(g.name) ? `<button class="remove-btn" data-name="${g.name}" onclick="removeGame('${safeName}')" title="Hide this game">✕</button>` : '')}
+    </div>
   `;
   return card;
 }
@@ -2175,9 +2851,9 @@ function renderCatalog() {
   let filtered = allData.filter(g => {
     if (removed.has(g.name)) return false;
     const matchSearch  = !s || g.name.toLowerCase().includes(s) || g.genre.toLowerCase().includes(s);
-    const matchCat     = f.cat === 'all' || f.cat === g.type ||
-                         (f.cat === 'MAR' && g.tag === 'MAR') ||
-                         (f.cat === 'JAN' && g.tag === 'JAN');
+    const matchCatType = f.catType === 'all' || f.catType === g.type;
+    const matchCatTag  = f.catTags.size === 0 || f.catTags.has(g.tag);
+    const matchCat     = matchCatType && matchCatTag;
     const matchUnstarred = !f.unstarred || !starred.has(g.name);
     const matchGenre   = f.genre === 'all' || genreGroup(g.genre) === f.genre;
     const matchMp      = f.mp === 'all' || (g.mp||[]).includes(f.mp);
@@ -2190,10 +2866,30 @@ function renderCatalog() {
   const frag = document.createDocumentFragment();
   filtered.forEach((g, i) => frag.appendChild(makeCard(g, i)));
   grid.innerHTML = '';
-  grid.appendChild(frag);
+  if (filtered.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.cssText = 'grid-column:1/-1;text-align:center;padding:48px 24px;color:var(--muted);font-size:14px;line-height:1.8;';
+    const activeFilters = [
+      f.catType !== 'all' && f.catType,
+      ...[...f.catTags],
+      f.genre !== 'all' && f.genre,
+      f.mp !== 'all' && f.mp,
+      f.search && `"${f.search}"`,
+      f.minRating > 0 && `${f.minRating}★+`,
+      f.unstarred && 'Unstarred only',
+    ].filter(Boolean).join(', ');
+    empty.innerHTML = `<div style="font-size:28px;margin-bottom:12px;">🔍</div>
+      <div style="color:#e2e8f0;font-size:16px;font-weight:600;margin-bottom:8px;">No games match these filters</div>
+      <div>Active filters: <span style="color:var(--blue);">${activeFilters || 'none'}</span></div>
+      <div style="margin-top:16px;"><button onclick="resetAllFilters()" style="background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.4);color:var(--blue);padding:8px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;">Clear All Filters</button></div>`;
+    grid.appendChild(empty);
+  } else {
+    grid.appendChild(frag);
+  }
   const countEl = document.getElementById('catalog-count');
   if (countEl) countEl.textContent = `${filtered.length} title${filtered.length !== 1 ? 's' : ''}`;
   updateResetBtn();
+  initStarCanvases();
 }
 
 function renderStarred() {
@@ -2208,20 +2904,21 @@ function renderStarred() {
   const matches = orderedNames.map(n => allData.find(g => g.name === n)).filter(Boolean);
   matches.forEach((g, i) => {
     const card = makeCard(g, i, 'draggable-card', 'unstar');
-    card.setAttribute('draggable', 'false'); // drag only from handle
+    card.setAttribute('draggable', 'true');
     card.dataset.name = g.name;
-    // Prepend drag handle
+    // Inject mobile drag handle (hidden on PC via CSS)
     const handle = document.createElement('div');
     handle.className = 'drag-handle';
-    handle.innerHTML = '&#8942;&#8942;'; // ⋮⋮ dots
+    handle.innerHTML = '&#8942;&#8942;';
     handle.title = 'Drag to reorder';
-    card.insertBefore(handle, card.firstChild);
+    card.appendChild(handle);
     grid.appendChild(card);
   });
   initDragAndDrop(grid);
   document.getElementById('starred-count').textContent = `${matches.length} title${matches.length !== 1 ? 's' : ''}`;
   section.classList.toggle('has-stars', matches.length > 0 || starred.size > 0);
   updateNavBtns();
+  initStarCanvases();
 }
 
 function toggleGenreDropdown(e) {
@@ -2429,26 +3126,17 @@ function initDragAndDrop(grid) {
   let dragSrc = null;
   let touchDragEl = null;
   let touchClone = null;
-  let touchStartY = 0;
 
   // ── MOUSE DRAG ──
   grid.querySelectorAll('.draggable-card').forEach(card => {
-    const handle = card.querySelector('.drag-handle');
-    if (handle) {
-      handle.addEventListener('mousedown', () => {
-        card.setAttribute('draggable', 'true');
-      });
-    }
     card.addEventListener('dragstart', e => {
-      if (!card.getAttribute('draggable') || card.getAttribute('draggable') === 'false') {
-        e.preventDefault(); return;
-      }
+      // Cancel if drag originated from a button or link
+      if (e.target.closest('button, a')) { e.preventDefault(); return; }
       dragSrc = card;
       card.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
     });
     card.addEventListener('dragend', () => {
-      card.setAttribute('draggable', 'false');
       card.classList.remove('dragging');
       grid.querySelectorAll('.draggable-card').forEach(c => c.classList.remove('drag-over'));
       saveStarredOrder(grid);
@@ -2472,23 +3160,24 @@ function initDragAndDrop(grid) {
       }
     });
 
-    // ── TOUCH DRAG ──
-    const th = card.querySelector('.drag-handle');
-    if (th) th.addEventListener('touchstart', e => {
+    // ── TOUCH DRAG — handle only (prevents scroll interference) ──
+    const handle = card.querySelector('.drag-handle');
+    let touchFromHandle = false;
+    card.addEventListener('touchstart', e => {
+      touchFromHandle = handle && (e.target === handle || handle.contains(e.target));
+      if (!touchFromHandle) return;
       touchDragEl = card;
-      touchStartY = e.touches[0].clientY;
       touchClone = card.cloneNode(true);
-      touchClone.style.cssText = `position:fixed;z-index:9999;width:${card.offsetWidth}px;opacity:0.85;pointer-events:none;left:${card.getBoundingClientRect().left}px;top:${card.getBoundingClientRect().top}px;`;
+      touchClone.style.cssText = `position:fixed;z-index:9999;width:${card.offsetWidth}px;opacity:0.85;pointer-events:none;left:${card.getBoundingClientRect().left}px;top:${card.getBoundingClientRect().top}px;transition:none;`;
       document.body.appendChild(touchClone);
       card.classList.add('dragging');
     }, { passive: true });
 
-    if (th) th.addEventListener('touchmove', e => {
-      if (!touchClone) return;
+    card.addEventListener('touchmove', e => {
+      if (!touchClone || !touchFromHandle) return;
       e.preventDefault();
       const touch = e.touches[0];
       touchClone.style.top = (touch.clientY - touchClone.offsetHeight / 2) + 'px';
-      // Highlight card under finger
       touchClone.style.pointerEvents = 'none';
       const el = document.elementFromPoint(touch.clientX, touch.clientY);
       const target = el && el.closest('.draggable-card');
@@ -2496,7 +3185,7 @@ function initDragAndDrop(grid) {
       if (target && target !== touchDragEl) target.classList.add('drag-over');
     }, { passive: false });
 
-    if (th) th.addEventListener('touchend', e => {
+    card.addEventListener('touchend', e => {
       if (!touchClone || !touchDragEl) return;
       const touch = e.changedTouches[0];
       touchClone.remove(); touchClone = null;
@@ -2513,6 +3202,7 @@ function initDragAndDrop(grid) {
         saveStarredOrder(grid);
       }
       touchDragEl = null;
+      touchFromHandle = false;
     });
   });
 }
@@ -2558,16 +3248,28 @@ function setCatalogFilter(key, val, btn) {
   const sec = document.getElementById('sec-catalog');
 
   if (key === 'cat') {
-    // All cat buttons are now toggleable — clicking active one reverts to 'all'
-    if (btn.classList.contains('active')) {
-      sec.querySelectorAll('.cat-filter-btn').forEach(b => { b.classList.remove('active'); b.blur(); });
-      catalogFilter.cat = 'all';
+    const isType = val === 'games' || val === 'indie';
+    const isTag  = val === 'MAR' || val === 'JAN';
+    const isActive = btn.classList.contains('active');
+    if (isType) {
+      // Toggle type filter; leave tag filter alone
+      sec.querySelectorAll('.cat-filter-btn[data-cat="games"],.cat-filter-btn[data-cat="indie"]').forEach(b => { b.classList.remove('active'); b.blur(); });
+      catalogFilter.catType = isActive ? 'all' : val;
+      if (!isActive) btn.classList.add('active');
+    } else if (isTag) {
+      // Toggle tag in/out of set — multiple tags can be active simultaneously
+      if (catalogFilter.catTags.has(val)) {
+        catalogFilter.catTags.delete(val);
+        btn.classList.remove('active');
+      } else {
+        catalogFilter.catTags.add(val);
+        btn.classList.add('active');
+      }
       btn.blur();
-    } else {
-      sec.querySelectorAll('.cat-filter-btn').forEach(b => { b.classList.remove('active'); b.blur(); });
-      btn.classList.add('active');
-      catalogFilter.cat = val;
     }
+    catalogFilter.cat = catalogFilter.catType !== 'all' ? catalogFilter.catType :
+                        catalogFilter.catTags.size > 0 ? [...catalogFilter.catTags].join('+') : 'all';
+    btn.blur();
   } else if (key === 'mp') {
     if (btn.classList.contains('active')) {
       // Turn off — remove active, no highlight remains
@@ -2589,7 +3291,8 @@ function setCatalogFilter(key, val, btn) {
 }
 
 function isAnyFilterActive() {
-  return catalogFilter.cat !== 'all' ||
+  return catalogFilter.catType !== 'all' ||
+         catalogFilter.catTags.size > 0 ||
          catalogFilter.genre !== 'all' ||
          catalogFilter.mp !== 'all' ||
          catalogFilter.sort !== 'az' ||
@@ -2613,7 +3316,7 @@ function updateResetBtn() {
 }
 
 function resetAllFilters() {
-  catalogFilter = { search: '', cat: 'all', sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
+  catalogFilter = { search: '', cat: 'all', catType: 'all', catTags: new Set(), sort: 'az', genre: 'all', mp: 'all', unstarred: false, minRating: 0 };
   // Reset search
   document.getElementById('catalog-search').value = '';
   // Reset cat buttons
@@ -2662,9 +3365,31 @@ function navToRemoved() {
   setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 }
 
+function navToCatalog() {
+  const section = document.getElementById('sec-catalog');
+  if (!section) return;
+  // Expand if collapsed (catalog uses display:none on catalog-body)
+  const body    = document.getElementById('catalog-body');
+  const chevron = document.getElementById('catalog-chevron');
+  if (body && body.style.display === 'none') {
+    body.style.display = '';
+    if (chevron) chevron.textContent = '▼';
+    localStorage.setItem('mhplus_catalog_collapsed', '0');
+  }
+  setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
 function navToStarred() {
   const section = document.getElementById('sec-starred');
   if (!section.classList.contains('has-stars')) return;
+  // Expand if collapsed
+  const body    = document.getElementById('starred-body');
+  const chevron = document.getElementById('starred-chevron');
+  if (body && body.style.display === 'none') {
+    body.style.display = '';
+    if (chevron) chevron.textContent = '▼';
+    localStorage.setItem('mhplus_starred_collapsed', '0');
+  }
   setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 }
 
@@ -2683,8 +3408,10 @@ function syncMenuFilters() {
   document.querySelectorAll('.menu-cat-btn[data-cat]').forEach(b => {
     if (b.dataset.cat === 'UNSTARRED') {
       b.classList.toggle('active', catalogFilter.unstarred);
-    } else {
-      b.classList.toggle('active', b.dataset.cat === catalogFilter.cat);
+    } else if (b.dataset.cat === 'games' || b.dataset.cat === 'indie') {
+      b.classList.toggle('active', b.dataset.cat === catalogFilter.catType);
+    } else if (b.dataset.cat === 'MAR' || b.dataset.cat === 'JAN') {
+      b.classList.toggle('active', catalogFilter.catTags.has(b.dataset.cat));
     }
   });
   // Sync mp button label
@@ -2716,24 +3443,10 @@ function menuSetCat(val, btn) {
     setCatalogFilter('cat', 'UNSTARRED', btn);
     return;
   }
+  // Delegate to main filter function — it handles the type/tag split correctly
   const sec = document.getElementById('sec-catalog');
-  // Mirror setCatalogFilter cat logic
-  if (btn.classList.contains('active')) {
-    document.querySelectorAll('.cat-filter-btn').forEach(b => { b.classList.remove('active'); b.blur(); });
-  catalogFilter.unstarred = false;
-    document.querySelectorAll('.menu-cat-btn[data-cat]').forEach(b => b.classList.remove('active'));
-    catalogFilter.cat = 'all';
-  } else {
-    document.querySelectorAll('.cat-filter-btn').forEach(b => { b.classList.remove('active'); b.blur(); });
-    document.querySelectorAll('.menu-cat-btn[data-cat]').forEach(b => b.classList.remove('active'));
-    // Activate matching main button
-    const mainBtn = sec.querySelector(`.cat-filter-btn[data-cat="${val}"]`);
-    if (mainBtn) mainBtn.classList.add('active');
-    btn.classList.add('active');
-    catalogFilter.cat = val;
-  }
-  btn.blur();
-  renderCatalog();
+  const mainBtn = sec ? sec.querySelector(`.cat-filter-btn[data-cat="${val}"]`) : null;
+  setCatalogFilter('cat', val, mainBtn || btn);
   syncMenuFilters();
 }
 
@@ -2825,15 +3538,156 @@ if (headerTotal) headerTotal.textContent = totalCount;
   }
 })();
 
+const HERO_ART = {
+  // ── GAMES CATALOG ──
+  'Alvo':                                  'hero_art/alvo.jpg',
+  'Angry Birds VR: Isle of Pigs':          'hero_art/angry-birds-vr-isle-of-pigs.jpg',
+  'Arizona Sunshine Remake':               'hero_art/arizona-sunshine-remake.jpg',
+  "Asgard's Wrath 2":                      'hero_art/asgards-wrath-2.jpg',
+  "Assassin's Creed Nexus VR":             'hero_art/assassins-creed-nexus-vr.jpg',
+  'Beat Saber':                            'hero_art/beat-saber.jpg',
+  'Blacktop Hoops':                        'hero_art/blacktop-hoops.jpg',
+  'Cubism':                                'hero_art/cubism.jpg',
+  'Deisim':                                'hero_art/deisim.jpg',
+  'Demeo':                                 'hero_art/demeo.jpg',
+  'Demeo Battles':                         'hero_art/demeo-battles.jpg',
+  'Dungeons of Eternity':                  'hero_art/dungeons-of-eternity.jpg',
+  'Final Fury':                            'hero_art/final-fury.jpg',
+  'Fruit Ninja 2':                         'hero_art/fruit-ninja-2.jpg',
+  'Ghosts of Tabor':                       'hero_art/ghosts-of-tabor.jpg',
+  'GOLF+':                                 'hero_art/golf.jpg',
+  'Green Hell VR':                         'hero_art/green-hell-vr.jpg',
+  'Grimlord':                              'hero_art/grimlord.jpg',
+  'Human Fall Flat VR':                    'hero_art/human-fall-flat-vr.jpg',
+  'I Expect You To Die 3':                 'hero_art/i-expect-you-to-die-3.jpg',
+  'iB Cricket':                            'hero_art/ib-cricket.jpg',
+  'In Death: Unchained':                   'hero_art/in-death-unchained.jpg',
+  'Into Black':                            'hero_art/into-black.jpg',
+  'Into the Radius':                       'hero_art/into-the-radius.jpg',
+  'Job Simulator':                         'hero_art/job-simulator.jpg',
+  'Kingspray Graffiti':                    'hero_art/kingspray-graffiti.jpg',
+  'Les Mills Bodycombat':                  'hero_art/les-mills-bodycombat.jpg',
+  'Maestro':                               'hero_art/maestro.jpg',
+  'Medieval Dynasty: New Settlement':      'hero_art/medieval-dynasty-new-settlement.jpg',
+  'Moss':                                  'hero_art/moss.jpg',
+  'Onward':                                'hero_art/onward.jpg',
+  'Pets & Stuff':                          'hero_art/pets-stuff.jpg',
+  'Pistol Whip':                           'hero_art/pistol-whip.jpg',
+  'Premium Bowling':                       'hero_art/premium-bowling.jpg',
+  'Project Demigod':                       'hero_art/project-demigod.jpg',
+  'Puzzling Places':                       'hero_art/puzzling-places.jpg',
+  'Racket Club':                           'hero_art/racket-club.jpg',
+  'Real VR Fishing':                       'hero_art/real-vr-fishing.jpg',
+  'Red Matter':                            'hero_art/red-matter.jpg',
+  'Red Matter 2':                          'hero_art/red-matter-2.jpg',
+  'Spatial Ops':                           'hero_art/spatial-ops.jpg',
+  'Starship Home':                         'hero_art/starship-home.jpg',
+  'Synth Riders':                          'hero_art/synth-riders.jpg',
+  'The 7th Guest VR':                      'hero_art/the-7th-guest-vr.jpg',
+  'The Climb 2':                           'hero_art/the-climb-2.jpg',
+  'The Light Brigade':                     'hero_art/the-light-brigade.jpg',
+  'The Thrill of the Fight':               'hero_art/the-thrill-of-the-fight.jpg',
+  'Thief Simulator VR: Greenview Street':  'hero_art/thief-simulator-vr-greenview-street.jpg',
+  'Titans Clinic':                         'hero_art/titans-clinic.jpg',
+  'Townsmen VR':                           'hero_art/townsmen-vr.jpg',
+  'Walkabout Mini Golf':                   'hero_art/walkabout-mini-golf.jpg',
+  'War of Wizards':                        'hero_art/war-of-wizards.jpg',
+  'Zero Caliber: Reloaded':               'hero_art/zero-caliber-reloaded.jpg',
+  // ── INDIE CATALOG ──
+  'Apex Construct':                        'hero_art/apex-construct.jpg',
+  'Arcade Paradise VR':                    'hero_art/arcade-paradise-vr.jpg',
+  'Bocce Time!':                           'hero_art/bocce-time.jpg',
+  'Cactus Cowboy - Desert Warfare':        'hero_art/cactus-cowboy-desert-warfare.jpg',
+  'Chess Club':                            'hero_art/chess-club.jpg',
+  'Coffee Quest VR':                       'hero_art/coffee-quest-vr.jpg',
+  'Crumbling':                             'hero_art/crumbling.jpg',
+  'Cybrix':                                'hero_art/cybrix.jpg',
+  'Darksword: Battle Eternity':            'hero_art/darksword-battle-eternity.jpg',
+  'DIG VR':                                'hero_art/dig-vr.jpg',
+  'Discovery 2':                           'hero_art/discovery-2.jpg',
+  'Espire 1: VR Operative':               'hero_art/espire-1-vr-operative.jpg',
+  'Final Overs - VR Cricket':              'hero_art/final-overs-vr-cricket.jpg',
+  'Galaxy Kart':                           'hero_art/galaxy-kart.jpg',
+  'Ghost Signal: A Stellaris Game':        'hero_art/ghost-signal-a-stellaris-game.jpg',
+  'Hide The Corpse':                       'hero_art/hide-the-corpse.jpg',
+  'I Am Hamster - Simulator':              'hero_art/i-am-hamster-simulator.jpg',
+  'Innkeeper VR':                          'hero_art/innkeeper-vr.jpg',
+  'Iron Guard':                            'hero_art/iron-guard.jpg',
+  'Ironlights':                            'hero_art/ironlights.jpg',
+  'Killer Frequency':                      'hero_art/killer-frequency.jpg',
+  'Laser Thief':                           'hero_art/laser-thief.jpg',
+  'Make It Stable - Kids & Family Fun!':   'hero_art/make-it-stable-kids-family-fun.jpg',
+  'Motion Soccer PRO':                     'hero_art/motion-soccer-pro.jpg',
+  'Mythic Realms':                         'hero_art/mythic-realms.jpg',
+  'Noun Town Language Learning':           'hero_art/noun-town-language-learning.jpg',
+  'Operation Serpens':                     'hero_art/operation-serpens.jpg',
+  'Retropolis 2: Never Say Goodbye':       'hero_art/retropolis-2-never-say-goodbye.jpg',
+  'Rogue Ascent VR':                       'hero_art/rogue-ascent-vr.jpg',
+  'Rogue Piñatas: VRmageddon':             'hero_art/rogue-pinatas-vrmageddon.jpg',
+  'RUNNER':                                'hero_art/runner.jpg',
+  'Shooty Fruity':                         'hero_art/shooty-fruity.jpg',
+  'Slot Car VR':                           'hero_art/slot-car-vr.jpg',
+  'Space Elevator':                        'hero_art/space-elevator.jpg',
+  'Squingle':                              'hero_art/squingle.jpg',
+  'Stupid Cars':                           'hero_art/stupid-cars.jpg',
+  'Sushi Ben':                             'hero_art/sushi-ben.jpg',
+  'Tactica':                               'hero_art/tactica.jpg',
+  'Taiko Frenzy':                          'hero_art/taiko-frenzy.jpg',
+  'The Curious Tale of the Stolen Pets':   'hero_art/the-curious-tale-of-the-stolen-pets.jpg',
+  'The Pirate Queen with Lucy Liu':        'hero_art/the-pirate-queen-with-lucy-liu.jpg',
+  'The Pirate: Republic of Nassau':        'hero_art/the-pirate-republic-of-nassau.jpg',
+  'The Secret of Retropolis':              'hero_art/the-secret-of-retropolis.jpg',
+  'The Wizards':                           'hero_art/the-wizards.jpg',
+  'Tiny Archers':                          'hero_art/tiny-archers.jpg',
+  'Towers and Powers':                     'hero_art/towers-and-powers.jpg',
+  'Ultimate Swing Golf':                   'hero_art/ultimate-swing-golf.jpg',
+  'Underworld Overseer':                   'hero_art/underworld-overseer.jpg',
+  'Vibe Punch':                            'hero_art/vibe-punch.jpg',
+  'We Are One':                            'hero_art/we-are-one.jpg',
+  'Windlands 2':                           'hero_art/windlands-2.jpg',
+};
+
+// ── MONTHLY ART — separate files sized 600×340, suffix -monthly ──
+const HERO_ART_MONTHLY = {
+  'Arizona Sunshine Remake':        'hero_art/arizona-sunshine-remake-monthly.jpg',
+  'The Pirate: Republic of Nassau': 'hero_art/the-pirate-republic-of-nassau-monthly.jpg',
+};
+
+function applyMonthlyArt() {
+  document.querySelectorAll('.monthly-card').forEach(card => {
+    const titleEl = card.querySelector('.monthly-card-title');
+    if (!titleEl) return;
+    const name = titleEl.textContent.trim();
+    const src = HERO_ART_MONTHLY[name];
+    if (!src) return;
+    const img = new Image();
+    img.onload = () => {
+      card.style.backgroundImage = `url('${src}')`;
+      card.classList.add('has-art');
+    };
+    img.onerror = () => {
+      const alt = src.endsWith('.png') ? src.replace('.png','.jpg') : src.replace('.jpg','.png');
+      const img2 = new Image();
+      img2.onload = () => {
+        card.style.backgroundImage = `url('${alt}')`;
+        card.classList.add('has-art');
+      };
+      img2.src = alt;
+    };
+    img.src = src;
+  });
+}
+
 renderCatalog();
 renderStarred();
-
 renderRemovedPanel();
 updateRemovedBadge();
+applyMonthlyArt();
 // Apply starred state to monthly redeemable star buttons
 document.querySelectorAll('.monthly-card .star-btn').forEach(b => {
   if (starred.has(b.dataset.name)) b.classList.add('starred');
 });
+
 
 // Fullscreen toggle
 function toggleChangelog() {
@@ -2861,6 +3715,7 @@ function toggleChangelog() {
 function toggleHelp() {
   const overlay = document.getElementById('help-overlay');
   const isOpen = overlay.classList.toggle('open');
+  document.body.classList.toggle('help-open', isOpen);
   if (isOpen) {
     const scrollY = window.scrollY;
     document.body.style.position = 'fixed';
@@ -2895,6 +3750,743 @@ document.addEventListener('fullscreenchange', () => {
   btn.textContent = document.fullscreenElement ? '✕' : '⛶';
   btn.title = document.fullscreenElement ? 'Exit fullscreen' : 'Toggle fullscreen';
 });
+
+// ══════════════════════════════════════════════════════════
+// HERO ART MAP — add filenames here as art is created
+// ══════════════════════════════════════════════════════════
+function applyHeroArt(card, gameName, genreGroup) {
+  const src = HERO_ART[gameName];
+  if (!src) return;
+  const img = new Image();
+  img.onload = () => {
+    card.style.backgroundImage = `url('${src}')`;
+    card.style.setProperty('--bg-img', `url('${src}')`);
+    card.classList.add('has-art');
+  };
+  img.onerror = () => {
+    const alt = src.endsWith('.png') ? src.replace('.png','.jpg') : src.replace('.jpg','.png');
+    const img2 = new Image();
+    img2.onload = () => {
+      card.style.backgroundImage = `url('${alt}')`;
+      card.style.setProperty('--bg-img', `url('${alt}')`);
+      card.classList.add('has-art');
+    };
+    img2.src = alt;
+  };
+  img.src = src;
+}
+
+// ══════════════════════════════════════════════════════════
+// COLLAPSIBLE MONTHLY SECTION
+// ══════════════════════════════════════════════════════════
+const MONTHLY_VERSION = '2026-03';
+const MONTHLY_SEEN_KEY = 'mhplus_monthly_seen';
+
+function toggleMonthly() {
+  const body = document.getElementById('monthly-body');
+  const chevron = document.getElementById('monthly-chevron');
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  chevron.textContent = collapsed ? '▼' : '▶';
+  localStorage.setItem('mhplus_monthly_collapsed', collapsed ? '0' : '1');
+}
+
+function renderMonthly() {
+  const grid = document.getElementById('monthly-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const monthlyNames = ['Arizona Sunshine Remake', 'The Pirate: Republic of Nassau'];
+  monthlyNames.forEach(name => {
+    const g = allData.find(x => x.name === name);
+    if (!g) return;
+    const card = makeCard(g, 0, 'claimable', 'none');
+    // Change Store button label to Claim in Store
+    const storeBtn = card.querySelector('.store-btn');
+    if (storeBtn) storeBtn.innerHTML = '&#x1F6D2; <span>Claim in Store</span>';
+    grid.appendChild(card);
+  });
+  initStarCanvases();
+}
+
+function initMonthly() {
+  const lastSeen = localStorage.getItem(MONTHLY_SEEN_KEY);
+  const body = document.getElementById('monthly-body');
+  const chevron = document.getElementById('monthly-chevron');
+  if (lastSeen !== MONTHLY_VERSION) {
+    // New monthly content — force open and mark as seen
+    body.style.display = '';
+    chevron.textContent = '▼';
+    localStorage.setItem(MONTHLY_SEEN_KEY, MONTHLY_VERSION);
+    localStorage.removeItem('mhplus_monthly_collapsed');
+  } else {
+    const collapsed = localStorage.getItem('mhplus_monthly_collapsed') === '1';
+    if (collapsed) {
+      body.style.display = 'none';
+      chevron.textContent = '▶';
+    }
+  }
+  renderMonthly();
+}
+
+// ══════════════════════════════════════════════════════════
+// COLLAPSIBLE CATALOG SECTION
+// ══════════════════════════════════════════════════════════
+function toggleCatalog() {
+  const body    = document.getElementById('catalog-body');
+  const chevron = document.getElementById('catalog-chevron');
+  const sticky  = document.getElementById('catalog-filter-sticky');
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  chevron.textContent = collapsed ? '▼' : '▶';
+  localStorage.setItem('mhplus_catalog_collapsed', collapsed ? '0' : '1');
+}
+
+function initCatalogCollapse() {
+  const collapsed = localStorage.getItem('mhplus_catalog_collapsed') === '1';
+  if (collapsed) {
+    const body    = document.getElementById('catalog-body');
+    const chevron = document.getElementById('catalog-chevron');
+    if (body)    body.style.display = 'none';
+    if (chevron) chevron.textContent = '▶';
+  }
+}
+
+// COLLAPSIBLE STARRED SECTION
+// ══════════════════════════════════════════════════════════
+function toggleStarred() {
+  const body = document.getElementById('starred-body');
+  const chevron = document.getElementById('starred-chevron');
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  chevron.textContent = collapsed ? '▼' : '▶';
+  localStorage.setItem('mhplus_starred_collapsed', collapsed ? '0' : '1');
+}
+
+function initStarredCollapse() {
+  const collapsed = localStorage.getItem('mhplus_starred_collapsed') === '1';
+  if (collapsed) {
+    const body = document.getElementById('starred-body');
+    const chevron = document.getElementById('starred-chevron');
+    if (body) body.style.display = 'none';
+    if (chevron) chevron.textContent = '▶';
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// LIST NAMING
+// ══════════════════════════════════════════════════════════
+const LIST_NAME_KEY = 'mhplus_list_name';
+let currentListName = localStorage.getItem(LIST_NAME_KEY) || '';
+
+function promptListName() {
+  const overlay = document.getElementById('list-name-overlay');
+  const input   = document.getElementById('list-name-input');
+  const counter = document.getElementById('list-name-char-count');
+  if (!overlay || !input) return;
+  // Close the options panel first
+  document.getElementById('options-panel').classList.remove('open');
+  input.value = currentListName || '';
+  if (counter) counter.textContent = `${input.value.length} / 60`;
+  input.oninput = () => { if (counter) counter.textContent = `${input.value.length} / 60`; };
+  overlay.style.display = 'flex';
+  setTimeout(() => input.focus(), 50);
+}
+function confirmListName() {
+  const input = document.getElementById('list-name-input');
+  if (!input) return;
+  currentListName = input.value.trim();
+  localStorage.setItem(LIST_NAME_KEY, currentListName);
+  updateListNameDisplay(currentListName);
+  closeListNameModal();
+}
+function clearListName() {
+  currentListName = '';
+  localStorage.removeItem(LIST_NAME_KEY);
+  updateListNameDisplay('');
+  closeListNameModal();
+}
+function closeListNameModal() {
+  const overlay = document.getElementById('list-name-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function updateListNameDisplay(name) {
+  const el = document.getElementById('list-name-display');
+  if (!el) return;
+  if (name) {
+    el.textContent = `"${name}"`;
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+  // Update the options menu button to show current name or default
+  const btn = document.getElementById('name-list-btn');
+  if (!btn) return;
+  if (name) {
+    btn.innerHTML = `<span style="font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0;">
+      <span style="color:#f59e0b;font-weight:700;font-size:12px;">"${name.length > 18 ? name.slice(0,18) + '…' : name}"</span>
+      <span style="color:var(--muted);"> · ✏️ rename</span>
+    </span>`;
+  } else {
+    btn.innerHTML = '✏️ Name List';
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// EXPORT LIST — compact index-based encoding (v2)
+// ══════════════════════════════════════════════════════════
+
+// Build a name→index lookup once
+function buildNameIndex() {
+  const map = {};
+  allData.forEach((g, i) => { map[g.name] = i; });
+  return map;
+}
+
+function encodeListCompact(listName, starredOrderArr, removedArr) {
+  const idx = buildNameIndex();
+  const compact = {
+    v: 2,
+    n: listName,
+    // s = starredOrder as indices (preserves order, also encodes starred set)
+    s: starredOrderArr.map(n => idx[n]).filter(i => i !== undefined),
+    r: removedArr.map(n => idx[n]).filter(i => i !== undefined),
+  };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(compact))));
+}
+
+function decodeListCompact(encoded) {
+  const raw = JSON.parse(decodeURIComponent(escape(atob(encoded))));
+  // v2 compact format — indices → names
+  if (raw.v === 2) {
+    const starredNames = (raw.s || []).map(i => allData[i]?.name).filter(Boolean);
+    const removedNames = (raw.r || []).map(i => allData[i]?.name).filter(Boolean);
+    return {
+      name: raw.n || 'Shared List',
+      starred: starredNames,
+      starredOrder: starredNames,
+      removed: removedNames,
+    };
+  }
+  // v1 legacy format — game names directly (backwards compatible)
+  return raw;
+}
+
+function exportList() {
+  const listName = currentListName || 'Shared List';
+  const orderedStarred = [
+    ...starredOrder.filter(n => starred.has(n) && !removed.has(n)),
+    ...[...starred].filter(n => !starredOrder.includes(n) && !removed.has(n)),
+  ];
+  const encoded = encodeListCompact(listName, orderedStarred, [...removed]);
+  const url = window.location.origin + window.location.pathname + '?list=' + encoded;
+
+  // Try is.gd to shorten further — already much shorter so failure is fine
+  fetch('https://is.gd/create.php?format=simple&url=' + encodeURIComponent(url))
+    .then(r => r.text())
+    .then(short => {
+      short = short.trim();
+      if (!short.startsWith('http') || short.includes('is.gd/create')) throw new Error();
+      doShare(short);
+    })
+    .catch(() => doShare(url));
+}
+
+function doShare(url) {
+  if (navigator.share) {
+    // Share URL only — no text field so platforms don't append the URL to a message body
+    navigator.share({ url }).then(() => {
+      showToast('✅ Shared!');
+    }).catch(e => {
+      if (e.name !== 'AbortError') copyUrlToClipboard(url);
+    });
+  } else {
+    copyUrlToClipboard(url);
+  }
+}
+
+function copyUrlToClipboard(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('📋 Share link copied to clipboard!');
+  }).catch(() => {
+    window.prompt('Copy this share link:', url);
+  });
+}
+
+// Generate a dynamic 1200x630 share image with list name + top starred games
+function generateShareImage(listName, topGames, totalStarred) {
+  return new Promise(resolve => {
+    const c = document.createElement('canvas');
+    c.width = 1200; c.height = 630;
+    const ctx = c.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#080e18';
+    ctx.fillRect(0, 0, 1200, 630);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < 1200; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,630); ctx.stroke(); }
+    for (let y = 0; y < 630; y += 40)  { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(1200,y); ctx.stroke(); }
+
+    // Blue accent bar
+    ctx.fillStyle = '#0ea5e9';
+    ctx.fillRect(0, 0, 6, 630);
+
+    // Glow
+    const grd = ctx.createRadialGradient(600, 315, 0, 600, 315, 500);
+    grd.addColorStop(0, 'rgba(14,165,233,0.10)');
+    grd.addColorStop(1, 'rgba(14,165,233,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, 1200, 630);
+
+    // Meta Horizon+ badge
+    ctx.fillStyle = 'rgba(14,165,233,0.15)';
+    ctx.beginPath(); ctx.roundRect(60, 60, 240, 36, 6); ctx.fill();
+    ctx.strokeStyle = 'rgba(14,165,233,0.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(60, 60, 240, 36, 6); ctx.stroke();
+    ctx.fillStyle = '#0ea5e9';
+    ctx.font = 'bold 13px monospace';
+    ctx.fillText('META HORIZON+', 78, 84);
+
+    // List name (gold, large)
+    ctx.fillStyle = '#f59e0b';
+    ctx.font = 'bold 58px sans-serif';
+    // Truncate if too long
+    let displayName = listName;
+    while (ctx.measureText('"' + displayName + '"').width > 780 && displayName.length > 4) {
+      displayName = displayName.slice(0, -1);
+    }
+    if (displayName !== listName) displayName += '...';
+    ctx.fillText('"' + displayName + '"', 60, 195);
+
+    // Subline: starred count
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '24px monospace';
+    ctx.fillText(totalStarred + ' starred games  ·  Meta Horizon+ Catalog', 60, 248);
+
+    // Divider
+    ctx.strokeStyle = 'rgba(14,165,233,0.2)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(60, 278); ctx.lineTo(780, 278); ctx.stroke();
+
+    // Top starred games list
+    if (topGames.length > 0) {
+      ctx.fillStyle = 'rgba(14,165,233,0.6)';
+      ctx.font = 'bold 13px monospace';
+      ctx.fillText('TOP STARRED', 60, 310);
+
+      topGames.forEach((name, i) => {
+        const y = 348 + i * 58;
+        // Row bg
+        ctx.fillStyle = 'rgba(14,165,233,0.06)';
+        ctx.beginPath(); ctx.roundRect(60, y - 26, 720, 46, 6); ctx.fill();
+        ctx.strokeStyle = 'rgba(14,165,233,0.15)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.roundRect(60, y - 26, 720, 46, 6); ctx.stroke();
+        // Star
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = '18px sans-serif';
+        ctx.fillText('★', 78, y + 2);
+        // Game name
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = 'bold 20px sans-serif';
+        let gname = name;
+        while (ctx.measureText(gname).width > 620 && gname.length > 4) gname = gname.slice(0,-1);
+        if (gname !== name) gname += '...';
+        ctx.fillText(gname, 108, y + 2);
+        // Genre
+        const g = allData.find(x => x.name === name);
+        if (g) {
+          ctx.fillStyle = '#64748b';
+          ctx.font = '14px monospace';
+          ctx.fillText(g.genre, 108, y + 20);
+        }
+      });
+    }
+
+    // Big H+ watermark right
+    ctx.fillStyle = 'rgba(14,165,233,0.05)';
+    ctx.font = 'bold 360px monospace';
+    ctx.fillText('H+', 700, 560);
+
+    // Virtual Steve credit
+    ctx.fillStyle = 'rgba(245,158,11,0.6)';
+    ctx.font = '14px monospace';
+    ctx.fillText('by Virtual Steve  ·  virtualsteveshow.github.io', 60, 590);
+
+    c.toBlob(resolve, 'image/jpeg', 0.92);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// IMPORT LIST (from URL)
+// ══════════════════════════════════════════════════════════
+let pendingImport = null;
+
+function checkForSharedList() {
+  const params = new URLSearchParams(window.location.search);
+  const encoded = params.get('list');
+  if (!encoded) return;
+  try {
+    const data = decodeListCompact(encoded);
+    pendingImport = data;
+    // Apply temporarily
+    starred = new Set(data.starred || []);
+    starredOrder = data.starredOrder || data.starred || [];
+    removed = new Set(data.removed || []);
+    const listName = data.name || 'Shared List';
+    currentListName = listName;
+    updateListNameDisplay(listName);
+    // Show banner
+    const banner = document.getElementById('shared-banner');
+    const bannerName = document.getElementById('shared-banner-name');
+    if (banner) banner.style.display = 'block';
+    if (bannerName) bannerName.textContent = `"${listName}" — ${starred.size} starred · ${removed.size} hidden`;
+    // Show save button in options
+    const saveBtn = document.getElementById('save-import-btn');
+    if (saveBtn) saveBtn.style.display = 'block';
+    renderStarred();
+    renderCatalog();
+    // Force-expand starred section and scroll to it
+    setTimeout(() => {
+      const starredSec = document.getElementById('sec-starred');
+      if (starredSec && starred.size > 0) {
+        // Expand if collapsed
+        const body = document.getElementById('starred-body');
+        const chevron = document.getElementById('starred-chevron');
+        if (body && body.style.display === 'none') {
+          body.style.display = '';
+          if (chevron) chevron.textContent = '▼';
+          localStorage.setItem('mhplus_starred_collapsed', '0');
+        }
+        starredSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 400);
+  } catch(e) {
+    console.warn('Invalid shared list in URL', e);
+  }
+}
+
+function dismissSharedBanner() {
+  const banner = document.getElementById('shared-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+function openImportModal() {
+  document.getElementById('import-overlay').style.display = 'flex';
+}
+
+function closeImportModal() {
+  document.getElementById('import-overlay').style.display = 'none';
+}
+
+function confirmSaveImport() {
+  if (!pendingImport) return;
+  // Save to localStorage permanently
+  saveStars();
+  localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
+  localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed]));
+  localStorage.setItem(LIST_NAME_KEY, currentListName);
+  pendingImport = null;
+  // Hide save button, close modal, dismiss banner
+  const saveBtn = document.getElementById('save-import-btn');
+  if (saveBtn) saveBtn.style.display = 'none';
+  closeImportModal();
+  dismissSharedBanner();
+  // Clean URL
+  window.history.replaceState({}, '', window.location.pathname);
+  showToast('✅ List saved successfully!');
+}
+
+// ══════════════════════════════════════════════════════════
+// CONFIRM MODAL
+// ══════════════════════════════════════════════════════════
+function showConfirmModal(icon, title, msg, okLabel, okStyle, onConfirm) {
+  document.getElementById('confirm-icon').textContent = icon;
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-msg').textContent = msg;
+  const okBtn = document.getElementById('confirm-ok-btn');
+  okBtn.textContent = okLabel;
+  okBtn.style.cssText = okStyle;
+  okBtn.onclick = () => { closeConfirmModal(); onConfirm(); };
+  const overlay = document.getElementById('confirm-overlay');
+  overlay.style.display = 'flex';
+}
+function closeConfirmModal() {
+  document.getElementById('confirm-overlay').style.display = 'none';
+}
+
+// TOAST NOTIFICATION
+// ══════════════════════════════════════════════════════════
+let _lastRemovedName = null;
+
+function showUndoToast(gameName) {
+  _lastRemovedName = gameName;
+  const toast = document.getElementById('undo-toast');
+  const msg   = document.getElementById('undo-toast-msg');
+  if (!toast || !msg) return;
+  msg.textContent = 'Hidden: ' + gameName;
+  toast.classList.add('visible');
+  clearTimeout(toast._undoTimer);
+  toast._undoTimer = setTimeout(() => {
+    toast.classList.remove('visible');
+    _lastRemovedName = null;
+  }, 4000);
+}
+
+function undoLastRemove() {
+  const toast = document.getElementById('undo-toast');
+  if (toast) {
+    clearTimeout(toast._undoTimer);
+    toast.classList.remove('visible');
+  }
+  if (_lastRemovedName) {
+    const name = _lastRemovedName;
+    _lastRemovedName = null;
+    restoreGame(name);
+    showToast(name + ' restored');
+  }
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('toast-msg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast-msg';
+    toast.style.cssText = 'position:fixed;bottom:160px;left:50%;transform:translateX(-50%);background:#0d1a2e;border:1px solid rgba(14,165,233,0.6);color:#e2e8f0;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:600;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,0.8);transition:opacity 0.3s;white-space:nowrap;letter-spacing:0.02em;max-width:calc(100vw - 32px);text-align:center;box-sizing:border-box;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
+
+// ══════════════════════════════════════════════════════════
+// CANVAS STAR — drawn star with gleam animation
+// ══════════════════════════════════════════════════════════
+function drawStar(ctx, cx, cy, r, color) {
+  const spikes = 5, inner = r * 0.45;
+  let rot = (Math.PI / 2) * 3;
+  const step = Math.PI / spikes;
+  ctx.beginPath();
+  for (let i = 0; i < spikes; i++) {
+    ctx.lineTo(cx + Math.cos(rot) * r, cy + Math.sin(rot) * r);
+    rot += step;
+    ctx.lineTo(cx + Math.cos(rot) * inner, cy + Math.sin(rot) * inner);
+    rot += step;
+  }
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function renderStarCanvas(canvas, isStarred, gleamX) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.offsetWidth || 20;
+  const h = canvas.offsetHeight || 20;
+  if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+  }
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const cx = canvas.width / 2, cy = canvas.height / 2;
+  const r  = Math.min(cx, cy) * 0.88;
+  ctx.scale(1, 1);
+
+  if (!isStarred) {
+    // Dim unstarred — muted grey-gold
+    drawStar(ctx, cx, cy, r, 'rgba(180,150,60,0.55)');
+    return;
+  }
+
+  // Gold star with slight gradient sheen
+  const grad = ctx.createRadialGradient(cx - r*0.2, cy - r*0.25, 0, cx, cy, r);
+  grad.addColorStop(0, '#ffe566');
+  grad.addColorStop(0.5, '#f5a623');
+  grad.addColorStop(1, '#c47a00');
+  drawStar(ctx, cx, cy, r, grad);
+
+  // Gleam streak — clipped to star shape
+  if (gleamX !== null && gleamX !== undefined) {
+    ctx.save();
+    // Re-draw star as clip path
+    const spikes = 5, inner = r * 0.45;
+    let rot = (Math.PI / 2) * 3;
+    const step = Math.PI / spikes;
+    ctx.beginPath();
+    for (let i = 0; i < spikes; i++) {
+      ctx.lineTo(cx + Math.cos(rot) * r, cy + Math.sin(rot) * r);
+      rot += step;
+      ctx.lineTo(cx + Math.cos(rot) * inner, cy + Math.sin(rot) * inner);
+      rot += step;
+    }
+    ctx.closePath();
+    ctx.clip();
+    // Draw narrow angled gleam stripe
+    const sw = canvas.width * 0.18; // streak width
+    const gx = gleamX * canvas.width;
+    const gleamGrad = ctx.createLinearGradient(gx - sw, 0, gx + sw, 0);
+    gleamGrad.addColorStop(0,   'rgba(255,255,255,0)');
+    gleamGrad.addColorStop(0.5, 'rgba(255,255,255,0.88)');
+    gleamGrad.addColorStop(1,   'rgba(255,255,255,0)');
+    ctx.fillStyle = gleamGrad;
+    // Rotate canvas slightly for diagonal streak
+    ctx.translate(cx, cy);
+    ctx.rotate(-0.4);
+    ctx.translate(-cx, -cy);
+    ctx.fillRect(gx - sw * 2, -canvas.height, sw * 4, canvas.height * 3);
+    ctx.restore();
+  }
+}
+
+// Gleam animation loop
+function startGleamLoop() {
+  if (gleamRafId) return;
+  let last = null;
+  function tick(ts) {
+    if (!last) last = ts;
+    const elapsed = ts - last;
+    const canvases = document.querySelectorAll('.star-canvas');
+    canvases.forEach(canvas => {
+      const btn = canvas.closest('.star-btn');
+      if (!btn) return;
+      const isStarred = btn.classList.contains('starred');
+      if (!isStarred) {
+        renderStarCanvas(canvas, false, null);
+        return;
+      }
+      // Each canvas gets its own phase offset based on its position in the DOM
+      const idx = [...document.querySelectorAll('.star-btn.starred .star-canvas')].indexOf(canvas);
+      const phase = (idx * 1300) % GLEAM_PERIOD;
+      const t = ((elapsed + phase) % GLEAM_PERIOD);
+      let gleamX = null;
+      if (t < GLEAM_DURATION) {
+        // ease in-out across the star
+        const p = t / GLEAM_DURATION;
+        gleamX = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p+2,2)/2;
+        gleamX = gleamX * 1.4 - 0.2; // start before left edge, end past right
+      }
+      renderStarCanvas(canvas, true, gleamX);
+    });
+    gleamRafId = requestAnimationFrame(tick);
+  }
+  gleamRafId = requestAnimationFrame(tick);
+}
+
+// Initialise all star canvases after card render
+function initStarCanvases() {
+  document.querySelectorAll('.star-canvas').forEach(canvas => {
+    const btn = canvas.closest('.star-btn');
+    renderStarCanvas(canvas, btn && btn.classList.contains('starred'), null);
+  });
+  startGleamLoop();
+}
+
+// ── V2.0 INIT ──
+initMonthly();
+initCatalogCollapse();
+initStarredCollapse();
+updateListNameDisplay(currentListName);
+checkForSharedList();
+
+// ── OG IMAGE GENERATOR ──
+// Generates a branded 1200×630 preview image for link sharing.
+// To update: open DevTools console and run generateOgImage() to download og_image.jpg
+function generateOgImage(download = false) {
+  const c = document.createElement('canvas');
+  c.width = 1200; c.height = 630;
+  const ctx = c.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#080e18';
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // Grid pattern
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < 1200; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,630); ctx.stroke(); }
+  for (let y = 0; y < 630; y += 40)  { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(1200,y); ctx.stroke(); }
+
+  // Blue accent bar left
+  ctx.fillStyle = '#0ea5e9';
+  ctx.fillRect(0, 0, 6, 630);
+
+  // Glow behind title
+  const grd = ctx.createRadialGradient(600, 280, 0, 600, 280, 420);
+  grd.addColorStop(0, 'rgba(14,165,233,0.12)');
+  grd.addColorStop(1, 'rgba(14,165,233,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // Top label
+  ctx.fillStyle = 'rgba(14,165,233,0.15)';
+  ctx.beginPath(); ctx.roundRect(60, 80, 260, 38, 6); ctx.fill();
+  ctx.strokeStyle = 'rgba(14,165,233,0.4)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.roundRect(60, 80, 260, 38, 6); ctx.stroke();
+  ctx.fillStyle = '#0ea5e9';
+  ctx.font = 'bold 14px monospace';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('META HORIZON+', 80, 105);
+
+  // Main title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 72px sans-serif';
+  ctx.letterSpacing = '-1px';
+  ctx.fillText('Full Game', 60, 220);
+  ctx.fillText('Catalog', 60, 305);
+
+  // Subtitle
+  ctx.fillStyle = '#64748b';
+  ctx.font = '22px monospace';
+  ctx.letterSpacing = '1px';
+  ctx.fillText('109 games · March 2026 · Filter · Star · Track', 60, 370);
+
+  // Bottom tag row
+  const tags = [
+    { label: '🎮 Main Catalog', color: '#0ea5e9', bg: 'rgba(14,165,233,0.12)' },
+    { label: '🎲 Indie Catalog', color: '#a855f7', bg: 'rgba(168,85,247,0.12)' },
+    { label: '🎁 Free Monthly', color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
+  ];
+  let tx = 60;
+  tags.forEach(t => {
+    ctx.fillStyle = t.bg;
+    ctx.beginPath(); ctx.roundRect(tx, 430, 220, 42, 6); ctx.fill();
+    ctx.strokeStyle = t.color + '66'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(tx, 430, 220, 42, 6); ctx.stroke();
+    ctx.fillStyle = t.color;
+    ctx.font = 'bold 15px monospace';
+    ctx.letterSpacing = '0px';
+    ctx.fillText(t.label, tx + 14, 458);
+    tx += 238;
+  });
+
+  // Virtual Steve credit
+  ctx.fillStyle = 'rgba(245,158,11,0.7)';
+  ctx.font = '13px monospace';
+  ctx.fillText('by Virtual Steve', 60, 560);
+
+  // Right side decoration — large H+
+  ctx.fillStyle = 'rgba(14,165,233,0.06)';
+  ctx.font = 'bold 380px monospace';
+  ctx.fillText('H+', 680, 520);
+
+  if (download) {
+    const a = document.createElement('a');
+    a.href = c.toDataURL('image/jpeg', 0.92);
+    a.download = 'og_image.jpg';
+    a.click();
+    console.log('✓ og_image.jpg downloaded — upload to repo root alongside index.html');
+  }
+  return c.toDataURL('image/jpeg', 0.92);
+}
+console.log('%c[Horizon+ Catalog] Run generateOgImage(true) to download og_image.jpg for your repo', 'color:#0ea5e9;font-weight:bold');
+
 </script>
 <script data-goatcounter="https://virtualsteve.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
