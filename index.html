@@ -38,9 +38,15 @@
   &quot;orientation&quot;: &quot;portrait&quot;,
   &quot;icons&quot;: [
     {
-      &quot;src&quot;: &quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='24' fill='%23080e18'/><text x='96' y='130' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='100' fill='%230ea5e9'>H+</text></svg>&quot;,
+      &quot;src&quot;: &quot;pwa_icon_192.png&quot;,
       &quot;sizes&quot;: &quot;192x192&quot;,
-      &quot;type&quot;: &quot;image/svg+xml&quot;,
+      &quot;type&quot;: &quot;image/png&quot;,
+      &quot;purpose&quot;: &quot;any&quot;
+    },
+    {
+      &quot;src&quot;: &quot;pwa_icon_512.png&quot;,
+      &quot;sizes&quot;: &quot;512x512&quot;,
+      &quot;type&quot;: &quot;image/png&quot;,
       &quot;purpose&quot;: &quot;any maskable&quot;
     }
   ]
@@ -351,7 +357,7 @@
     left: 50%;
     transform: translateX(-50%);
     background: #0d1a2e;
-    border: 1px solid rgba(239,68,68,0.5);
+    border: 1px solid rgba(14,165,233,0.5);
     border-radius: 10px;
     padding: 12px 18px;
     z-index: 9999;
@@ -367,11 +373,11 @@
     white-space: nowrap;
   }
   #undo-toast.visible { opacity: 1; pointer-events: auto; }
-  #undo-toast .undo-msg { font-size: 14px; font-weight: 600; color: #fca5a5; }
+  #undo-toast .undo-msg { font-size: 14px; font-weight: 600; color: #e2e8f0; }
   #undo-toast .undo-btn {
-    background: rgba(239,68,68,0.2);
-    border: 1px solid rgba(239,68,68,0.5);
-    color: #fca5a5;
+    background: rgba(14,165,233,0.2);
+    border: 1px solid rgba(14,165,233,0.5);
+    color: var(--blue);
     font-size: 13px;
     font-weight: 700;
     padding: 6px 14px;
@@ -381,7 +387,7 @@
     transition: background 0.15s;
     flex-shrink: 0;
   }
-  body.can-hover .undo-btn:hover { background: rgba(239,68,68,0.4); }
+  body.can-hover .undo-btn:hover { background: rgba(14,165,233,0.35); }
   @media (min-width: 900px) {
     #undo-toast { bottom: 60px; }
     #undo-toast .undo-msg { font-size: 18px; }
@@ -572,8 +578,8 @@
     vertical-align: middle;
     flex-shrink: 0;
   }
-  .mp-badge.multi { background: rgba(14,165,233,0.15); color: #38bdf8; border: 1px solid rgba(14,165,233,0.3); }
-  .mp-badge.coop  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.28); }
+  .mp-badge.multi { background: rgba(14,165,233,0.25); color: #7dd3fc; border: 1px solid rgba(14,165,233,0.5); }
+  .mp-badge.coop  { background: rgba(34,197,94,0.22);  color: #86efac; border: 1px solid rgba(34,197,94,0.5); }
   .mp-filter-btn.active { border-color: #38bdf8; color: #38bdf8; }
   .mp-filter-btn[data-mp="coop"].active { border-color: #4ade80; color: #4ade80; }
 
@@ -1352,7 +1358,6 @@
     gap: 4px;
     transition: border-color 0.15s, background 0.15s;
     white-space: nowrap;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7));
   }
   .store-btn:hover {
     border-color: var(--blue);
@@ -1402,9 +1407,9 @@
 
   /* ── REMOVE BTN ── */
   .remove-btn {
-    background: rgba(8,14,24,0.7);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--muted);
+    background: rgba(8,14,24,0.75);
+    border: 1px solid rgba(239,68,68,0.35);
+    color: rgba(239,68,68,0.7);
     font-size: 13px;
     width: 28px;
     height: 28px;
@@ -1414,11 +1419,11 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    opacity: 0.4;
+    opacity: 0.75;
     transition: all 0.15s;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
   }
-  .remove-btn:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.5); color: #fca5a5; opacity: 1; }
+  .remove-btn:hover { background: rgba(239,68,68,0.25); border-color: rgba(239,68,68,0.7); color: #fca5a5; opacity: 1; }
 
   /* ── CLAIM BADGE ── */
   .claim-badge {
@@ -2352,6 +2357,11 @@ function toggleStar(name, btn) {
         const remaining = document.querySelectorAll('#starred-grid .game-card').length;
         if (section) section.classList.toggle('has-stars', remaining > 0);
         updateNavBtns();
+        // Undo toast for unstar from starred section
+        showUndoToast('Unstarred: ' + name, () => {
+          toggleStar(name, null);
+          showToast(name + ' re-starred');
+        });
       }, { once: true });
     } else {
       renderStarred();
@@ -2394,6 +2404,11 @@ function toggleStar(name, btn) {
               const n = Math.max(0, (parseInt(countEl.textContent) || 0) - 1);
               countEl.textContent = n + ' title' + (n !== 1 ? 's' : '');
             }
+            // Undo toast — only when not-starred filter hides the card
+            showUndoToast('Starred: ' + name, () => {
+              toggleStar(name, null);
+              showToast(name + ' unstarred');
+            });
           }, { once: true });
         }
       });
@@ -2641,6 +2656,11 @@ function restoreGame(name) {
     if (section) section.classList.toggle('has-removed', remaining > 0);
     updateRemovedBadge();
     updateNavBtns();
+    // Undo toast — let user re-hide if restored by accident
+    showUndoToast('Restored: ' + name, () => {
+      removeGame(name);
+      showToast(name + ' re-hidden');
+    });
   }
 
   if (hiddenCard) {
@@ -4220,19 +4240,19 @@ function closeConfirmModal() {
 
 // TOAST NOTIFICATION
 // ══════════════════════════════════════════════════════════
-let _lastRemovedName = null;
+let _undoAction = null; // { type, name, fn }
 
-function showUndoToast(gameName) {
-  _lastRemovedName = gameName;
+function showUndoToast(msg, undoFn) {
+  _undoAction = { msg, fn: undoFn };
   const toast = document.getElementById('undo-toast');
-  const msg   = document.getElementById('undo-toast-msg');
-  if (!toast || !msg) return;
-  msg.textContent = 'Hidden: ' + gameName;
+  const msgEl = document.getElementById('undo-toast-msg');
+  if (!toast || !msgEl) return;
+  msgEl.textContent = msg;
   toast.classList.add('visible');
   clearTimeout(toast._undoTimer);
   toast._undoTimer = setTimeout(() => {
     toast.classList.remove('visible');
-    _lastRemovedName = null;
+    _undoAction = null;
   }, 4000);
 }
 
@@ -4242,11 +4262,9 @@ function undoLastRemove() {
     clearTimeout(toast._undoTimer);
     toast.classList.remove('visible');
   }
-  if (_lastRemovedName) {
-    const name = _lastRemovedName;
-    _lastRemovedName = null;
-    restoreGame(name);
-    showToast(name + ' restored');
+  if (_undoAction && _undoAction.fn) {
+    _undoAction.fn();
+    _undoAction = null;
   }
 }
 
