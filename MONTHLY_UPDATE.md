@@ -93,8 +93,16 @@ if (tag === 'MAY') return 'tag-may';
 ```
 
 ### 3c. Filter buttons — month tag rotation
-The catalog has **3 month filter buttons max**. Each update, drop the oldest and add
-the newest. There are **two sets** of filter buttons to update:
+The catalog has **3 month filter buttons max**, representing the last 3 months in
+which new games were actually added to Main or Indie. **Calendar months with no new
+additions get no tag and no button** — for example, if no games were added in
+February, there is no FEB tag and the 3 slots stay as JAN / MAR / APR.
+
+When this month has new games: add a button for it and drop the oldest existing
+button if there are already 3. If this month has no new games: do not add a button
+and do not change the existing ones.
+
+There are **two sets** of filter buttons to update:
 1. The main catalog toolbar (search for `data-cat="APR"` in the toolbar section)
 2. The slide-out menu (search for `data-cat="APR"` in the menu section)
 
@@ -249,7 +257,8 @@ regular catalog game — they use the same format.
 Open `index.html` directly in a browser and check:
 
 - [ ] New month filter button is visible and works (filters to new games only)
-- [ ] Old month filter button (3 months ago) is gone
+- [ ] There are no more than 3 month filter buttons total, covering only the last 3
+      months that had new games added (months with no additions have no button)
 - [ ] Removed games no longer appear in any section
 - [ ] New games appear with the correct month tag badge
 - [ ] Monthly section shows the correct two free games with "FREE THIS MONTH" badge
