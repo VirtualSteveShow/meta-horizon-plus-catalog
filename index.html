@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- ── DESCRIPTION ── -->
-<meta name="description" content="Meta Horizon+ Full Game Catalog — browse, filter, star, and track all 109 games in the Meta Horizon+ VR subscription. Updated March 2026.">
+<meta name="description" content="Meta Horizon+ Full Game Catalog — browse, filter, star, and track all 102 games in the Meta Horizon+ VR subscription. Updated April 2026.">
 <meta name="robots" content="noindex, nofollow">
 
 <!-- ── THEME COLOR (tints Android Chrome address bar) ── -->
@@ -16,8 +16,8 @@
 <!-- ── OPEN GRAPH (link previews on Discord, iMessage, etc.) ── -->
 <meta property="og:type"        content="website">
 <meta property="og:site_name"   content="Meta Horizon+ Catalog">
-<meta property="og:title"       content="Meta Horizon+ Full Catalog — March 2026">
-<meta property="og:description" content="Browse all 109 games in the Meta Horizon+ VR subscription. Filter by genre, rating, multiplayer, and more.">
+<meta property="og:title"       content="Meta Horizon+ Full Catalog — April 2026">
+<meta property="og:description" content="Browse all 102 games in the Meta Horizon+ VR subscription. Filter by genre, rating, multiplayer, and more.">
 <meta property="og:image"       content="https://virtualsteveshow.github.io/meta-horizon-plus-catalog/og_image.jpg">
 <meta property="og:url"         content="https://virtualsteveshow.github.io/meta-horizon-plus-catalog/">
 
@@ -46,7 +46,7 @@
   ]
 }">
 
-<title>Meta Horizon+ Full Catalog — March 2026</title>
+<title>Meta Horizon+ Full Catalog — April 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1047,6 +1047,7 @@
   }
   .tag-mar  { background: rgba(239,68,68,0.2);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); }
   .tag-jan  { background: rgba(14,165,233,0.15);  color: #7dd3fc; border: 1px solid rgba(14,165,233,0.3); }
+  .tag-apr  { background: rgba(168,85,247,0.15);  color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
   .tag-new  { background: rgba(168,85,247,0.15);  color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
 
   /* ── CORNER RIBBON ── */
@@ -1073,6 +1074,20 @@
     padding: 2px 6px;
     border-radius: 3px;
     background: rgba(14,165,233,0.85);
+    color: #fff;
+    vertical-align: middle;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+  }
+  .tag-apr-inline {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(168,85,247,0.85);
     color: #fff;
     vertical-align: middle;
     margin-left: 2px;
@@ -1633,7 +1648,7 @@
     #list-name-display { font-size: 36px !important; }
     .mp-badge { font-size: 16px; padding: 5px 12px; }
     .claim-badge { font-size: 14px; padding: 5px 10px; }
-    .tag-mar-inline, .tag-jan-inline { font-size: 13px; padding: 4px 9px; }
+    .tag-mar-inline, .tag-jan-inline, .tag-apr-inline { font-size: 13px; padding: 4px 9px; }
     .game-rating .stars        { font-size: 18px; }
     .game-rating .rating-num   { font-size: 20px; }
     .game-rating .review-count { font-size: 16px; }
@@ -1972,6 +1987,7 @@
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="games"    onclick="menuSetCat('games',this)">Main</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="indie"    onclick="menuSetCat('indie',this)">Indie</button>
         <span class="filter-sep">|</span>
+        <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="APR"      onclick="menuSetCat('APR',this)">Apr</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="MAR"      onclick="menuSetCat('MAR',this)">Mar</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="JAN"      onclick="menuSetCat('JAN',this)">Jan</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="UNSTARRED" onclick="menuSetCat('UNSTARRED',this)">Not Starred</button>
@@ -1994,10 +2010,10 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="show-label">⬡ Meta Horizon+ Full Games Catalog — March 2026</div>
+    <div class="show-label">⬡ Meta Horizon+ Full Games Catalog — April 2026</div>
     <h1>Meta Horizon+ Catalog</h1>
     <div id="list-name-display" style="display:none;font-size:18px;font-weight:700;letter-spacing:0.02em;color:#f59e0b;margin-bottom:6px;text-shadow:0 0 20px rgba(245,158,11,0.3);"></div>
-    <div class="header-sub">Complete game list · <span>March 2026</span> · <span id="header-total">107</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
+    <div class="header-sub">Complete game list · <span>April 2026</span> · <span id="header-total">102</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
     <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 2.0</span></div>
   </header>
@@ -2009,7 +2025,7 @@
       <span class="stat-lbl">March Free</span>
     </div>
     <div class="stat gold">
-      <span class="stat-num" id="stat-total">107</span>
+      <span class="stat-num" id="stat-total">102</span>
       <span class="stat-lbl">Total Titles</span>
     </div>
     <div class="stat blue">
@@ -2026,7 +2042,7 @@
   <section class="section">
     <div class="section-header sh-green" onclick="toggleMonthly()" style="cursor:pointer;user-select:none;">
       <span class="section-icon">🎁</span>
-      <span class="section-title">March 2026 Monthly Redeemables</span>
+      <span class="section-title">April 2026 Monthly Redeemables</span>
       <span class="section-count" style="margin-left:auto;">Yours to keep while subscribed</span>
       <span id="monthly-chevron" style="margin-left:10px;font-size:13px;color:var(--muted);">▼</span>
     </div>
@@ -2069,6 +2085,7 @@
         <button class="filter-btn cat-filter-btn" data-cat="games"   onclick="setCatalogFilter('cat','games',this)">Main</button>
         <button class="filter-btn cat-filter-btn" data-cat="indie"   onclick="setCatalogFilter('cat','indie',this)">Indie</button>
         <span class="filter-sep">|</span>
+        <button class="filter-btn cat-filter-btn" data-cat="APR"     onclick="setCatalogFilter('cat','APR',this)">Apr</button>
         <button class="filter-btn cat-filter-btn" data-cat="MAR"     onclick="setCatalogFilter('cat','MAR',this)">Mar</button>
         <button class="filter-btn cat-filter-btn" data-cat="JAN"     onclick="setCatalogFilter('cat','JAN',this)">Jan</button>
         <button class="filter-btn cat-filter-btn" data-cat="UNSTARRED" onclick="setCatalogFilter('cat','UNSTARRED',this)">Not Starred</button>
@@ -2124,6 +2141,7 @@
       </div>
     </div>
     <div class="legend">
+      <div class="legend-item"><span class="tag tag-apr">APR</span> Added April 2026</div>
       <div class="legend-item"><span class="tag tag-mar">MAR</span> Added March 2026</div>
       <div class="legend-item"><span class="tag tag-jan">JAN</span> Added January 2026</div>
     </div>
@@ -2152,12 +2170,12 @@
     <div class="footer-meta">
       <div class="footer-meta-item">
         <span class="footer-meta-label">CATALOG</span>
-        <span class="footer-meta-value">109 games · Updated March 4, 2026</span>
+        <span class="footer-meta-value">102 games · Updated April 17, 2026</span>
       </div>
       <div class="footer-meta-sep">·</div>
       <div class="footer-meta-item">
         <span class="footer-meta-label">SOURCE</span>
-        <a class="footer-meta-link" href="https://www.uploadvr.com/horizon-monthly-games-march-2026/" target="_blank">UploadVR</a>
+        <a class="footer-meta-link" href="https://www.uploadvr.com/horizon-monthly-games-april-2026/" target="_blank">UploadVR</a>
         <span style="color:var(--border);margin:0 4px;">·</span>
         <a class="footer-meta-link" href="https://www.meta.com/meta-horizon-plus/" target="_blank">Meta.com</a>
       </div>
@@ -2174,30 +2192,26 @@
 const gamesData = [
   { name: "Alvo",                               genre: "Tactical Shooter",    tag: "", type: "indie", mp: ["multi","coop"], rating: 4.0, reviews: 802 },
   { name: "Angry Birds VR: Isle of Pigs",     genre: "Puzzle",              tag: "", type: "games", mp: [], rating: 4.5, reviews: 1600 },
-  { name: "Arizona Sunshine Remake",          genre: "Co-op Zombie Shooter", tag: "MAR", type: "games", mp: ["coop"], rating: 4.3, reviews: 1200 },
   { name: "Asgard's Wrath 2",                 genre: "Action RPG",          tag: "", type: "games", mp: [], rating: 4.2, reviews: 6000 },
-  { name: "Assassin's Creed Nexus VR",        genre: "Action / Adventure",  tag: "JAN", type: "games", mp: [], rating: 4.3, reviews: 5300 },
   { name: "Beat Saber",                       genre: "Rhythm",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.5, reviews: 54000 },
   { name: "Blacktop Hoops",                   genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.9, reviews: 23000 },
+  { name: "Breachers",                        genre: "Tactical Shooter",    tag: "APR", type: "games", mp: ["multi"], rating: 4.5, reviews: 5900 },
   { name: "Cubism",                           genre: "Puzzle",              tag: "", type: "games", mp: [], rating: 4.8, reviews: 1000 },
   { name: "Deisim",                           genre: "Strategy / Sim",      tag: "", type: "games", mp: [], rating: 4.6, reviews: 1900 },
   { name: "Demeo",                            genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi","coop"], rating: 4.6, reviews: 7500 },
   { name: "Demeo Battles",                    genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi"], rating: 4.1, reviews: 324 },
   { name: "Dungeons of Eternity",             genre: "Co-op Action",        tag: "", type: "games", mp: ["coop"], rating: 4.9, reviews: 13000 },
-  { name: "Final Fury",                       genre: "Fighting",            tag: "", type: "games", mp: ["multi"], rating: 4.1, reviews: 160 },
   { name: "Fruit Ninja 2",                    genre: "Arcade",              tag: "", type: "games", mp: ["multi"], rating: 3.8, reviews: 209 },
   { name: "Ghosts of Tabor",                  genre: "Survival Shooter",    tag: "", type: "games", mp: ["multi"], rating: 4.2, reviews: 28000 },
   { name: "GOLF+",                            genre: "Sports",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.8, reviews: 52000 },
   { name: "Green Hell VR",                    genre: "Survival",            tag: "JAN", type: "games", mp: ["coop"], rating: 4.2, reviews: 5500 },
   { name: "Grimlord",                         genre: "Action",              tag: "", type: "games", mp: [], rating: 4.0, reviews: 572 },
-  { name: "Human Fall Flat VR",               genre: "Puzzle / Comedy",     tag: "", type: "games", mp: ["multi","coop"], rating: 3.8, reviews: 295 },
   { name: "I Expect You To Die 3",            genre: "Puzzle / Spy",        tag: "", type: "games", mp: [], rating: 4.7, reviews: 1300 },
   { name: "iB Cricket",                       genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 1700 },
   { name: "In Death: Unchained",              genre: "Roguelike Shooter",   tag: "", type: "games", mp: [], rating: 4.7, reviews: 4900 },
   { name: "Into Black",                       genre: "Adventure",           tag: "JAN", type: "games", mp: [], rating: 4.7, reviews: 712 },
   { name: "Into the Radius",                  genre: "Survival Shooter",    tag: "", type: "games", mp: [], rating: 4.7, reviews: 7600 },
   { name: "Job Simulator",                    genre: "Simulation / Comedy", tag: "", type: "games", mp: [], rating: 4.6, reviews: 21000 },
-  { name: "Kingspray Graffiti",               genre: "Creative",            tag: "", type: "games", mp: ["multi"], rating: 4.4, reviews: 2800 },
   { name: "Les Mills Bodycombat",             genre: "Fitness",             tag: "", type: "games", mp: [], rating: 4.5, reviews: 5100 },
   { name: "Maestro",                          genre: "Music / Rhythm",      tag: "", type: "games", mp: [], rating: 4.8, reviews: 1000 },
   { name: "Medieval Dynasty: New Settlement", genre: "Simulation",          tag: "", type: "games", mp: [], rating: 4.7, reviews: 7400 },
@@ -2206,6 +2220,7 @@ const gamesData = [
   { name: "Pets & Stuff",                     genre: "Simulation",          tag: "", type: "games", mp: ["multi"], rating: 4.8, reviews: 4700 },
   { name: "Pistol Whip",                      genre: "Action / Rhythm",     tag: "", type: "games", mp: [], rating: 4.8, reviews: 10000 },
   { name: "Premium Bowling",                  genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 2100 },
+  { name: "Prison Boss Prohibition",          genre: "Simulation",          tag: "APR", type: "games", mp: [], rating: 4.6, reviews: 573 },
   { name: "Project Demigod",                  genre: "Action",              tag: "", type: "games", mp: [], rating: 3.9, reviews: 2400 },
   { name: "Puzzling Places",                  genre: "Puzzle",              tag: "", type: "games", mp: ["coop"], rating: 4.8, reviews: 2700 },
   { name: "Racket Club",                      genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 876 },
@@ -2222,6 +2237,7 @@ const gamesData = [
   { name: "Thief Simulator VR: Greenview Street", genre: "Simulation",      tag: "", type: "games", mp: [], rating: 4.1, reviews: 3100 },
   { name: "Titans Clinic",                    genre: "Sports",              tag: "", type: "games", mp: [], rating: 4.8, reviews: 16000 },
   { name: "Townsmen VR",                      genre: "Strategy / Sim",      tag: "", type: "games", mp: [], rating: 4.5, reviews: 404 },
+  { name: "Vacation Simulator",               genre: "Simulation / Comedy", tag: "APR", type: "games", mp: [], rating: 4.5, reviews: 4900 },
   { name: "War of Wizards",                   genre: "Fighting",            tag: "", type: "games", mp: ["multi"], rating: 4.7, reviews: 6300 },
   { name: "Walkabout Mini Golf",              genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.8, reviews: 14000 },
   { name: "Zero Caliber: Reloaded",           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["coop"], rating: 4.4, reviews: 3900 },
@@ -2230,7 +2246,9 @@ const gamesData = [
 const indieData = [
   { name: "Apex Construct",                     genre: "Action / Adventure",  tag: "", type: "indie", mp: [], rating: 4.1, reviews: 1100 },
   { name: "Arcade Paradise VR",                 genre: "Sim / Arcade",        tag: "", type: "indie", mp: [], rating: 4.3, reviews: 349 },
-  { name: "Bocce Time!",                        genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.8, reviews: 95 },
+  { name: "Audio Trip",                         genre: "Rhythm",              tag: "APR", type: "indie", mp: [], rating: 4.6, reviews: 1700 },
+  { name: "Barbaria",                           genre: "Strategy / Action",   tag: "APR", type: "indie", mp: ["multi","coop"], rating: 4.7, reviews: 514 },
+  { name: "Barbershop Simulator VR",            genre: "Simulation",          tag: "APR", type: "indie", mp: [], rating: 4.7, reviews: 540 },
   { name: "Cactus Cowboy - Desert Warfare",     genre: "Shooter",             tag: "", type: "indie", mp: ["multi"], rating: 4.8, reviews: 237 },
   { name: "Chess Club",                         genre: "Strategy",            tag: "", type: "indie", mp: ["multi"], rating: 4.0, reviews: 1200 },
   { name: "Coffee Quest VR",                    genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 265 },
@@ -2243,6 +2261,7 @@ const indieData = [
   { name: "Final Overs - VR Cricket",           genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 219 },
   { name: "Galaxy Kart",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.2, reviews: 217 },
   { name: "Ghost Signal: A Stellaris Game",     genre: "Sci-fi Shooter",      tag: "", type: "indie", mp: [], rating: 4.6, reviews: 303 },
+  { name: "Grill on Wheels",                    genre: "Simulation",          tag: "APR", type: "indie", mp: [], rating: 4.5, reviews: 1200 },
   { name: "Hide The Corpse",                    genre: "Puzzle",              tag: "", type: "indie", mp: ["multi"], rating: 4.5, reviews: 261 },
   { name: "I Am Hamster - Simulator",           genre: "Simulation",          tag: "", type: "indie", mp: [], rating: 4.5, reviews: 2000 },
   { name: "Innkeeper VR",                       genre: "Simulation",          tag: "", type: "indie", mp: [], rating: 4.4, reviews: 319 },
@@ -2253,7 +2272,6 @@ const indieData = [
   { name: "Make It Stable - Kids & Family Fun!",     genre: "Puzzle / Family",     tag: "", type: "indie", mp: [], rating: 4.5, reviews: 169 },
   { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 154 },
   { name: "Mythic Realms",                      genre: "RPG / Action",        tag: "", type: "indie", mp: ["multi","coop"], rating: 4.4, reviews: 182 },
-  { name: "Noun Town Language Learning",        genre: "Educational",         tag: "", type: "indie", mp: [], rating: 3.9, reviews: 421 },
   { name: "Operation Serpens",                  genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.5, reviews: 315 },
   { name: "Retropolis 2: Never Say Goodbye",    genre: "Adventure",           tag: "", type: "indie", mp: [], rating: 4.7, reviews: 347 },
   { name: "Rogue Ascent VR",                    genre: "Roguelike Shooter",   tag: "", type: "indie", mp: [], rating: 4.5, reviews: 175 },
@@ -2265,11 +2283,9 @@ const indieData = [
   { name: "Squingle",                           genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.8, reviews: 91 },
   { name: "Stupid Cars",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.7, reviews: 53 },
   { name: "Sushi Ben",                          genre: "Social / Adventure",  tag: "", type: "indie", mp: [], rating: 4.5, reviews: 315 },
-  { name: "Tactica",                            genre: "Strategy",            tag: "", type: "indie", mp: [], rating: 4.5, reviews: 78 },
   { name: "Taiko Frenzy",                       genre: "Rhythm",              tag: "", type: "indie", mp: [], rating: 4.6, reviews: 74 },
   { name: "The Curious Tale of the Stolen Pets",    genre: "Puzzle",              tag: "", type: "indie", mp: [], rating: 4.4, reviews: 779 },
   { name: "The Pirate Queen with Lucy Liu",     genre: "Narrative Adventure", tag: "", type: "indie", mp: [], rating: 3.9, reviews: 132 },
-  { name: "The Pirate: Republic of Nassau",     genre: "Naval Strategy",      tag: "MAR", type: "indie", mp: [], rating: 4.5, reviews: 209 },
   { name: "The Secret of Retropolis",           genre: "Adventure",           tag: "", type: "indie", mp: [], rating: 4.4, reviews: 596 },
   { name: "The Wizards",                        genre: "Magic Action",        tag: "", type: "indie", mp: [], rating: 4.1, reviews: 628 },
   { name: "Tiny Archers",                       genre: "Tower Defense",       tag: "", type: "indie", mp: [], rating: 4.6, reviews: 189 },
@@ -2281,7 +2297,10 @@ const indieData = [
   { name: "Windlands 2",                        genre: "Adventure",           tag: "", type: "indie", mp: ["coop"], rating: 4.3, reviews: 147 },
 ];
 
-const monthlyData = [];
+const monthlyData = [
+  { name: "Vendetta Forever",         genre: "Action Shooter",      tag: "", type: "monthly", mp: [], rating: 4.5, reviews: 1000 },
+  { name: "The House of Da Vinci VR", genre: "Puzzle / Adventure",  tag: "", type: "monthly", mp: [], rating: 4.4, reviews: 500 },
+];
 const allData = [...monthlyData, ...gamesData, ...indieData];
 
 // ── STAR PERSISTENCE ──
@@ -2432,6 +2451,7 @@ let starredSearch = '';
 let starredOrder = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]'); // manual sort order
 
 function tagClass(tag) {
+  if (tag === 'APR') return 'tag-apr';
   if (tag === 'MAR') return 'tag-mar';
   if (tag === 'JAN') return 'tag-jan';
   return 'tag-new';
@@ -2440,13 +2460,10 @@ function tagClass(tag) {
 // Direct Meta Horizon Store app IDs for deep linking
 const APP_IDS = {
   // ── MONTHLY REDEEMABLES ──
-  "Arizona Sunshine Remake":          "7000275296693016",
-  "The Pirate: Republic of Nassau":   "7749043518464805",
   // ── GAMES CATALOG ──
   "Alvo":                             "6937410016334124",
   "Angry Birds VR: Isle of Pigs":     "2718606324833775",
   "Asgard's Wrath 2":                 "2603836099654226",
-  "Assassin's Creed Nexus VR":        "5812519008825194",
   "Beat Saber":                       "2448060205267927",
   "Blacktop Hoops":                   "4416817901687071",
   "Cubism":                           "2264524423619421",
@@ -2454,20 +2471,17 @@ const APP_IDS = {
   "Demeo":                            "3634830803298285",
   "Demeo Battles":                    "4189524851131699",
   "Dungeons of Eternity":             "6341779295861881",
-  "Final Fury":                       "5218982198148896",
   "Fruit Ninja 2":                    "4917905281646450",
   "Ghosts of Tabor":                  "7614022262006379",
   "GOLF+":                            "2412327085529357",
   "Green Hell VR":                    "3815577785147028",
   "Grimlord":                         "6784503354964529",
-  "Human Fall Flat VR":               "7274779852571833",
   "I Expect You To Die 3":            "4676322075753574",
   "iB Cricket":                       "5437449896288644",
   "In Death: Unchained":              "2334376869949242",
   "Into Black":                       "5289374691122516",
   "Into the Radius":                  "5817243991680545",
   "Job Simulator":                    "3235570703151406",
-  "Kingspray Graffiti":               "2082941345119152",
   "Les Mills Bodycombat":             "4015163475201433",
   "Maestro":                          "6963344583787383",
   "Medieval Dynasty: New Settlement": "5900444653303887",
@@ -2498,7 +2512,6 @@ const APP_IDS = {
   // ── INDIE CATALOG ──
   "Apex Construct":                   "2096570290365140",
   "Arcade Paradise VR":               "5968301983261530",
-  "Bocce Time!":                      "7851829064831043",
   "Cactus Cowboy - Desert Warfare":   "8553436638060049",
   "Chess Club":                       "5353996901307344",
   "Coffee Quest VR":                  "5324250631031981",
@@ -2521,7 +2534,6 @@ const APP_IDS = {
   "Make It Stable - Kids & Family Fun!":   "26313534838289915",
   "Motion Soccer PRO":                "7304829872906558",
   "Mythic Realms":                    "8364993590228690",
-  "Noun Town Language Learning":      "5520452821357227",
   "Operation Serpens":                "5748603085165962",
   "Retropolis 2: Never Say Goodbye":  "6202929073076301",
   "Rogue Ascent VR":                  "5395586720470296",
@@ -2533,7 +2545,6 @@ const APP_IDS = {
   "Squingle":                         "9288954704465499",
   "Stupid Cars":                      "7376768975749759",
   "Sushi Ben":                        "5459391390744272",
-  "Tactica":                          "26709789558666303",
   "Taiko Frenzy":                     "5801769383179330",
   "The Curious Tale of the Stolen Pets":  "2439217169469931",
   "The Pirate Queen with Lucy Liu":   "5420468924659233",
@@ -2783,9 +2794,8 @@ function ratingHTML(g) {
 function makeCard(g, idx, extraClass = '', xAction = 'remove') {
   const isStarred = starred.has(g.name);
   const card = document.createElement('div');
-  const isMonthlyFree = g.tag === 'MAR' && g.name !== 'Beat Saber' && g.name !== 'GOLF+' && g.name !== 'Spatial Ops' && g.name !== 'The 7th Guest VR';
-  // Monthly free = Arizona Sunshine Remake and The Pirate: Republic of Nassau (the actual claimables)
-  const isClaimable = (g.name === 'Arizona Sunshine Remake' || g.name === 'The Pirate: Republic of Nassau');
+  const isMonthlyFree = false;
+  const isClaimable = (g.name === 'Vendetta Forever' || g.name === 'The House of Da Vinci VR');
   card.className = 'game-card' + (g.type === 'indie' ? ' indie' : '') + (isClaimable ? ' claimable' : '') + (extraClass ? ' ' + extraClass : '');
   const gg = genreGroup(g.genre);
   card.dataset.genreGroup = gg;
@@ -3410,7 +3420,7 @@ function syncMenuFilters() {
       b.classList.toggle('active', catalogFilter.unstarred);
     } else if (b.dataset.cat === 'games' || b.dataset.cat === 'indie') {
       b.classList.toggle('active', b.dataset.cat === catalogFilter.catType);
-    } else if (b.dataset.cat === 'MAR' || b.dataset.cat === 'JAN') {
+    } else if (b.dataset.cat === 'APR' || b.dataset.cat === 'MAR' || b.dataset.cat === 'JAN') {
       b.classList.toggle('active', catalogFilter.catTags.has(b.dataset.cat));
     }
   });
@@ -3542,30 +3552,26 @@ const HERO_ART = {
   // ── GAMES CATALOG ──
   'Alvo':                                  'hero_art/alvo.jpg',
   'Angry Birds VR: Isle of Pigs':          'hero_art/angry-birds-vr-isle-of-pigs.jpg',
-  'Arizona Sunshine Remake':               'hero_art/arizona-sunshine-remake.jpg',
   "Asgard's Wrath 2":                      'hero_art/asgards-wrath-2.jpg',
-  "Assassin's Creed Nexus VR":             'hero_art/assassins-creed-nexus-vr.jpg',
   'Beat Saber':                            'hero_art/beat-saber.jpg',
   'Blacktop Hoops':                        'hero_art/blacktop-hoops.jpg',
+  'Breachers':                             'hero_art/breachers.jpg',
   'Cubism':                                'hero_art/cubism.jpg',
   'Deisim':                                'hero_art/deisim.jpg',
   'Demeo':                                 'hero_art/demeo.jpg',
   'Demeo Battles':                         'hero_art/demeo-battles.jpg',
   'Dungeons of Eternity':                  'hero_art/dungeons-of-eternity.jpg',
-  'Final Fury':                            'hero_art/final-fury.jpg',
   'Fruit Ninja 2':                         'hero_art/fruit-ninja-2.jpg',
   'Ghosts of Tabor':                       'hero_art/ghosts-of-tabor.jpg',
   'GOLF+':                                 'hero_art/golf.jpg',
   'Green Hell VR':                         'hero_art/green-hell-vr.jpg',
   'Grimlord':                              'hero_art/grimlord.jpg',
-  'Human Fall Flat VR':                    'hero_art/human-fall-flat-vr.jpg',
   'I Expect You To Die 3':                 'hero_art/i-expect-you-to-die-3.jpg',
   'iB Cricket':                            'hero_art/ib-cricket.jpg',
   'In Death: Unchained':                   'hero_art/in-death-unchained.jpg',
   'Into Black':                            'hero_art/into-black.jpg',
   'Into the Radius':                       'hero_art/into-the-radius.jpg',
   'Job Simulator':                         'hero_art/job-simulator.jpg',
-  'Kingspray Graffiti':                    'hero_art/kingspray-graffiti.jpg',
   'Les Mills Bodycombat':                  'hero_art/les-mills-bodycombat.jpg',
   'Maestro':                               'hero_art/maestro.jpg',
   'Medieval Dynasty: New Settlement':      'hero_art/medieval-dynasty-new-settlement.jpg',
@@ -3574,6 +3580,7 @@ const HERO_ART = {
   'Pets & Stuff':                          'hero_art/pets-stuff.jpg',
   'Pistol Whip':                           'hero_art/pistol-whip.jpg',
   'Premium Bowling':                       'hero_art/premium-bowling.jpg',
+  'Prison Boss Prohibition':               'hero_art/prison-boss-prohibition.jpg',
   'Project Demigod':                       'hero_art/project-demigod.jpg',
   'Puzzling Places':                       'hero_art/puzzling-places.jpg',
   'Racket Club':                           'hero_art/racket-club.jpg',
@@ -3584,19 +3591,24 @@ const HERO_ART = {
   'Starship Home':                         'hero_art/starship-home.jpg',
   'Synth Riders':                          'hero_art/synth-riders.jpg',
   'The 7th Guest VR':                      'hero_art/the-7th-guest-vr.jpg',
+  'The House of Da Vinci VR':              'hero_art/the-house-of-da-vinci-vr.jpg',
   'The Climb 2':                           'hero_art/the-climb-2.jpg',
   'The Light Brigade':                     'hero_art/the-light-brigade.jpg',
   'The Thrill of the Fight':               'hero_art/the-thrill-of-the-fight.jpg',
   'Thief Simulator VR: Greenview Street':  'hero_art/thief-simulator-vr-greenview-street.jpg',
   'Titans Clinic':                         'hero_art/titans-clinic.jpg',
   'Townsmen VR':                           'hero_art/townsmen-vr.jpg',
+  'Vacation Simulator':                    'hero_art/vacation-simulator.jpg',
+  'Vendetta Forever':                      'hero_art/vendetta-forever.jpg',
   'Walkabout Mini Golf':                   'hero_art/walkabout-mini-golf.jpg',
   'War of Wizards':                        'hero_art/war-of-wizards.jpg',
   'Zero Caliber: Reloaded':               'hero_art/zero-caliber-reloaded.jpg',
   // ── INDIE CATALOG ──
   'Apex Construct':                        'hero_art/apex-construct.jpg',
   'Arcade Paradise VR':                    'hero_art/arcade-paradise-vr.jpg',
-  'Bocce Time!':                           'hero_art/bocce-time.jpg',
+  'Audio Trip':                            'hero_art/audio-trip.jpg',
+  'Barbaria':                              'hero_art/barbaria.jpg',
+  'Barbershop Simulator VR':               'hero_art/barbershop-simulator-vr.jpg',
   'Cactus Cowboy - Desert Warfare':        'hero_art/cactus-cowboy-desert-warfare.jpg',
   'Chess Club':                            'hero_art/chess-club.jpg',
   'Coffee Quest VR':                       'hero_art/coffee-quest-vr.jpg',
@@ -3609,6 +3621,7 @@ const HERO_ART = {
   'Final Overs - VR Cricket':              'hero_art/final-overs-vr-cricket.jpg',
   'Galaxy Kart':                           'hero_art/galaxy-kart.jpg',
   'Ghost Signal: A Stellaris Game':        'hero_art/ghost-signal-a-stellaris-game.jpg',
+  'Grill on Wheels':                       'hero_art/grill-on-wheels.jpg',
   'Hide The Corpse':                       'hero_art/hide-the-corpse.jpg',
   'I Am Hamster - Simulator':              'hero_art/i-am-hamster-simulator.jpg',
   'Innkeeper VR':                          'hero_art/innkeeper-vr.jpg',
@@ -3619,7 +3632,6 @@ const HERO_ART = {
   'Make It Stable - Kids & Family Fun!':   'hero_art/make-it-stable-kids-family-fun.jpg',
   'Motion Soccer PRO':                     'hero_art/motion-soccer-pro.jpg',
   'Mythic Realms':                         'hero_art/mythic-realms.jpg',
-  'Noun Town Language Learning':           'hero_art/noun-town-language-learning.jpg',
   'Operation Serpens':                     'hero_art/operation-serpens.jpg',
   'Retropolis 2: Never Say Goodbye':       'hero_art/retropolis-2-never-say-goodbye.jpg',
   'Rogue Ascent VR':                       'hero_art/rogue-ascent-vr.jpg',
@@ -3631,11 +3643,9 @@ const HERO_ART = {
   'Squingle':                              'hero_art/squingle.jpg',
   'Stupid Cars':                           'hero_art/stupid-cars.jpg',
   'Sushi Ben':                             'hero_art/sushi-ben.jpg',
-  'Tactica':                               'hero_art/tactica.jpg',
   'Taiko Frenzy':                          'hero_art/taiko-frenzy.jpg',
   'The Curious Tale of the Stolen Pets':   'hero_art/the-curious-tale-of-the-stolen-pets.jpg',
   'The Pirate Queen with Lucy Liu':        'hero_art/the-pirate-queen-with-lucy-liu.jpg',
-  'The Pirate: Republic of Nassau':        'hero_art/the-pirate-republic-of-nassau.jpg',
   'The Secret of Retropolis':              'hero_art/the-secret-of-retropolis.jpg',
   'The Wizards':                           'hero_art/the-wizards.jpg',
   'Tiny Archers':                          'hero_art/tiny-archers.jpg',
@@ -3649,8 +3659,8 @@ const HERO_ART = {
 
 // ── MONTHLY ART — separate files sized 600×340, suffix -monthly ──
 const HERO_ART_MONTHLY = {
-  'Arizona Sunshine Remake':        'hero_art/arizona-sunshine-remake-monthly.jpg',
-  'The Pirate: Republic of Nassau': 'hero_art/the-pirate-republic-of-nassau-monthly.jpg',
+  'Vendetta Forever':               'hero_art/vendetta-forever.jpg',
+  'The House of Da Vinci VR':       'hero_art/the-house-of-da-vinci-vr.jpg',
 };
 
 function applyMonthlyArt() {
@@ -3779,7 +3789,7 @@ function applyHeroArt(card, gameName, genreGroup) {
 // ══════════════════════════════════════════════════════════
 // COLLAPSIBLE MONTHLY SECTION
 // ══════════════════════════════════════════════════════════
-const MONTHLY_VERSION = '2026-03';
+const MONTHLY_VERSION = '2026-04';
 const MONTHLY_SEEN_KEY = 'mhplus_monthly_seen';
 
 function toggleMonthly() {
@@ -3795,7 +3805,7 @@ function renderMonthly() {
   const grid = document.getElementById('monthly-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  const monthlyNames = ['Arizona Sunshine Remake', 'The Pirate: Republic of Nassau'];
+  const monthlyNames = ['Vendetta Forever', 'The House of Da Vinci VR'];
   monthlyNames.forEach(name => {
     const g = allData.find(x => x.name === name);
     if (!g) return;
@@ -4445,7 +4455,7 @@ function generateOgImage(download = false) {
   ctx.fillStyle = '#64748b';
   ctx.font = '22px monospace';
   ctx.letterSpacing = '1px';
-  ctx.fillText('109 games · March 2026 · Filter · Star · Track', 60, 370);
+  ctx.fillText('102 games · April 2026 · Filter · Star · Track', 60, 370);
 
   // Bottom tag row
   const tags = [

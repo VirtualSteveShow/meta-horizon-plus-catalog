@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Art Search — April 2026 New Games</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #080e18;
+    --card:   #0d1520;
+    --border: rgba(255,255,255,0.08);
+    --blue:   #0ea5e9;
+    --green:  #22c55e;
+    --purple: #a855f7;
+    --gold:   #f59e0b;
+    --red:    #ef4444;
+    --muted:  #64748b;
+    --text:   #f1f5f9;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-height: 100vh;
+    padding: 24px 20px 60px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .wrapper { max-width: 860px; margin: 0 auto; }
+
+  header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+  .header-sub span { color: var(--blue); }
+  .header-sub .new { color: var(--purple); font-weight: 700; }
+
+  .global-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .global-controls label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    flex: 1;
+  }
+  .toggle-group { display: flex; gap: 6px; }
+  .global-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .global-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .global-btn.active-vr   { border-color: var(--blue);  color: #fff; background: rgba(14,165,233,0.15); }
+  .global-btn.active-novr { border-color: var(--green); color: #fff; background: rgba(34,197,94,0.1); }
+
+  .atlas-section { margin-bottom: 28px; }
+  .atlas-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 0 4px;
+  }
+  .atlas-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+  }
+  .atlas-filename { font-size: 10px; color: var(--muted); font-weight: 300; }
+  .atlas-done {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .atlas-done:hover { border-color: var(--green); color: var(--green); }
+  .atlas-done.done  { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.08); }
+
+  .atlas-body {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .game-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .game-row:last-child { border-bottom: none; }
+  .game-row:hover { background: rgba(255,255,255,0.03); }
+
+  .game-num {
+    width: 36px;
+    min-width: 36px;
+    text-align: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.18);
+    font-weight: 700;
+    padding: 12px 0;
+    border-right: 1px solid var(--border);
+    user-select: none;
+  }
+  .game-link {
+    flex: 1;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
+    cursor: pointer;
+    display: block;
+  }
+  .game-link:hover { color: var(--blue); }
+
+  .search-type {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    padding: 0 8px;
+    border-left: 1px solid var(--border);
+  }
+  .type-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.12s;
+  }
+  .type-btn:hover { color: var(--text); }
+  .type-btn.sel-plain { border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.08); }
+  .type-btn.sel-vr    { border-color: var(--blue);  color: var(--blue);  background: rgba(14,165,233,0.08); }
+
+  .logo-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid rgba(168,85,247,0.4);
+    background: rgba(168,85,247,0.07);
+    color: #c084fc;
+    transition: all 0.12s;
+    margin-left: 6px;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .logo-btn:hover { border-color: var(--purple); color: #fff; background: rgba(168,85,247,0.18); }
+
+  .aspect-btns {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    padding: 0 8px;
+    border-left: 1px solid var(--border);
+  }
+  .aspect-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.12s;
+  }
+  .wide-btn { color: var(--gold); }
+  .wide-btn:hover { border-color: var(--gold); background: rgba(245,158,11,0.1); }
+  .pano-btn { color: var(--purple); }
+  .pano-btn:hover { border-color: var(--purple); background: rgba(168,85,247,0.1); }
+  .hero-btn { color: var(--red); }
+  .hero-btn:hover { border-color: var(--red); background: rgba(239,68,68,0.1); }
+  .open-btn {
+    padding: 0 14px;
+    border-left: 1px solid var(--border);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    transition: color 0.15s, background 0.15s;
+    align-self: stretch;
+  }
+  .open-btn:hover { color: #fff; background: rgba(14,165,233,0.1); }
+
+  .atlas-section.monthly .atlas-label { color: var(--green); }
+  .atlas-section.monthly .atlas-body  { border-color: rgba(34,197,94,0.2); }
+  .atlas-section.monthly .game-row:hover { background: rgba(34,197,94,0.04); }
+  .atlas-section.monthly .game-link:hover { color: var(--green); }
+
+  .page-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="header-title">🎨 HERO ART SEARCH — April 2026</div>
+    <div class="header-sub">
+      New games needing art: <span class="new">7 catalog</span> + <span class="new">2 monthly</span> ·
+      Click any game to search reference art
+    </div>
+  </header>
+
+  <div class="global-controls">
+    <label>Default search mode for all games</label>
+    <div class="toggle-group">
+      <button class="global-btn active-novr" onclick="setGlobalMode('plain')">NO VR SUFFIX</button>
+      <button class="global-btn" onclick="setGlobalMode('vr')">+ VR SUFFIX ALL</button>
+    </div>
+  </div>
+
+  <div id="atlas-container"></div>
+
+  <div class="page-footer">Art canvas: 920×300px catalog · 600×340px monthly · Keep focal point center for mobile safe zone</div>
+</div>
+
+<script>
+// ── APRIL 2026 — NEW GAMES ONLY ──
+const CATALOG = [
+  // atlas_catalog_01 (all 7 new games fit in one atlas)
+  ['Audio Trip',              'plain'],
+  ['Barbaria',                'vr'],
+  ['Barbershop Simulator VR', 'plain'],
+  ['Breachers',               'vr'],
+  ['Grill on Wheels',         'plain'],
+  ['Prison Boss Prohibition', 'vr'],
+  ['Vacation Simulator',      'plain'],
+];
+
+const MONTHLY = [
+  ['The House of Da Vinci VR', 'plain'],
+  ['Vendetta Forever',         'plain'],
+];
+
+const overrides = {};
+
+function googleImageUrl(name, mode, aspect) {
+  if (mode === 'logo') {
+    const q = `${name} logo png`;
+    return `https://www.google.com/search?as_st=y&as_q=${encodeURIComponent(q)}&imgc=trans&tbs=ic:trans&udm=2`;
+  }
+  const q = mode === 'vr' ? `${name} VR game` : `${name} game`;
+  if (aspect) {
+    return `https://www.google.com/search?as_st=y&as_q=${encodeURIComponent(q)}&imgar=${aspect}&udm=2`;
+  }
+  return `https://www.google.com/search?q=${encodeURIComponent(q)}&tbm=isch&tbs=isz:l`;
+}
+
+function setGlobalMode(mode) {
+  document.querySelectorAll('.global-btn').forEach(b => b.classList.remove('active-vr','active-novr'));
+  if (mode === 'vr') document.querySelector('[onclick="setGlobalMode(\'vr\')"]').classList.add('active-vr');
+  else document.querySelector('[onclick="setGlobalMode(\'plain\')"]').classList.add('active-novr');
+  window._globalMode = mode;
+  renderAll();
+}
+
+function openHero(name) {
+  const mode = overrides[name] || window._globalMode || 'plain';
+  const base = mode === 'vr' ? `${name} VR game hero art` : `${name} game hero art`;
+  window.open(`https://www.google.com/search?as_st=y&as_q=${encodeURIComponent(base)}&imgar=xw&udm=2`, '_blank');
+}
+
+function openSearch(name, aspect) {
+  const mode = overrides[name] || window._globalMode || 'plain';
+  window.open(googleImageUrl(name, mode, aspect || ''), '_blank');
+}
+
+function openLogo(name) {
+  window.open(googleImageUrl(name, 'logo', ''), '_blank');
+}
+
+function markDone(btn, sectionId) {
+  btn.classList.toggle('done');
+  btn.textContent = btn.classList.contains('done') ? '✓ DONE' : 'MARK DONE';
+  localStorage.setItem('done_' + sectionId, btn.classList.contains('done') ? '1' : '');
+}
+
+function buildSection(games, atlasNum, isMonthly) {
+  const sectionId = isMonthly ? 'monthly_01' : `catalog_${String(atlasNum).padStart(2,'0')}`;
+  const filename  = isMonthly ? 'atlas_monthly_01_done.png' : `atlas_catalog_${String(atlasNum).padStart(2,'0')}_done.png`;
+  const isDone = localStorage.getItem('done_' + sectionId) === '1';
+
+  const rows = games.map(([name, defaultMode], i) => {
+    const mode  = overrides[name] || window._globalMode || defaultMode;
+    const isVr  = mode === 'vr';
+    const rowNum = isMonthly ? i + 1 : (atlasNum - 1) * 8 + i + 1;
+    return `
+      <div class="game-row">
+        <div class="game-num">${rowNum}</div>
+        <a class="game-link" onclick="openSearch('${name.replace(/'/g,"\\'")}')">
+          ${name}
+        </a>
+        <div class="search-type">
+          <button class="type-btn ${!isVr ? 'sel-plain' : ''}"
+            onclick="event.stopPropagation();overrides['${name.replace(/'/g,"\\'")}']='plain';renderAll()">PLAIN</button>
+          <button class="type-btn ${isVr ? 'sel-vr' : ''}"
+            onclick="event.stopPropagation();overrides['${name.replace(/'/g,"\\'")}']='vr';renderAll()">+VR</button>
+        </div>
+        <button class="logo-btn" onclick="event.stopPropagation();openLogo('${name.replace(/\'/g,"\\'")}')">LOGO</button>
+        <div class="aspect-btns">
+          <button class="aspect-btn wide-btn" onclick="event.stopPropagation();openSearch('${name.replace(/'/g,"\\'")}','w')">WIDE</button>
+          <button class="aspect-btn pano-btn" onclick="event.stopPropagation();openSearch('${name.replace(/'/g,"\\'")}','xw')">PANO</button>
+          <button class="aspect-btn hero-btn" onclick="event.stopPropagation();openHero('${name.replace(/'/g,"\\'")}')">HERO</button>
+        </div>
+        <button class="open-btn" onclick="openSearch('${name.replace(/'/g,"\\'")}')">↗</button>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="atlas-section ${isMonthly ? 'monthly' : ''}">
+      <div class="atlas-header">
+        <div class="atlas-label">${isMonthly ? '🎁 MONTHLY' : `ATLAS ${atlasNum}`}</div>
+        <div class="atlas-filename">${filename}</div>
+        <div class="atlas-done ${isDone ? 'done' : ''}" onclick="markDone(this,'${sectionId}')">
+          ${isDone ? '✓ DONE' : 'MARK DONE'}
+        </div>
+      </div>
+      <div class="atlas-body">${rows}</div>
+    </div>`;
+}
+
+function renderAll() {
+  const container = document.getElementById('atlas-container');
+  let html = '';
+  const perPage = 8;
+  const numAtlases = Math.ceil(CATALOG.length / perPage);
+  for (let a = 0; a < numAtlases; a++) {
+    html += buildSection(CATALOG.slice(a * perPage, (a + 1) * perPage), a + 1, false);
+  }
+  html += buildSection(MONTHLY, 1, true);
+  container.innerHTML = html;
+}
+
+window._globalMode = 'plain';
+renderAll();
+</script>
+</body>
+</html>

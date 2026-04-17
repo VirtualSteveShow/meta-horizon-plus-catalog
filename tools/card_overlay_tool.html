@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH+ Card Overlay Tool — April 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:   #0ea5e9;
+    --purple: #a855f7;
+    --green:  #22c55e;
+    --gold:   #f59e0b;
+    --muted:  #64748b;
+    --border: rgba(14,165,233,0.18);
+    --card:   #0d1520;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #040810;
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(4,8,16,0.96);
+    border-bottom: 1px solid rgba(14,165,233,0.2);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .toolbar-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+  }
+  .toolbar-sep { color: var(--muted); }
+  .mode-btn {
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.25);
+    color: var(--muted);
+    padding: 5px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: all 0.15s;
+  }
+  .mode-btn.active {
+    background: rgba(14,165,233,0.2);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .toolbar-hint {
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: auto;
+    letter-spacing: 0.03em;
+  }
+
+  .atlas-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 16px 6px;
+    opacity: 0.6;
+  }
+
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 16px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .game-card {
+    background-image: linear-gradient(to right,
+      #0d1a2e 0%, #0d1a2e 29%,
+      #0a2540 29%, #0a2540 71%,
+      #0d1a2e 71%, #0d1a2e 100%
+    );
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    height: 130px;
+    box-sizing: border-box;
+    border-left-width: 3px;
+  }
+  .game-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .game-card[data-genre-group="Shooter"]    { border-left-color: #ef4444; }
+  .game-card[data-genre-group="Puzzle"]     { border-left-color: #06b6d4; }
+  .game-card[data-genre-group="Sports"]     { border-left-color: #22c55e; }
+  .game-card[data-genre-group="Rhythm"]     { border-left-color: #ec4899; }
+  .game-card[data-genre-group="RPG"]        { border-left-color: #a855f7; }
+  .game-card[data-genre-group="Strategy"]   { border-left-color: #f97316; }
+  .game-card[data-genre-group="Fitness"]    { border-left-color: #84cc16; }
+  .game-card[data-genre-group="Simulation"] { border-left-color: #0ea5e9; }
+  .game-card[data-genre-group="Adventure"]  { border-left-color: #f59e0b; }
+  .game-card[data-genre-group="Action"]     { border-left-color: #fb923c; }
+  .game-card[data-genre-group="Arcade"]     { border-left-color: #eab308; }
+  .game-card[data-genre-group="Casual"]     { border-left-color: #94a3b8; }
+  .game-card[data-genre-group="Other"]      { border-left-color: #64748b; }
+
+  .card-title-block {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    max-width: 65%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .card-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .game-name {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.3;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
+    background: rgba(0,0,0,0.55);
+    border-radius: 5px;
+    padding: 4px 8px;
+  }
+  .game-genre {
+    display: inline-block;
+    font-size: 10px;
+    color: #f1f5f9;
+    font-weight: 300;
+    margin-top: 0;
+    background: rgba(0,0,0,0.45);
+    border-radius: 4px;
+    padding: 2px 7px;
+  }
+  .game-genre-indie {
+    color: #a855f7;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .card-top-right {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 2;
+  }
+  .star-btn {
+    background: rgba(8,14,24,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    opacity: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  }
+
+  .card-bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .card-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+  .mp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 0;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .mp-badge.multi { background: rgba(14,165,233,0.15); color: #38bdf8; border: 1px solid rgba(14,165,233,0.3); }
+  .mp-badge.coop  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.28); }
+
+  .card-bottom-center {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .store-btn {
+    background: rgba(8,14,24,0.88);
+    border: 1px solid rgba(14,165,233,0.5);
+    color: #7dd3fc;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 5px 10px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7));
+  }
+
+  .card-bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    z-index: 2;
+  }
+  .remove-btn {
+    background: rgba(8,14,24,0.7);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--muted);
+    font-size: 13px;
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    font-family: monospace;
+  }
+
+  .game-rating { display: flex; align-items: center; gap: 5px; }
+  .game-rating .stars        { color: #f59e0b; font-size: 11px; }
+  .game-rating .rating-num   { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 12px; }
+  .game-rating .review-count { color: #f1f5f9; font-size: 11px; }
+
+  /* ── MONTH TAGS ── */
+  .tag-mar-inline, .tag-jan-inline, .tag-apr-inline {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #fff;
+    vertical-align: middle;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+  }
+  .tag-mar-inline { background: rgba(239,68,68,0.85); }
+  .tag-jan-inline { background: rgba(14,165,233,0.85); }
+  .tag-apr-inline { background: rgba(168,85,247,0.85); }
+
+  /* ── PC MODE ── */
+  body.pc-mode .game-card        { height: 280px; }
+  body.pc-mode .game-name        { font-size: 22px; }
+  body.pc-mode .game-genre       { font-size: 16px; }
+  body.pc-mode .store-btn        { font-size: 17px; padding: 10px 20px; }
+  body.pc-mode .star-btn         { font-size: 28px; padding: 6px 10px; }
+  body.pc-mode .remove-btn       { font-size: 20px; width: 42px; height: 42px; }
+  body.pc-mode .mp-badge         { font-size: 16px; padding: 5px 12px; }
+  body.pc-mode .tag-mar-inline,
+  body.pc-mode .tag-jan-inline,
+  body.pc-mode .tag-apr-inline   { font-size: 13px; padding: 4px 9px; }
+  body.pc-mode .game-rating .stars        { font-size: 18px; }
+  body.pc-mode .game-rating .rating-num   { font-size: 20px; }
+  body.pc-mode .game-rating .review-count { font-size: 16px; }
+  body.pc-mode .card-title-block { top: 16px; left: 16px; max-width: 55%; gap: 6px; }
+  body.pc-mode .card-top-right   { top: 16px; right: 16px; }
+  body.pc-mode .card-bottom-left { bottom: 16px; left: 16px; gap: 8px; }
+  body.pc-mode .card-bottom-center { bottom: 16px; gap: 14px; }
+  body.pc-mode .card-bottom-right { bottom: 16px; right: 16px; }
+</style>
+</head>
+<body class="mobile-mode">
+
+<div class="toolbar">
+  <span class="toolbar-title">MH+ CARD OVERLAY TOOL — APR 2026</span>
+  <span class="toolbar-sep">|</span>
+  <button class="mode-btn active" id="btn-mobile" onclick="setMode('mobile')">📱 MOBILE  130px</button>
+  <button class="mode-btn" id="btn-pc" onclick="setMode('pc')">🖥 PC  280px</button>
+  <span class="toolbar-hint">Screenshot each card → use as overlay layer in your paint app</span>
+</div>
+
+<div id="card-container"></div>
+
+<script>
+function genreGroup(genre) {
+  const g = genre.toLowerCase();
+  if (['shooter','fps','tactical','survival'].some(x => g.includes(x))) return 'Shooter';
+  if (['puzzle','mystery'].some(x => g.includes(x)))                    return 'Puzzle';
+  if (['sport','golf','cricket','soccer','boxing','bowling','fishing'].some(x => g.includes(x))) return 'Sports';
+  if (['rhythm','music'].some(x => g.includes(x)))                      return 'Rhythm';
+  if (['rpg','roguelike','roguelite'].some(x => g.includes(x)))         return 'RPG';
+  if (['strategy','tower','tabletop','naval'].some(x => g.includes(x))) return 'Strategy';
+  if (['fitness','workout'].some(x => g.includes(x)))                   return 'Fitness';
+  if (['sim','simulation'].some(x => g.includes(x)))                    return 'Simulation';
+  if (['adventure','narrative','exploration'].some(x => g.includes(x))) return 'Adventure';
+  if (g.includes('action'))                                              return 'Action';
+  if (['racing','arcade'].some(x => g.includes(x)))                     return 'Arcade';
+  if (['education','creative','social','casual','platformer'].some(x => g.includes(x))) return 'Casual';
+  return 'Other';
+}
+
+function ratingHTML(g) {
+  const count = g.reviews >= 1000
+    ? (g.reviews / 1000).toFixed(1).replace('.0','') + 'K'
+    : g.reviews;
+  return `<div class="game-rating">
+    <span class="stars">★</span>
+    <span class="rating-num">${g.rating.toFixed(1)}</span>
+    <span class="review-count">(${count})</span>
+  </div>`;
+}
+
+function makeCard(g) {
+  const gg = genreGroup(g.genre);
+  const mpBadges = (g.mp||[]).map(m =>
+    m === 'multi' ? '<span class="mp-badge multi">👥 MULTI</span>' :
+    m === 'coop'  ? '<span class="mp-badge coop">🤝 CO-OP</span>' : ''
+  ).join('');
+  const tagInline = g.tag
+    ? `<span class="tag-${g.tag.toLowerCase()}-inline">${g.tag}</span>`
+    : '';
+  const indieSpan = g.type === 'indie'
+    ? ' · <span class="game-genre-indie">INDIE</span>'
+    : '';
+
+  const card = document.createElement('div');
+  card.className = 'game-card';
+  card.dataset.genreGroup = gg;
+  card.innerHTML = `
+    <div class="card-title-block">
+      <div class="card-name-row">
+        <div class="game-name">${g.name}</div>
+        ${tagInline}
+      </div>
+      <span class="game-genre">${g.genre}${indieSpan}</span>
+      ${mpBadges ? `<div class="card-tags-row">${mpBadges}</div>` : ''}
+    </div>
+    <div class="card-top-right">
+      <button class="star-btn" title="Star">⭐</button>
+    </div>
+    <div class="card-bottom-left">
+      ${g.rating ? ratingHTML(g) : ''}
+    </div>
+    <div class="card-bottom-center">
+      <a class="store-btn" href="#" onclick="return false">🛒 <span>Store</span></a>
+    </div>
+    <div class="card-bottom-right">
+      <button class="remove-btn" title="Hide">✕</button>
+    </div>
+  `;
+  return card;
+}
+
+// ── APRIL 2026 — FULL CATALOG (102 games, alphabetical) ──
+const allGames = [
+  // ATLAS 01
+  { name: "Alvo",                               genre: "Tactical Shooter",    tag: "",    type: "indie", mp: ["multi","coop"], rating: 4.0, reviews: 802 },
+  { name: "Angry Birds VR: Isle of Pigs",       genre: "Puzzle",              tag: "",    type: "games", mp: [], rating: 4.5, reviews: 1600 },
+  { name: "Apex Construct",                     genre: "Action / Adventure",  tag: "",    type: "indie", mp: [], rating: 4.1, reviews: 1100 },
+  { name: "Arcade Paradise VR",                 genre: "Sim / Arcade",        tag: "",    type: "indie", mp: [], rating: 4.3, reviews: 349 },
+  { name: "Asgard's Wrath 2",                   genre: "Action RPG",          tag: "",    type: "games", mp: [], rating: 4.2, reviews: 6000 },
+  { name: "Audio Trip",                         genre: "Rhythm",              tag: "APR", type: "indie", mp: [], rating: 4.6, reviews: 1700 },
+  { name: "Barbaria",                           genre: "Strategy / Action",   tag: "APR", type: "indie", mp: ["multi","coop"], rating: 4.7, reviews: 514 },
+  { name: "Barbershop Simulator VR",            genre: "Simulation",          tag: "APR", type: "indie", mp: [], rating: 4.7, reviews: 540 },
+  // ATLAS 02
+  { name: "Beat Saber",                         genre: "Rhythm",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.5, reviews: 54000 },
+  { name: "Blacktop Hoops",                     genre: "Sports",              tag: "",    type: "games", mp: ["multi"], rating: 4.9, reviews: 23000 },
+  { name: "Breachers",                          genre: "Tactical Shooter",    tag: "APR", type: "games", mp: ["multi"], rating: 4.5, reviews: 5900 },
+  { name: "Cactus Cowboy - Desert Warfare",     genre: "Shooter",             tag: "",    type: "indie", mp: ["multi"], rating: 4.8, reviews: 237 },
+  { name: "Chess Club",                         genre: "Strategy",            tag: "",    type: "indie", mp: ["multi"], rating: 4.0, reviews: 1200 },
+  { name: "Coffee Quest VR",                    genre: "Puzzle",              tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 265 },
+  { name: "Crumbling",                          genre: "Action",              tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 82 },
+  { name: "Cubism",                             genre: "Puzzle",              tag: "",    type: "games", mp: [], rating: 4.8, reviews: 1000 },
+  // ATLAS 03
+  { name: "Cybrix",                             genre: "Arcade",              tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 224 },
+  { name: "DIG VR",                             genre: "Simulation",          tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 163 },
+  { name: "Darksword: Battle Eternity",         genre: "Fighting / RPG",      tag: "",    type: "indie", mp: ["multi"], rating: 4.0, reviews: 281 },
+  { name: "Deisim",                             genre: "Strategy / Sim",      tag: "",    type: "games", mp: [], rating: 4.6, reviews: 1900 },
+  { name: "Demeo",                              genre: "Tabletop RPG",        tag: "",    type: "games", mp: ["multi","coop"], rating: 4.6, reviews: 7500 },
+  { name: "Demeo Battles",                      genre: "Tabletop RPG",        tag: "",    type: "games", mp: ["multi"], rating: 4.1, reviews: 324 },
+  { name: "Discovery 2",                        genre: "Exploration",         tag: "",    type: "indie", mp: [], rating: 4.0, reviews: 98 },
+  { name: "Dungeons of Eternity",               genre: "Co-op Action",        tag: "",    type: "games", mp: ["coop"], rating: 4.9, reviews: 13000 },
+  // ATLAS 04
+  { name: "Espire 1: VR Operative",             genre: "Stealth FPS",         tag: "",    type: "indie", mp: [], rating: 4.2, reviews: 3000 },
+  { name: "Final Overs - VR Cricket",           genre: "Sports",              tag: "",    type: "indie", mp: ["multi"], rating: 4.4, reviews: 219 },
+  { name: "Fruit Ninja 2",                      genre: "Arcade",              tag: "",    type: "games", mp: ["multi"], rating: 3.8, reviews: 209 },
+  { name: "GOLF+",                              genre: "Sports",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.8, reviews: 52000 },
+  { name: "Galaxy Kart",                        genre: "Racing",              tag: "",    type: "indie", mp: ["multi"], rating: 4.2, reviews: 217 },
+  { name: "Ghost Signal: A Stellaris Game",     genre: "Sci-fi Shooter",      tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 303 },
+  { name: "Ghosts of Tabor",                    genre: "Survival Shooter",    tag: "",    type: "games", mp: ["multi"], rating: 4.2, reviews: 28000 },
+  { name: "Green Hell VR",                      genre: "Survival",            tag: "JAN", type: "games", mp: ["coop"], rating: 4.2, reviews: 5500 },
+  // ATLAS 05
+  { name: "Grimlord",                           genre: "Action",              tag: "",    type: "games", mp: [], rating: 4.0, reviews: 572 },
+  { name: "Grill on Wheels",                    genre: "Simulation",          tag: "APR", type: "indie", mp: [], rating: 4.5, reviews: 1200 },
+  { name: "Hide The Corpse",                    genre: "Puzzle",              tag: "",    type: "indie", mp: ["multi"], rating: 4.5, reviews: 261 },
+  { name: "I Am Hamster - Simulator",           genre: "Simulation",          tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 2000 },
+  { name: "I Expect You To Die 3",              genre: "Puzzle / Spy",        tag: "",    type: "games", mp: [], rating: 4.7, reviews: 1300 },
+  { name: "In Death: Unchained",                genre: "Roguelike Shooter",   tag: "",    type: "games", mp: [], rating: 4.7, reviews: 4900 },
+  { name: "Innkeeper VR",                       genre: "Simulation",          tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 319 },
+  { name: "Into Black",                         genre: "Adventure",           tag: "JAN", type: "games", mp: [], rating: 4.7, reviews: 712 },
+  // ATLAS 06
+  { name: "Into the Radius",                    genre: "Survival Shooter",    tag: "",    type: "games", mp: [], rating: 4.7, reviews: 7600 },
+  { name: "Iron Guard",                         genre: "Tower Defense",       tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 372 },
+  { name: "Ironlights",                         genre: "Fighting",            tag: "",    type: "indie", mp: ["multi"], rating: 4.4, reviews: 2200 },
+  { name: "Job Simulator",                      genre: "Simulation / Comedy", tag: "",    type: "games", mp: [], rating: 4.6, reviews: 21000 },
+  { name: "Killer Frequency",                   genre: "Simulation / Horror", tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 366 },
+  { name: "Laser Thief",                        genre: "Puzzle / Stealth",    tag: "",    type: "indie", mp: [], rating: 4.2, reviews: 110 },
+  { name: "Les Mills Bodycombat",               genre: "Fitness",             tag: "",    type: "games", mp: [], rating: 4.5, reviews: 5100 },
+  { name: "Maestro",                            genre: "Music / Rhythm",      tag: "",    type: "games", mp: [], rating: 4.8, reviews: 1000 },
+  // ATLAS 07
+  { name: "Make It Stable - Kids & Family Fun!",genre: "Puzzle / Family",     tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 169 },
+  { name: "Medieval Dynasty: New Settlement",   genre: "Simulation",          tag: "",    type: "games", mp: [], rating: 4.7, reviews: 7400 },
+  { name: "Moss",                               genre: "Puzzle / Adventure",  tag: "",    type: "games", mp: [], rating: 4.8, reviews: 7700 },
+  { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "",    type: "indie", mp: ["multi"], rating: 4.4, reviews: 154 },
+  { name: "Mythic Realms",                      genre: "RPG / Action",        tag: "",    type: "indie", mp: ["multi","coop"], rating: 4.4, reviews: 182 },
+  { name: "Onward",                             genre: "Tactical Shooter",    tag: "",    type: "games", mp: ["multi","coop"], rating: 4.2, reviews: 18000 },
+  { name: "Operation Serpens",                  genre: "Action",              tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 315 },
+  { name: "Pets & Stuff",                       genre: "Simulation",          tag: "",    type: "games", mp: ["multi"], rating: 4.8, reviews: 4700 },
+  // ATLAS 08
+  { name: "Pistol Whip",                        genre: "Action / Rhythm",     tag: "",    type: "games", mp: [], rating: 4.8, reviews: 10000 },
+  { name: "Premium Bowling",                    genre: "Sports",              tag: "",    type: "games", mp: ["multi"], rating: 4.3, reviews: 2100 },
+  { name: "Prison Boss Prohibition",            genre: "Simulation",          tag: "APR", type: "games", mp: [], rating: 4.6, reviews: 573 },
+  { name: "Project Demigod",                    genre: "Action",              tag: "",    type: "games", mp: [], rating: 3.9, reviews: 2400 },
+  { name: "Puzzling Places",                    genre: "Puzzle",              tag: "",    type: "games", mp: ["coop"], rating: 4.8, reviews: 2700 },
+  { name: "RUNNER",                             genre: "Platformer",          tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 390 },
+  { name: "Racket Club",                        genre: "Sports",              tag: "",    type: "games", mp: ["multi"], rating: 4.3, reviews: 876 },
+  { name: "Real VR Fishing",                    genre: "Sports / Relaxation", tag: "",    type: "games", mp: ["multi"], rating: 4.6, reviews: 8400 },
+  // ATLAS 09
+  { name: "Red Matter",                         genre: "Puzzle / Adventure",  tag: "",    type: "games", mp: [], rating: 4.6, reviews: 5100 },
+  { name: "Red Matter 2",                       genre: "Puzzle / Adventure",  tag: "",    type: "games", mp: [], rating: 4.8, reviews: 2600 },
+  { name: "Retropolis 2: Never Say Goodbye",    genre: "Adventure",           tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 347 },
+  { name: "Rogue Ascent VR",                    genre: "Roguelike Shooter",   tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 175 },
+  { name: "Rogue Piñatas: VRmageddon",          genre: "Action",              tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 259 },
+  { name: "Shooty Fruity",                      genre: "Arcade Shooter",      tag: "",    type: "indie", mp: [], rating: 4.1, reviews: 275 },
+  { name: "Slot Car VR",                        genre: "Racing",              tag: "",    type: "indie", mp: ["multi"], rating: 4.5, reviews: 135 },
+  { name: "Space Elevator",                     genre: "Casual",              tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 39 },
+  // ATLAS 10
+  { name: "Spatial Ops",                        genre: "Shooter",             tag: "MAR", type: "games", mp: ["multi","coop"], rating: 4.8, reviews: 1100 },
+  { name: "Squingle",                           genre: "Puzzle",              tag: "",    type: "indie", mp: [], rating: 4.8, reviews: 91 },
+  { name: "Starship Home",                      genre: "Simulation / MR",     tag: "",    type: "games", mp: [], rating: 4.3, reviews: 166 },
+  { name: "Stupid Cars",                        genre: "Racing",              tag: "",    type: "indie", mp: ["multi"], rating: 4.7, reviews: 53 },
+  { name: "Sushi Ben",                          genre: "Social / Adventure",  tag: "",    type: "indie", mp: [], rating: 4.5, reviews: 315 },
+  { name: "Synth Riders",                       genre: "Rhythm",              tag: "",    type: "games", mp: ["multi"], rating: 4.6, reviews: 3400 },
+  { name: "Taiko Frenzy",                       genre: "Rhythm",              tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 74 },
+  { name: "The 7th Guest VR",                   genre: "Horror / Puzzle",     tag: "MAR", type: "games", mp: [], rating: 4.6, reviews: 766 },
+  // ATLAS 11
+  { name: "The Climb 2",                        genre: "Sports / Adventure",  tag: "",    type: "games", mp: [], rating: 4.3, reviews: 3100 },
+  { name: "The Curious Tale of the Stolen Pets",genre: "Puzzle",              tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 779 },
+  { name: "The Light Brigade",                  genre: "Roguelite Shooter",   tag: "",    type: "games", mp: [], rating: 4.4, reviews: 1200 },
+  { name: "The Pirate Queen with Lucy Liu",     genre: "Narrative Adventure", tag: "",    type: "indie", mp: [], rating: 3.9, reviews: 132 },
+  { name: "The Secret of Retropolis",           genre: "Adventure",           tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 596 },
+  { name: "The Thrill of the Fight",            genre: "Boxing / Fitness",    tag: "",    type: "games", mp: [], rating: 4.7, reviews: 13000 },
+  { name: "The Wizards",                        genre: "Magic Action",        tag: "",    type: "indie", mp: [], rating: 4.1, reviews: 628 },
+  { name: "Thief Simulator VR: Greenview Street",genre:"Simulation",          tag: "",    type: "games", mp: [], rating: 4.1, reviews: 3100 },
+  // ATLAS 12
+  { name: "Tiny Archers",                       genre: "Tower Defense",       tag: "",    type: "indie", mp: [], rating: 4.6, reviews: 189 },
+  { name: "Titans Clinic",                      genre: "Sports",              tag: "",    type: "games", mp: [], rating: 4.8, reviews: 16000 },
+  { name: "Towers and Powers",                  genre: "Strategy",            tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 75 },
+  { name: "Townsmen VR",                        genre: "Strategy / Sim",      tag: "",    type: "games", mp: [], rating: 4.5, reviews: 404 },
+  { name: "Ultimate Swing Golf",                genre: "Sports",              tag: "",    type: "indie", mp: ["multi"], rating: 4.3, reviews: 226 },
+  { name: "Underworld Overseer",                genre: "Strategy",            tag: "",    type: "indie", mp: [], rating: 4.7, reviews: 192 },
+  { name: "Vacation Simulator",                 genre: "Simulation / Comedy", tag: "APR", type: "games", mp: [], rating: 4.5, reviews: 4900 },
+  { name: "Vibe Punch",                         genre: "Fitness / Rhythm",    tag: "",    type: "indie", mp: [], rating: 4.4, reviews: 105 },
+  // ATLAS 13
+  { name: "Walkabout Mini Golf",                genre: "Sports",              tag: "",    type: "games", mp: ["multi"], rating: 4.8, reviews: 14000 },
+  { name: "War of Wizards",                     genre: "Fighting",            tag: "",    type: "games", mp: ["multi"], rating: 4.7, reviews: 6300 },
+  { name: "We Are One",                         genre: "Puzzle",              tag: "",    type: "indie", mp: [], rating: 4.8, reviews: 337 },
+  { name: "Windlands 2",                        genre: "Adventure",           tag: "",    type: "indie", mp: ["coop"], rating: 4.3, reviews: 147 },
+  { name: "Zero Caliber: Reloaded",             genre: "Tactical Shooter",    tag: "",    type: "games", mp: ["coop"], rating: 4.4, reviews: 3900 },
+  { name: "iB Cricket",                         genre: "Sports",              tag: "",    type: "games", mp: ["multi"], rating: 4.3, reviews: 1700 },
+];
+
+const ATLAS_SIZE = 8;
+
+function render() {
+  const container = document.getElementById('card-container');
+  container.innerHTML = '';
+
+  for (let a = 0; a < Math.ceil(allGames.length / ATLAS_SIZE); a++) {
+    const batch = allGames.slice(a * ATLAS_SIZE, (a + 1) * ATLAS_SIZE);
+    const label = document.createElement('div');
+    label.className = 'atlas-label';
+    label.textContent = `Atlas ${String(a + 1).padStart(2, '0')} — games ${a * ATLAS_SIZE + 1}–${Math.min((a + 1) * ATLAS_SIZE, allGames.length)}`;
+    container.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'card-grid';
+    batch.forEach(g => grid.appendChild(makeCard(g)));
+    container.appendChild(grid);
+  }
+}
+
+function setMode(mode) {
+  document.body.className = mode + '-mode';
+  document.getElementById('btn-mobile').classList.toggle('active', mode === 'mobile');
+  document.getElementById('btn-pc').classList.toggle('active', mode === 'pc');
+}
+
+render();
+</script>
+</body>
+</html>
