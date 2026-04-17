@@ -22,14 +22,12 @@ OUTPUT_DIR  = os.path.join(SCRIPT_DIR, "..", "hero_art")
 
 CARD_W      = 920
 CARD_H      = 300
-MONTHLY_W   = 600
-MONTHLY_H   = 340
 MARGIN      = 20
 COLS        = 2
 ROWS        = 4
 JPG_QUALITY = 92
 
-# ── APRIL 2026: NEW CATALOG GAMES ONLY (alphabetical order = atlas order) ──
+# ── APRIL 2026: ALL NEW GAMES (catalog + monthly, alphabetical = atlas order) ──
 CATALOG_GAMES = sorted([
     'Audio Trip',
     'Barbaria',
@@ -37,12 +35,8 @@ CATALOG_GAMES = sorted([
     'Breachers',
     'Grill on Wheels',
     'Prison Boss Prohibition',
-    'Vacation Simulator',
-])
-
-# ── APRIL 2026: NEW MONTHLY REDEEMABLES ──
-MONTHLY_GAMES = sorted([
     'The House of Da Vinci VR',
+    'Vacation Simulator',
     'Vendetta Forever',
 ])
 
@@ -93,38 +87,22 @@ if __name__ == '__main__':
     per_page = COLS * ROWS
     total = 0
 
-    # ── Catalog atlases ──
     catalog_done = find_done_atlases('atlas_catalog')
     if catalog_done:
-        print(f"\nCATALOG — found {len(catalog_done)} completed atlas file(s)")
+        print(f"\nFound {len(catalog_done)} completed atlas file(s)")
         for i, path in enumerate(catalog_done):
             start = i * per_page
             batch = CATALOG_GAMES[start:start + per_page]
             print(f"\n  Extracting {os.path.basename(path)} ({len(batch)} cards):")
             total += extract_atlas(path, batch, CARD_W, CARD_H, start)
     else:
-        print("\nCATALOG — no completed atlas files found.")
+        print("\nNo completed atlas files found.")
         print("  Name your finished file: atlas_catalog_01_done.png")
-
-    # ── Monthly atlases ──
-    monthly_done = find_done_atlases('atlas_monthly')
-    if monthly_done:
-        print(f"\nMONTHLY — found {len(monthly_done)} completed atlas file(s)")
-        for i, path in enumerate(monthly_done):
-            start = i * per_page
-            batch = MONTHLY_GAMES[start:start + per_page]
-            print(f"\n  Extracting {os.path.basename(path)} ({len(batch)} cards):")
-            total += extract_atlas(path, batch, MONTHLY_W, MONTHLY_H, start)
-    else:
-        print("\nMONTHLY — no completed atlas files found.")
-        print("  Name your finished file: atlas_monthly_01_done.png")
 
     if total:
         print(f"\n✓ Extracted {total} files to {os.path.normpath(OUTPUT_DIR)}/")
         print("\nFilename map (for reference):")
         for g in CATALOG_GAMES:
-            print(f"  '{g}': 'hero_art/{game_to_filename(g)}',")
-        for g in MONTHLY_GAMES:
             print(f"  '{g}': 'hero_art/{game_to_filename(g)}',")
     else:
         print("\nNo files extracted. Finish painting and rename files with _done suffix.")

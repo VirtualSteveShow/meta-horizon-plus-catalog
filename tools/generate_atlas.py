@@ -40,8 +40,6 @@ OUTPUT_DIR  = os.path.join(SCRIPT_DIR, "atlas_output")
 # ══════════════════════════════════════════════════════════════
 CARD_W      = 920
 CARD_H      = 300
-MONTHLY_W   = 600
-MONTHLY_H   = 340
 MARGIN      = 20
 COLS        = 2
 ROWS        = 4
@@ -51,8 +49,6 @@ CARD_RADIUS = 8
 MOB_W, MOB_H   = 412, 130
 MOB_BG_SCALE   = max(MOB_W / CARD_W, MOB_H / CARD_H)
 MOB_CROP_L     = round((CARD_W * MOB_BG_SCALE - MOB_W) / 2 / MOB_BG_SCALE)
-
-MOB_MONTHLY_W, MOB_MONTHLY_H = 412, 200
 
 DEVICE_SCALE_FACTOR = 3
 
@@ -93,7 +89,7 @@ def genre_group(genre):
 
 
 # ══════════════════════════════════════════════════════════════
-# APRIL 2026: NEW GAMES ONLY
+# APRIL 2026: NEW GAMES ONLY (catalog + monthly combined)
 # ══════════════════════════════════════════════════════════════
 CATALOG_GAMES = sorted([
     {'name': 'Audio Trip',              'genre': 'Rhythm',              'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 1700},
@@ -102,12 +98,9 @@ CATALOG_GAMES = sorted([
     {'name': 'Breachers',               'genre': 'Tactical Shooter',    'type': 'games', 'mp': ['multi','coop'],'tag': 'APR', 'rating': 4.5, 'reviews': 5900},
     {'name': 'Grill on Wheels',         'genre': 'Simulation',          'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 1200},
     {'name': 'Prison Boss Prohibition', 'genre': 'Simulation',          'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 573},
+    {'name': 'The House of Da Vinci VR','genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 800},
     {'name': 'Vacation Simulator',      'genre': 'Simulation / Comedy', 'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 4900},
-], key=lambda g: g['name'])
-
-MONTHLY_GAMES = sorted([
-    {'name': 'The House of Da Vinci VR','genre': 'Puzzle / Adventure',  'type': 'monthly','mp': [],             'tag': 'APR', 'rating': 4.5, 'reviews': 800},
-    {'name': 'Vendetta Forever',        'genre': 'Action Shooter',       'type': 'monthly','mp': [],             'tag': 'APR', 'rating': 4.6, 'reviews': 1100},
+    {'name': 'Vendetta Forever',        'genre': 'Action Shooter',      'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 1100},
 ], key=lambda g: g['name'])
 
 CLAIMABLE = {'Vendetta Forever', 'The House of Da Vinci VR'}
@@ -432,14 +425,7 @@ if __name__ == '__main__':
         card_css
     )
 
-    generate_atlases(
-        MONTHLY_GAMES, "atlas_monthly",
-        MONTHLY_W, MONTHLY_H, MOB_MONTHLY_W, MOB_MONTHLY_H,
-        card_css
-    )
-
     generate_placeholders(CATALOG_GAMES, CARD_W, CARD_H)
-    generate_placeholders(MONTHLY_GAMES, MONTHLY_W, MONTHLY_H)
 
     print(f"\nAll files saved to: {OUTPUT_DIR}/")
     print("\nWORKFLOW:")
