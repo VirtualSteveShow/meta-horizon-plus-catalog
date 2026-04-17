@@ -98,9 +98,9 @@ CATALOG_GAMES = sorted([
     {'name': 'Breachers',               'genre': 'Tactical Shooter',    'type': 'games', 'mp': ['multi','coop'],'tag': 'APR', 'rating': 4.5, 'reviews': 5900},
     {'name': 'Grill on Wheels',         'genre': 'Simulation',          'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 1200},
     {'name': 'Prison Boss Prohibition', 'genre': 'Simulation',          'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 573},
-    {'name': 'The House of Da Vinci VR','genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 800},
+    {'name': 'The House of Da Vinci VR','genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 836},
     {'name': 'Vacation Simulator',      'genre': 'Simulation / Comedy', 'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 4900},
-    {'name': 'Vendetta Forever',        'genre': 'Action Shooter',      'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 1100},
+    {'name': 'Vendetta Forever',        'genre': 'Action Shooter',      'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 185},
 ], key=lambda g: g['name'])
 
 CLAIMABLE = {'Vendetta Forever', 'The House of Da Vinci VR'}

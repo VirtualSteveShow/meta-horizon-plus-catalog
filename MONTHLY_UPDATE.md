@@ -29,7 +29,18 @@ This gives you the current full catalog with semi-current ratings. Use it to:
 - Confirm which games were removed
 - Pull updated ratings and review counts for new games
 
-### 1d. Optional second source
+### 1d. Ratings for the new monthly free games
+The monthly free games are often not shown on the main catalog page, or their ratings
+may differ. Ask the user to also check each monthly game's individual Meta store page
+and provide the current star rating and review count for each one. Example:
+
+> "Can you check the store pages for [Game A] and [Game B] and tell me the current
+> star rating and review count shown on each?"
+
+Do not estimate or carry over ratings from a previous source — monthly games in
+particular tend to have ratings that differ from what appears in catalog dumps.
+
+### 1e. Optional second source
 Ask if the user has a second source (e.g. an article listing additions/removals).
 If yes, use it to cross-reference before touching any code.
 
