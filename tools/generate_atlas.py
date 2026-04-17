@@ -439,6 +439,7 @@ if __name__ == '__main__':
     )
 
     generate_placeholders(CATALOG_GAMES, CARD_W, CARD_H)
+    generate_placeholders(MONTHLY_GAMES, MONTHLY_W, MONTHLY_H)
 
     print(f"\nAll files saved to: {OUTPUT_DIR}/")
     print("\nWORKFLOW:")
