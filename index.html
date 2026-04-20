@@ -878,9 +878,10 @@
   }
   .reorder-btn:hover, .reorder-btn:active { color: var(--gold); background: rgba(245,158,11,0.15); }
   .reorder-btn:focus { outline: none; }
+  .drag-handle-group { display: none; }
   .reorder-btn-group {
     position: absolute;
-    right: 52px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
@@ -1520,8 +1521,7 @@
     .stat { min-width: 90px; padding: 10px 14px; }
     .stat-num { font-size: 20px; }
     .stat-lbl { font-size: 9px; }
-    .drag-handle-group { display: none; }
-    .reorder-btn-group { right: 12px; top: 8px; bottom: 8px; transform: none; justify-content: space-between; }
+    .reorder-btn-group { top: 38px; bottom: 48px; transform: none; justify-content: space-between; }
   }
 
   .header-byline {
