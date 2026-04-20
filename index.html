@@ -878,17 +878,19 @@
   }
   .reorder-btn:hover, .reorder-btn:active { color: var(--gold); background: rgba(245,158,11,0.15); }
   .reorder-btn:focus { outline: none; }
+  /* Group covers the full card; buttons are individually positioned inside */
   .reorder-btn-group {
     position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    inset: 0;
     z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
+    pointer-events: none;
   }
+  .reorder-btn-group .reorder-btn {
+    position: absolute;
+    pointer-events: auto;
+  }
+  .reorder-btn-group .reorder-btn:first-child { top: 4px;    right: 52px; }
+  .reorder-btn-group .reorder-btn:last-child  { bottom: 10px; right: 52px; }
 
   .game-grid {
     display: flex;
@@ -1520,7 +1522,6 @@
     .stat { min-width: 90px; padding: 10px 14px; }
     .stat-num { font-size: 20px; }
     .stat-lbl { font-size: 9px; }
-    .reorder-btn-group { right: 52px; top: 0; bottom: 0; transform: none; justify-content: space-between; padding: 38px 0 48px; }
   }
 
   .header-byline {
@@ -1681,7 +1682,8 @@
     .card-bottom-center { bottom: 16px; gap: 14px; }
     .card-bottom-right { bottom: 16px; right: 16px; }
     .drag-handle-group { display: none; }
-    .reorder-btn { width: 64px; height: 44px; font-size: 26px; }
+    .reorder-btn-group { inset: auto; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: auto; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .reorder-btn-group .reorder-btn { position: static; width: 64px; height: 44px; font-size: 26px; }
     #toast-msg { font-size: 22px !important; padding: 20px 40px !important; bottom: 60px !important; border-radius: 12px !important; }
     #list-name-display { font-size: 36px !important; }
     .mp-badge { font-size: 16px; padding: 5px 12px; }
