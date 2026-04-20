@@ -1520,6 +1520,8 @@
     .stat { min-width: 90px; padding: 10px 14px; }
     .stat-num { font-size: 20px; }
     .stat-lbl { font-size: 9px; }
+    .drag-handle-group { display: none; }
+    .reorder-btn-group { right: 12px; top: 8px; bottom: 8px; transform: none; justify-content: space-between; }
   }
 
   .header-byline {
@@ -1679,8 +1681,7 @@
     .card-bottom-left { bottom: 16px; left: 16px; gap: 8px; }
     .card-bottom-center { bottom: 16px; gap: 14px; }
     .card-bottom-right { bottom: 16px; right: 16px; }
-    .drag-handle-group { display: none; }
-    .reorder-btn-group { right: 12px; }
+    .reorder-btn { width: 64px; height: 44px; font-size: 26px; }
     #toast-msg { font-size: 22px !important; padding: 20px 40px !important; bottom: 60px !important; border-radius: 12px !important; }
     #list-name-display { font-size: 36px !important; }
     .mp-badge { font-size: 16px; padding: 5px 12px; }
@@ -1781,10 +1782,11 @@
         <h3>⭐ Star a Game</h3>
         <p>Tap the star on any game to add it to your personal <strong>Starred Games List</strong> at the top of the page. Starred games show a larger gold star with no button background — easy to spot at a glance. Your stars are saved locally so they'll be there next time you open the tool.</p>
         <p>To unstar a game, tap the star again from anywhere in the catalog, or tap the <strong>✕</strong> directly inside the Starred Games List — this removes it from the list without hiding it from the catalog.</p>
-        <p><strong>Reordering:</strong> Inside the Starred Games List you can drag cards into your preferred order:</p>
+        <p><strong>Reordering:</strong> Inside the Starred Games List you have two ways to rearrange cards:</p>
         <ul style="margin: 6px 0 0 18px; line-height: 1.8; color: var(--muted); font-size: 13px;">
-          <li><strong style="color:#f1f5f9;">PC / Mouse —</strong> click and drag anywhere on the card (outside of buttons) to move it.</li>
-          <li><strong style="color:#f1f5f9;">Mobile / Touch —</strong> use the <strong>⋮⋮</strong> grip handle on the right side of the card to drag. Touching anywhere else on the card will scroll normally.</li>
+          <li><strong style="color:#f1f5f9;">↑ / ↓ buttons —</strong> tap ↑ to instantly move a card to the top of your list, or ↓ to send it to the bottom. An <strong>Undo</strong> toast appears briefly so you can reverse the move if needed.</li>
+          <li><strong style="color:#f1f5f9;">PC / Mouse —</strong> click and drag anywhere on the card (outside of buttons) to move it to any position.</li>
+          <li><strong style="color:#f1f5f9;">Mobile / Touch —</strong> use the <strong>⋮⋮</strong> grip handle (visible on wider screens) to drag, or use the ↑ / ↓ buttons for quick top/bottom jumps.</li>
         </ul>
         <p style="margin-top: 8px;">Your order is saved automatically and persists between sessions.</p>
       </div>
