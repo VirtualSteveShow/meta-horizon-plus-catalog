@@ -878,6 +878,17 @@
   }
   .reorder-btn:hover, .reorder-btn:active { color: var(--gold); background: rgba(245,158,11,0.15); }
   .reorder-btn:focus { outline: none; }
+  .reorder-btn-group {
+    position: absolute;
+    right: 52px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
 
   .game-grid {
     display: flex;
@@ -1668,8 +1679,8 @@
     .card-bottom-left { bottom: 16px; left: 16px; gap: 8px; }
     .card-bottom-center { bottom: 16px; gap: 14px; }
     .card-bottom-right { bottom: 16px; right: 16px; }
-    .drag-handle { display: none; }
-    .drag-handle-group { display: flex; }
+    .drag-handle-group { display: none; }
+    .reorder-btn-group { right: 12px; }
     #toast-msg { font-size: 22px !important; padding: 20px 40px !important; bottom: 60px !important; border-radius: 12px !important; }
     #list-name-display { font-size: 36px !important; }
     .mp-badge { font-size: 16px; padding: 5px 12px; }
@@ -1980,7 +1991,7 @@
   <!-- UNDO TOAST -->
   <div id="undo-toast">
     <span class="undo-msg" id="undo-toast-msg"></span>
-    <button class="undo-btn" onclick="undoLastRemove()">Undo</button>
+    <button class="undo-btn" onclick="undoLast()">Undo</button>
   </div>
 
   <button class="options-btn" id="opt-btn" onclick="toggleOptions()" title="Options">☰</button>
@@ -2414,8 +2425,12 @@ function toggleStar(name, btn) {
       const sn = g.name.replace(/'/g, "\\'");
       const group = document.createElement('div');
       group.className = 'drag-handle-group';
-      group.innerHTML = `<button class="reorder-btn" onclick="moveStarredToTop('${sn}')" title="Move to top">↑</button><div class="drag-handle" title="Drag to reorder">&#8942;&#8942;</div><button class="reorder-btn" onclick="moveStarredToBottom('${sn}')" title="Move to bottom">↓</button>`;
+      group.innerHTML = `<div class="drag-handle" title="Drag to reorder">&#8942;&#8942;</div>`;
       card.appendChild(group);
+      const reorderGroup = document.createElement('div');
+      reorderGroup.className = 'reorder-btn-group';
+      reorderGroup.innerHTML = `<button class="reorder-btn" onclick="moveStarredToTop('${sn}')" title="Move to top">↑</button><button class="reorder-btn" onclick="moveStarredToBottom('${sn}')" title="Move to bottom">↓</button>`;
+      card.appendChild(reorderGroup);
       grid.appendChild(card);
       initDragAndDrop(grid);
       const countEl = document.getElementById('starred-count');
@@ -2623,7 +2638,7 @@ function removeGame(name) {
     renderRemovedPanel();
     updateRemovedBadge();
     updateNavBtns();
-    showUndoToast(name);
+    showUndoToast('Hidden: ' + name, () => { restoreGame(name); showToast(name + ' restored'); });
   }
   if (targetCard) {
     targetCard.classList.add('removing');
@@ -2954,8 +2969,12 @@ function renderStarred() {
     const sn = g.name.replace(/'/g, "\\'");
     const group = document.createElement('div');
     group.className = 'drag-handle-group';
-    group.innerHTML = `<button class="reorder-btn" onclick="moveStarredToTop('${sn}')" title="Move to top">↑</button><div class="drag-handle" title="Drag to reorder">&#8942;&#8942;</div><button class="reorder-btn" onclick="moveStarredToBottom('${sn}')" title="Move to bottom">↓</button>`;
+    group.innerHTML = `<div class="drag-handle" title="Drag to reorder">&#8942;&#8942;</div>`;
     card.appendChild(group);
+    const reorderGroup = document.createElement('div');
+    reorderGroup.className = 'reorder-btn-group';
+    reorderGroup.innerHTML = `<button class="reorder-btn" onclick="moveStarredToTop('${sn}')" title="Move to top">↑</button><button class="reorder-btn" onclick="moveStarredToBottom('${sn}')" title="Move to bottom">↓</button>`;
+    card.appendChild(reorderGroup);
     grid.appendChild(card);
   });
   initDragAndDrop(grid);
@@ -3257,17 +3276,31 @@ function saveStarredOrder(grid) {
 }
 
 function moveStarredToTop(name) {
+  const prev = [...starredOrder];
   starredOrder = starredOrder.filter(n => n !== name);
   starredOrder.unshift(name);
   localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
   renderStarred();
+  showUndoToast('Moved to top: ' + name, () => {
+    starredOrder = prev;
+    localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
+    renderStarred();
+    showToast('Order restored');
+  });
 }
 
 function moveStarredToBottom(name) {
+  const prev = [...starredOrder];
   starredOrder = starredOrder.filter(n => n !== name);
   starredOrder.push(name);
   localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
   renderStarred();
+  showUndoToast('Moved to bottom: ' + name, () => {
+    starredOrder = prev;
+    localStorage.setItem(ORDER_KEY, JSON.stringify(starredOrder));
+    renderStarred();
+    showToast('Order restored');
+  });
 }
 
 // Map detailed genres to broad groups for filter
@@ -4278,34 +4311,26 @@ function closeConfirmModal() {
 
 // TOAST NOTIFICATION
 // ══════════════════════════════════════════════════════════
-let _lastRemovedName = null;
+let _undoAction = null;
 
-function showUndoToast(gameName) {
-  _lastRemovedName = gameName;
+function showUndoToast(msg, action) {
+  _undoAction = action;
   const toast = document.getElementById('undo-toast');
-  const msg   = document.getElementById('undo-toast-msg');
-  if (!toast || !msg) return;
-  msg.textContent = 'Hidden: ' + gameName;
+  const msgEl = document.getElementById('undo-toast-msg');
+  if (!toast || !msgEl) return;
+  msgEl.textContent = msg;
   toast.classList.add('visible');
   clearTimeout(toast._undoTimer);
   toast._undoTimer = setTimeout(() => {
     toast.classList.remove('visible');
-    _lastRemovedName = null;
+    _undoAction = null;
   }, 4000);
 }
 
-function undoLastRemove() {
+function undoLast() {
   const toast = document.getElementById('undo-toast');
-  if (toast) {
-    clearTimeout(toast._undoTimer);
-    toast.classList.remove('visible');
-  }
-  if (_lastRemovedName) {
-    const name = _lastRemovedName;
-    _lastRemovedName = null;
-    restoreGame(name);
-    showToast(name + ' restored');
-  }
+  if (toast) { clearTimeout(toast._undoTimer); toast.classList.remove('visible'); }
+  if (_undoAction) { const fn = _undoAction; _undoAction = null; fn(); }
 }
 
 function showToast(msg) {
