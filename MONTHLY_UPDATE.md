@@ -29,24 +29,31 @@ This gives you the current full catalog with semi-current ratings. Use it to:
 - Confirm which games were removed
 - Pull updated ratings and review counts for new games
 
-### 1d. Ratings for the new monthly free games
+### 1d. Ratings and genre for the new monthly free games
 The monthly free games are often not shown on the main catalog page, or their ratings
-may differ. Ask the user to also check each monthly game's individual Meta store page
-and provide the current star rating and review count for each one. Example:
+may differ. Genre tags also do not appear on the main catalog page. Ask the user to
+check each monthly game's individual Meta store page and provide:
+- Current star rating and review count
+- Genre tags listed on the store page (e.g. Adventure, Puzzle, Narrative)
 
-> "Can you check the store pages for [Game A] and [Game B] and tell me the current
-> star rating and review count shown on each?"
+Example prompt:
+
+> "Can you open the store page for [Game A] and [Game B] individually and tell me the
+> star rating, review count, and genre tags shown on each?"
 
 Do not estimate or carry over ratings from a previous source — monthly games in
 particular tend to have ratings that differ from what appears in catalog dumps.
 
-### 1e. Optional second source
-Ask if the user has a second source (e.g. an article listing additions/removals).
-If yes, use it to cross-reference before touching any code.
+### 1e. App IDs for all new games
+After Step 2 confirms the add/remove lists, direct the user to `tools/id_lookup.html`
+(which you must update first — see Step 4a) to collect store IDs:
 
-> **Important:** Always cross-reference at least two sources before deciding what to
-> add or remove. Games that appear to be "missing" from one source may still be in
-> the catalog. Never remove a game based on a single source alone.
+> "Please open tools/id_lookup.html in a browser. For each game, click Search,
+> find the right store page, then paste the URL or numeric ID into the field.
+> When all are filled in, click Generate Export and paste the result here."
+
+Do not proceed to Step 3m until you have a real ID for every new game.
+Do not use search URL fallback.
 
 ---
 
@@ -173,12 +180,39 @@ Search for `const heroArt =` (or similar).
 
 ### 3m. `APP_IDS`
 - Remove entries for departed games.
-- Add entries for all new games. Look up each ID at:
-  `https://www.meta.com/experiences/[game-slug]/`
-  The numeric ID is in the URL.
-- If an ID can't be found, omit the entry — the app falls back to a Meta search URL.
+- Add entries for all new games using the IDs collected in Step 1f (see below).
+- Every new game must have a real ID — do not omit entries or use search URL fallback.
 
-### 3n. Update counts and month references
+**Step 1f — collect App IDs (add this to Step 1 info gathering):**
+
+Before coding, ask the user to look up the Meta store ID for each new game:
+
+> "For each new game, please go to its Meta store page and paste the URL here.
+> The numeric ID is in the URL, e.g.:
+> `https://www.meta.com/experiences/game-name/1234567890123456/`"
+
+Do not proceed to Step 3m until you have a real ID for every new game.
+
+### 3n. Add a catalog update entry to the changelog
+Search for `changelog-body`. At the very top, before the first existing entry, add a new
+block for this month's catalog changes:
+
+```html
+<div class="changelog-entry">
+  <div class="changelog-version">Catalog Update <span class="changelog-date">May 2026</span></div>
+  <ul>
+    <li>Monthly redeemables: [Game A], [Game B]</li>
+    <li>Added: [list all new games]</li>
+    <li>Removed: [list all removed games]</li>
+  </ul>
+</div>
+
+<hr class="changelog-divider">
+```
+
+Note: use `&amp;` for any `&` in game names within the HTML.
+
+### 3o. Update counts and month references
 Search for each of these and update to the new month/count:
 - `stat-total` — total game count (e.g. "102 games")
 - `header-sub` — subtitle line (e.g. "102 games · April 2026")
@@ -196,7 +230,15 @@ To get the new total count: count all entries across `gamesData` + `indieData` +
 
 ## Step 4 — Update Art Workflow Tools
 
-These three files in `tools/` need to reflect the new month's games only.
+These files in `tools/` need to reflect the new month's games only.
+
+### 4a. `tools/id_lookup.html`
+Update this **before** directing the user to it in Step 1e.
+
+- Change the `<title>` and `.header-title` to the new month.
+- Replace the `GAMES` array with the new month's additions only (both monthly
+  redeemables + all new catalog games), in section order: monthly → main → indie.
+- Section names in `SECTION_LABELS` stay fixed — only the `GAMES` array changes.
 
 ### `tools/generate_atlas.py`
 Update `CATALOG_GAMES` to the full list of all new games this month (catalog +
@@ -208,8 +250,10 @@ Update `CATALOG_GAMES` to match the same full list as above (sorted alphabetical
 Order matters — it must match the atlas layout order exactly.
 
 ### `tools/art_search.html`
-Update the game list to the new games only, with correct search mode hints
-(`'plain'` or `'vr'` per game). Update the header count.
+Update the `CATALOG` array to all new games this month (catalog + monthly combined),
+sorted alphabetically — this must match the order in `generate_atlas.py` exactly so
+that atlas slot numbers line up. No separate Monthly section; everything goes in one
+sorted list. Update the header count and the atlas slot comments.
 
 ---
 

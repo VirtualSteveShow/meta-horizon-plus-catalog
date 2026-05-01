@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Meta Horizon+ Catalog — Atlas Extractor  (April 2026 — NEW GAMES ONLY)
+Meta Horizon+ Catalog — Atlas Extractor  (May 2026 — NEW GAMES ONLY)
 ========================================================================
 Slices finished atlas PNGs into individual hero_art/ JPG files.
 Only processes the new April 2026 games — existing art is untouched.
@@ -27,17 +27,19 @@ COLS        = 2
 ROWS        = 4
 JPG_QUALITY = 92
 
-# ── APRIL 2026: ALL NEW GAMES (catalog + monthly, alphabetical = atlas order) ──
+# ── MAY 2026: ALL NEW GAMES (catalog + monthly, alphabetical = atlas order) ──
 CATALOG_GAMES = sorted([
-    'Audio Trip',
-    'Barbaria',
-    'Barbershop Simulator VR',
-    'Breachers',
-    'Grill on Wheels',
-    'Prison Boss Prohibition',
-    'The House of Da Vinci VR',
-    'Vacation Simulator',
-    'Vendetta Forever',
+    "A Fisherman's Tale 2",
+    'Action Hero',
+    'After the Fall',
+    'Ancient Dungeon',
+    'Banners & Bastions',
+    'Crisis Brigade 2 reloaded',
+    'Escaping Wonderland',
+    'First Person Tennis - The Real Tennis Simulator',
+    'Fruit Ninja',
+    'Shave & Stuff',
+    'Table Troopers',
 ])
 
 

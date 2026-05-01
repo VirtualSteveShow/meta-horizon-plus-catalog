@@ -89,21 +89,23 @@ def genre_group(genre):
 
 
 # ══════════════════════════════════════════════════════════════
-# APRIL 2026: NEW GAMES ONLY (catalog + monthly combined)
+# MAY 2026: NEW GAMES ONLY (catalog + monthly combined)
 # ══════════════════════════════════════════════════════════════
 CATALOG_GAMES = sorted([
-    {'name': 'Audio Trip',              'genre': 'Rhythm',              'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 1700},
-    {'name': 'Barbaria',                'genre': 'Strategy / Action',   'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 514},
-    {'name': 'Barbershop Simulator VR', 'genre': 'Simulation',          'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 540},
-    {'name': 'Breachers',               'genre': 'Tactical Shooter',    'type': 'games', 'mp': ['multi','coop'],'tag': 'APR', 'rating': 4.5, 'reviews': 5900},
-    {'name': 'Grill on Wheels',         'genre': 'Simulation',          'type': 'indie', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 1200},
-    {'name': 'Prison Boss Prohibition', 'genre': 'Simulation',          'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.6, 'reviews': 573},
-    {'name': 'The House of Da Vinci VR','genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 836},
-    {'name': 'Vacation Simulator',      'genre': 'Simulation / Comedy', 'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.5, 'reviews': 4900},
-    {'name': 'Vendetta Forever',        'genre': 'Action Shooter',      'type': 'games', 'mp': [],              'tag': 'APR', 'rating': 4.7, 'reviews': 185},
+    {'name': 'A Fisherman\'s Tale 2',   'genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.6, 'reviews': 250},
+    {'name': 'Action Hero',             'genre': 'Action',              'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.6, 'reviews': 313},
+    {'name': 'After the Fall',          'genre': 'Co-op Shooter',       'type': 'games', 'mp': ['multi','coop'],'tag': 'MAY', 'rating': 4.0, 'reviews': 3600},
+    {'name': 'Ancient Dungeon',         'genre': 'Roguelike Dungeon',   'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 2400},
+    {'name': 'Banners & Bastions',      'genre': 'Strategy',            'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.9, 'reviews': 144},
+    {'name': 'Crisis Brigade 2 reloaded','genre': 'Shooter',            'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.4, 'reviews': 870},
+    {'name': 'Escaping Wonderland',     'genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 309},
+    {'name': 'First Person Tennis - The Real Tennis Simulator', 'genre': 'Sports / Simulation', 'type': 'indie', 'mp': ['multi'], 'tag': 'MAY', 'rating': 4.0, 'reviews': 1200},
+    {'name': 'Fruit Ninja',             'genre': 'Arcade',              'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.0, 'reviews': 1100},
+    {'name': 'Shave & Stuff',           'genre': 'Simulation',          'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 15000},
+    {'name': 'Table Troopers',          'genre': 'Strategy / Arcade',   'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 410},
 ], key=lambda g: g['name'])
 
-CLAIMABLE = {'Vendetta Forever', 'The House of Da Vinci VR'}
+CLAIMABLE = {"A Fisherman's Tale 2", 'Ancient Dungeon'}
 
 
 # ══════════════════════════════════════════════════════════════

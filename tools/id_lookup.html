@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App ID Lookup — May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #080e18;
+    --card:    #0d1520;
+    --border:  rgba(255,255,255,0.08);
+    --blue:    #0ea5e9;
+    --green:   #22c55e;
+    --gold:    #f59e0b;
+    --red:     #ef4444;
+    --purple:  #a855f7;
+    --muted:   #64748b;
+    --text:    #f1f5f9;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-height: 100vh;
+    padding: 24px 20px 80px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .wrapper { max-width: 900px; margin: 0 auto; }
+
+  header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .progress-bar-wrap {
+    margin: 18px 0 0;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  .progress-label {
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .progress-label span { color: var(--green); font-weight: 700; }
+
+  .section-header {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-header.monthly { color: var(--gold); }
+  .section-header.main    { color: var(--blue); }
+  .section-header.indie   { color: var(--purple); }
+
+  .game-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+  .game-row.done {
+    border-color: rgba(34,197,94,0.35);
+  }
+
+  .game-name {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-btn {
+    background: rgba(14,165,233,0.12);
+    border: 1px solid rgba(14,165,233,0.3);
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .search-btn:hover {
+    background: rgba(14,165,233,0.22);
+    border-color: rgba(14,165,233,0.55);
+  }
+
+  .id-input {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 10px;
+    width: 320px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .id-input::placeholder { color: var(--muted); }
+  .id-input:focus { border-color: rgba(14,165,233,0.4); }
+  .id-input.valid { border-color: rgba(34,197,94,0.5); color: var(--green); }
+  .id-input.invalid { border-color: rgba(239,68,68,0.4); }
+
+  .status-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .export-section {
+    margin-top: 36px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .export-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+  .export-btn {
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.35);
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 9px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    margin-bottom: 14px;
+  }
+  .export-btn:hover {
+    background: rgba(34,197,94,0.22);
+    border-color: rgba(34,197,94,0.6);
+  }
+  .export-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .incomplete-note {
+    font-size: 11px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: none;
+  }
+  .incomplete-note.show { display: block; }
+
+  .export-output {
+    background: #060b12;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-size: 12px;
+    color: #94a3b8;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.7;
+    display: none;
+  }
+  .export-output.show { display: block; }
+
+  .copy-btn {
+    background: rgba(168,85,247,0.12);
+    border: 1px solid rgba(168,85,247,0.3);
+    color: var(--purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.15s;
+    display: none;
+  }
+  .copy-btn.show { display: inline-block; }
+  .copy-btn:hover { background: rgba(168,85,247,0.22); }
+  .copy-btn.copied { color: var(--green); border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.1); }
+
+  @media (max-width: 700px) {
+    .game-row { grid-template-columns: 1fr auto; grid-template-rows: auto auto; }
+    .id-input { width: 100%; grid-column: 1 / -1; }
+    .status-icon { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="header-title">🔑 APP ID LOOKUP — May 2026</div>
+    <div class="header-sub">
+      Find each game on Meta, paste the store page URL or numeric ID · Export when all done
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-label"><span id="progress-text">0</span> of <span id="progress-total">0</span> IDs collected</div>
+  </header>
+
+  <div id="game-list"></div>
+
+  <div class="export-section">
+    <div class="export-title">Export</div>
+    <div class="incomplete-note" id="incomplete-note">⚠ Some IDs are missing — fill in all games before exporting for a clean result.</div>
+    <button class="export-btn" id="export-btn" onclick="doExport()">Generate Export</button>
+    <pre class="export-output" id="export-output"></pre>
+    <button class="copy-btn" id="copy-btn" onclick="doCopy()">Copy to clipboard</button>
+  </div>
+
+</div>
+
+<script>
+// ── MAY 2026 — NEW GAMES ──
+const GAMES = [
+  { name: "A Fisherman's Tale 2",                          section: 'monthly' },
+  { name: 'Ancient Dungeon',                               section: 'monthly' },
+  { name: 'After the Fall',                                section: 'main'    },
+  { name: 'Escaping Wonderland',                           section: 'main'    },
+  { name: 'Fruit Ninja',                                   section: 'main'    },
+  { name: 'Shave & Stuff',                                 section: 'main'    },
+  { name: 'Table Troopers',                                section: 'main'    },
+  { name: 'Action Hero',                                   section: 'indie'   },
+  { name: 'Banners & Bastions',                            section: 'indie'   },
+  { name: 'Crisis Brigade 2 reloaded',                     section: 'indie'   },
+  { name: 'First Person Tennis - The Real Tennis Simulator', section: 'indie' },
+];
+
+const SECTION_LABELS = {
+  monthly: 'Monthly Redeemables',
+  main:    'Main Catalog',
+  indie:   'Indie Catalog',
+};
+
+const ids = {};
+
+function extractId(raw) {
+  const s = raw.trim();
+  // bare numeric ID
+  if (/^\d{10,}$/.test(s)) return s;
+  // ID embedded in a URL path segment
+  const m = s.match(/\/(\d{10,})\/?(?:[?#]|$)/);
+  if (m) return m[1];
+  // ID as last path segment even without trailing slash
+  const m2 = s.match(/\/(\d{10,})$/);
+  if (m2) return m2[1];
+  return null;
+}
+
+function searchUrl(name) {
+  return 'https://www.meta.com/en-gb/experiences/search/?q=' + encodeURIComponent(name);
+}
+
+function onInput(name, el) {
+  const id = extractId(el.value);
+  const status = document.getElementById('status-' + slugify(name));
+  if (id) {
+    ids[name] = id;
+    el.value = id;
+    el.classList.add('valid');
+    el.classList.remove('invalid');
+    if (status) status.textContent = '✓';
+    el.closest('.game-row').classList.add('done');
+  } else {
+    delete ids[name];
+    el.classList.remove('valid');
+    el.classList.add(el.value.length > 0 ? 'invalid' : '');
+    if (status) status.textContent = '';
+    el.closest('.game-row').classList.remove('done');
+  }
+  updateProgress();
+}
+
+function slugify(name) {
+  return name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+}
+
+function updateProgress() {
+  const total = GAMES.length;
+  const done = Object.keys(ids).length;
+  document.getElementById('progress-text').textContent = done;
+  document.getElementById('progress-total').textContent = total;
+  document.getElementById('progress-fill').style.width = (done / total * 100) + '%';
+}
+
+function buildGameList() {
+  const container = document.getElementById('game-list');
+  let lastSection = null;
+
+  GAMES.forEach(g => {
+    if (g.section !== lastSection) {
+      lastSection = g.section;
+      const hdr = document.createElement('div');
+      hdr.className = 'section-header ' + g.section;
+      hdr.textContent = SECTION_LABELS[g.section];
+      container.appendChild(hdr);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'game-row';
+
+    const nameEl = document.createElement('div');
+    nameEl.className = 'game-name';
+    nameEl.textContent = g.name;
+    nameEl.title = g.name;
+
+    const searchBtn = document.createElement('a');
+    searchBtn.className = 'search-btn';
+    searchBtn.textContent = '⌕ Search';
+    searchBtn.href = searchUrl(g.name);
+    searchBtn.target = '_blank';
+    searchBtn.rel = 'noopener';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'id-input';
+    input.placeholder = 'Paste store URL or numeric ID…';
+    input.addEventListener('input', () => onInput(g.name, input));
+    input.addEventListener('paste', () => setTimeout(() => onInput(g.name, input), 0));
+
+    const status = document.createElement('div');
+    status.className = 'status-icon';
+    status.id = 'status-' + slugify(g.name);
+    status.style.color = 'var(--green)';
+
+    row.appendChild(nameEl);
+    row.appendChild(searchBtn);
+    row.appendChild(input);
+    row.appendChild(status);
+    container.appendChild(row);
+  });
+
+  document.getElementById('progress-total').textContent = GAMES.length;
+}
+
+function pad(str, len) {
+  return str + ' '.repeat(Math.max(0, len - str.length));
+}
+
+function doExport() {
+  const missing = GAMES.filter(g => !ids[g.name]).map(g => g.name);
+  const note = document.getElementById('incomplete-note');
+  note.classList.toggle('show', missing.length > 0);
+
+  // Build JS APP_IDS entries
+  const maxLen = Math.max(...GAMES.map(g => g.name.length)) + 2; // +2 for quotes
+  const jsLines = GAMES.map(g => {
+    const key = '"' + g.name + '"';
+    const val = ids[g.name] ? '"' + ids[g.name] + '"' : '"MISSING"';
+    return '  ' + pad(key + ':', maxLen + 1) + ' ' + val + ',';
+  });
+
+  // Section comments
+  let output = 'Here are the App IDs for the May 2026 new games.\n';
+  output += 'Paste into APP_IDS in index.html:\n\n';
+
+  let lastSection = null;
+  GAMES.forEach((g, i) => {
+    if (g.section !== lastSection) {
+      lastSection = g.section;
+      output += '  // ── ' + SECTION_LABELS[g.section].toUpperCase() + ' ──\n';
+    }
+    output += jsLines[i] + '\n';
+  });
+
+  document.getElementById('export-output').textContent = output;
+  document.getElementById('export-output').classList.add('show');
+  document.getElementById('copy-btn').classList.add('show');
+  document.getElementById('copy-btn').classList.remove('copied');
+  document.getElementById('copy-btn').textContent = 'Copy to clipboard';
+}
+
+function doCopy() {
+  const text = document.getElementById('export-output').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy to clipboard';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+buildGameList();
+updateProgress();
+</script>
+</body>
+</html>

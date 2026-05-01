@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hero Art Search — April 2026 New Games</title>
+<title>Hero Art Search — May 2026 New Games</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -277,9 +277,9 @@
 <div class="wrapper">
 
   <header>
-    <div class="header-title">🎨 HERO ART SEARCH — April 2026</div>
+    <div class="header-title">🎨 HERO ART SEARCH — May 2026</div>
     <div class="header-sub">
-      New games needing art: <span class="new">7 catalog</span> + <span class="new">2 monthly</span> ·
+      New games needing art: <span class="new">11 games across 2 atlases</span> ·
       Click any game to search reference art
     </div>
   </header>
@@ -294,25 +294,25 @@
 
   <div id="atlas-container"></div>
 
-  <div class="page-footer">Art canvas: 920×300px catalog · 600×340px monthly · Keep focal point center for mobile safe zone</div>
+  <div class="page-footer">Art canvas: 920×300px · Keep focal point center for mobile safe zone</div>
 </div>
 
 <script>
-// ── APRIL 2026 — NEW GAMES ONLY ──
+// ── MAY 2026 — ALL NEW GAMES, sorted alphabetically to match atlas order ──
 const CATALOG = [
-  // atlas_catalog_01 (all 7 new games fit in one atlas)
-  ['Audio Trip',              'plain'],
-  ['Barbaria',                'vr'],
-  ['Barbershop Simulator VR', 'plain'],
-  ['Breachers',               'vr'],
-  ['Grill on Wheels',         'plain'],
-  ['Prison Boss Prohibition', 'vr'],
-  ['Vacation Simulator',      'plain'],
-];
-
-const MONTHLY = [
-  ['The House of Da Vinci VR', 'plain'],
-  ['Vendetta Forever',         'plain'],
+  // atlas_catalog_01 (slots 1–8)
+  ["A Fisherman's Tale 2",                             'plain'],
+  ['Action Hero',                                      'vr'  ],
+  ['After the Fall',                                   'vr'  ],
+  ['Ancient Dungeon',                                  'vr'  ],
+  ['Banners & Bastions',                               'plain'],
+  ['Crisis Brigade 2 reloaded',                        'vr'  ],
+  ['Escaping Wonderland',                              'plain'],
+  ['First Person Tennis - The Real Tennis Simulator',  'vr'  ],
+  // atlas_catalog_02 (slots 9–11)
+  ['Fruit Ninja',                                      'plain'],
+  ['Shave & Stuff',                                    'plain'],
+  ['Table Troopers',                                   'vr'  ],
 ];
 
 const overrides = {};
@@ -410,7 +410,6 @@ function renderAll() {
   for (let a = 0; a < numAtlases; a++) {
     html += buildSection(CATALOG.slice(a * perPage, (a + 1) * perPage), a + 1, false);
   }
-  html += buildSection(MONTHLY, 1, true);
   container.innerHTML = html;
 }
 
