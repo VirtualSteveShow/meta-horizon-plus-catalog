@@ -644,6 +644,20 @@
   }
   body.can-hover .rp-clear:hover { border-color: #ef4444; color: #fca5a5; }
 
+  /* ── RATING CYCLE WRAP ── */
+  .rating-cycle-wrap {
+    display: grid;
+  }
+  .rating-cycle-wrap > .r-green,
+  .rating-cycle-wrap > .r-gold {
+    grid-area: 1 / 1;
+    transition: opacity 0.35s ease;
+  }
+  .rating-cycle-wrap > .r-green { opacity: 1; }
+  .rating-cycle-wrap > .r-gold  { opacity: 0; }
+  .rating-cycle-wrap.show-gold > .r-green { opacity: 0; }
+  .rating-cycle-wrap.show-gold > .r-gold  { opacity: 1; }
+
   /* ── MP BADGES ── */
   .mp-badge {
     display: inline-flex;
@@ -3016,8 +3030,39 @@ function ratingHTML(g) {
   return `<div class="game-rating"><span class="stars">★</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
 }
 
-function customRatingHTML(val) {
-  return `<div class="custom-rating"><span class="c-star">★</span><span class="c-num">${val.toFixed(1)}</span></div>`;
+function ratingTapInner(g) {
+  const count = g.reviews >= 1000 ? (g.reviews / 1000).toFixed(1).replace('.0', '') + 'K' : g.reviews;
+  const val = userRatings[g.name];
+  if (val !== undefined) {
+    return `<div class="rating-cycle-wrap">` +
+      `<div class="custom-rating r-green"><span class="c-star">★</span><span class="c-num">${val.toFixed(1)}</span></div>` +
+      `<div class="game-rating r-gold"><span class="stars">★</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>` +
+      `</div>`;
+  }
+  return `<div class="game-rating"><span class="stars">★</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
+}
+
+function startCycleOnTap(tap) {
+  stopCycleOnTap(tap);
+  const wrap = tap.querySelector('.rating-cycle-wrap');
+  if (!wrap) return;
+  let showingGold = false;
+  function tick() {
+    showingGold = !showingGold;
+    wrap.classList.toggle('show-gold', showingGold);
+    tap._cycleTimer = setTimeout(tick, showingGold ? 2000 : 3500);
+  }
+  tap._cycleTimer = setTimeout(tick, 3500);
+}
+
+function stopCycleOnTap(tap) {
+  if (tap._cycleTimer) { clearTimeout(tap._cycleTimer); tap._cycleTimer = null; }
+}
+
+function initRatingCycles() {
+  document.querySelectorAll('.rating-tap').forEach(tap => {
+    if (userRatings[tap.dataset.name] !== undefined) startCycleOnTap(tap);
+  });
 }
 
 let _ratingPopover = null;
@@ -3082,11 +3127,12 @@ function clearUserRating(name) {
 }
 
 function refreshCardRating(name) {
-  const g = gamesData.find(x => x.name === name);
   document.querySelectorAll('.rating-tap').forEach(tap => {
     if (tap.dataset.name !== name) return;
-    tap.innerHTML = (userRatings[name] !== undefined ? customRatingHTML(userRatings[name]) : '') +
-                    (g && g.rating ? ratingHTML(g) : '');
+    stopCycleOnTap(tap);
+    const g = { name, rating: parseFloat(tap.dataset.rating), reviews: parseInt(tap.dataset.reviews, 10) };
+    tap.innerHTML = ratingTapInner(g);
+    if (userRatings[name] !== undefined) startCycleOnTap(tap);
   });
 }
 
@@ -3124,7 +3170,7 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
         title="${starred.has(g.name) ? 'Unstar' : 'Star this game'}"><canvas class="star-canvas" width="28" height="28"></canvas></button>
     </div>
     <div class="card-bottom-left">
-      ${g.rating ? `<div class="rating-tap" data-name="${g.name}" onclick="openRatingInput(this.dataset.name, this)" title="Set my rating">${userRatings[g.name] !== undefined ? customRatingHTML(userRatings[g.name]) : ''}${ratingHTML(g)}</div>` : ''}
+      ${g.rating ? `<div class="rating-tap" data-name="${g.name}" data-rating="${g.rating}" data-reviews="${g.reviews}" onclick="openRatingInput(this.dataset.name, this)" title="Set my rating">${ratingTapInner(g)}</div>` : ''}
     </div>
     <div class="card-bottom-center">
       <a class="store-btn" href="${storeUrl(g.name)}" target="_blank" rel="noopener" title="View in Meta Horizon Store">
@@ -3199,6 +3245,7 @@ function renderCatalog() {
   if (countEl) countEl.textContent = `${filtered.length} title${filtered.length !== 1 ? 's' : ''}`;
   updateResetBtn();
   initStarCanvases();
+  initRatingCycles();
 }
 
 function renderStarred() {
@@ -3231,6 +3278,7 @@ function renderStarred() {
   section.classList.toggle('has-stars', matches.length > 0 || starred.size > 0);
   updateNavBtns();
   initStarCanvases();
+  initRatingCycles();
 }
 
 function toggleGenreDropdown(e) {
