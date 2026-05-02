@@ -647,16 +647,20 @@
   /* ── RATING CYCLE WRAP ── */
   .rating-cycle-wrap {
     display: grid;
+    overflow: hidden;
   }
   .rating-cycle-wrap > .r-green,
   .rating-cycle-wrap > .r-gold {
     grid-area: 1 / 1;
-    transition: opacity 0.35s ease;
+    transition: clip-path 0.45s ease;
+    white-space: nowrap;
   }
-  .rating-cycle-wrap > .r-green { opacity: 1; }
-  .rating-cycle-wrap > .r-gold  { opacity: 0; }
-  .rating-cycle-wrap.show-gold > .r-green { opacity: 0; }
-  .rating-cycle-wrap.show-gold > .r-gold  { opacity: 1; }
+  /* default: green visible (clips 0% from right), gold hidden (clips 100% from right) */
+  .rating-cycle-wrap > .r-green { clip-path: inset(0 0% 0 0); }
+  .rating-cycle-wrap > .r-gold  { clip-path: inset(0 100% 0 0); }
+  /* show-gold: green exits right (clips from left), gold reveals left-to-right */
+  .rating-cycle-wrap.show-gold > .r-green { clip-path: inset(0 0 0 100%); }
+  .rating-cycle-wrap.show-gold > .r-gold  { clip-path: inset(0 0% 0 0); }
 
   /* ── MP BADGES ── */
   .mp-badge {
@@ -3075,8 +3079,8 @@ function openRatingInput(name, anchorEl) {
   popover.innerHTML = `
     <div class="rating-popover-title">★ My Rating</div>
     <div class="rating-popover-row">
-      <input id="rp-input" type="number" min="0" max="10" step="0.1"
-        value="${cur !== undefined ? cur.toFixed(1) : ''}" placeholder="0–10">
+      <input id="rp-input" type="number" min="0" max="5" step="0.1"
+        value="${cur !== undefined ? cur.toFixed(1) : ''}" placeholder="0–5">
       <button class="rp-set">Set</button>
       ${cur !== undefined ? '<button class="rp-clear">Clear</button>' : ''}
     </div>`;
@@ -3112,7 +3116,7 @@ function applyUserRating(name) {
   const inp = _ratingPopover.querySelector('input');
   let val = parseFloat(inp.value);
   if (isNaN(val)) return;
-  val = Math.round(Math.min(10, Math.max(0, val)) * 10) / 10;
+  val = Math.round(Math.min(5, Math.max(0, val)) * 10) / 10;
   userRatings[name] = val;
   saveUserRatings();
   closeRatingPopover();
