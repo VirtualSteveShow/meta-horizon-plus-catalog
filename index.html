@@ -558,6 +558,92 @@
     font-size: 11px;
   }
 
+  /* ── CUSTOM USER RATING ── */
+  .custom-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 2px;
+  }
+  .custom-rating .c-star { color: #22c55e; font-size: 11px; }
+  .custom-rating .c-num  { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 12px; }
+
+  .rating-tap {
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid rgba(34,197,94,0.5); /* temp visible — remove once placement confirmed */
+    padding: 1px 4px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    user-select: none;
+  }
+
+  /* ── RATING POPOVER ── */
+  .rating-popover {
+    position: fixed;
+    background: #081220;
+    border: 1px solid rgba(14,165,233,0.35);
+    border-radius: 8px;
+    padding: 10px 12px;
+    z-index: 9999;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.75);
+    min-width: 190px;
+  }
+  .rating-popover-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(34,197,94,0.9);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .rating-popover-row { display: flex; align-items: center; gap: 6px; }
+  .rating-popover input[type=number] {
+    width: 58px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 5px;
+    color: #f1f5f9;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .rating-popover input[type=number]:focus { border-color: rgba(34,197,94,0.55); }
+  .rating-popover input[type=number]::-webkit-outer-spin-button,
+  .rating-popover input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .rating-popover input[type=number] { -moz-appearance: textfield; }
+  .rp-set {
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.4);
+    color: #4ade80;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  body.can-hover .rp-set:hover { background: rgba(34,197,94,0.28); border-color: rgba(34,197,94,0.7); }
+  .rp-clear {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  body.can-hover .rp-clear:hover { border-color: #ef4444; color: #fca5a5; }
+
   /* ── MP BADGES ── */
   .mp-badge {
     display: inline-flex;
@@ -1900,6 +1986,17 @@
         <hr class="changelog-divider">
 
         <div class="changelog-entry">
+          <div class="changelog-version">V 2.2 <span class="changelog-date">May 2026</span></div>
+          <ul>
+            <li>Custom user ratings — tap the star rating on any game card to set your own score (0.0–10.0)</li>
+            <li>Your rating appears as a green star above the official rating; clear it anytime to return to default</li>
+            <li>Ratings persist across sessions via local storage</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
+
+        <div class="changelog-entry">
           <div class="changelog-version">V 2.1 <span class="changelog-date">April 2026</span></div>
           <ul>
             <li>Move to Top / Move to Bottom buttons — each starred card now has ↑ and ↓ buttons for instant reordering without dragging</li>
@@ -2095,7 +2192,7 @@
     <div id="list-name-display" style="display:none;font-size:18px;font-weight:700;letter-spacing:0.02em;color:#f59e0b;margin-bottom:6px;text-shadow:0 0 20px rgba(245,158,11,0.3);"></div>
     <div class="header-sub">Complete game list · <span>May 2026</span> · <span id="header-total">102</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
-    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 2.1</span></div>
+    <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 2.2</span></div>
   </header>
 
   <!-- STATS -->
@@ -2387,6 +2484,13 @@ const allData = [...monthlyData, ...gamesData, ...indieData];
 const STORAGE_KEY = 'mhplus_starred_games';
 const ORDER_KEY   = 'mhplus_starred_order';
 let starred = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+// ── USER RATINGS ──
+const RATINGS_KEY = 'mhplus_user_ratings';
+let userRatings = JSON.parse(localStorage.getItem(RATINGS_KEY) || '{}');
+function saveUserRatings() {
+  localStorage.setItem(RATINGS_KEY, JSON.stringify(userRatings));
+}
 
 function saveStars() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...starred]));
@@ -2871,6 +2975,10 @@ document.addEventListener('click', e => {
       mpPanel.classList.remove('open');
     }
   }
+  // Close rating popover when clicking outside
+  if (_ratingPopover && !_ratingPopover.contains(e.target) && !e.target.closest('.rating-tap')) {
+    closeRatingPopover();
+  }
 });
 
 
@@ -2883,6 +2991,80 @@ function storeUrl(name) {
 function ratingHTML(g) {
   const count = g.reviews >= 1000 ? (g.reviews / 1000).toFixed(1).replace('.0', '') + 'K' : g.reviews;
   return `<div class="game-rating"><span class="stars">★</span><span class="rating-num">${g.rating.toFixed(1)}</span><span class="review-count">(${count})</span></div>`;
+}
+
+function customRatingHTML(val) {
+  return `<div class="custom-rating"><span class="c-star">★</span><span class="c-num">${val.toFixed(1)}</span></div>`;
+}
+
+let _ratingPopover = null;
+
+function openRatingInput(name, anchorEl) {
+  if (_ratingPopover) { _ratingPopover.remove(); _ratingPopover = null; }
+  const cur = userRatings[name];
+  const popover = document.createElement('div');
+  popover.className = 'rating-popover';
+  popover.innerHTML = `
+    <div class="rating-popover-title">★ My Rating</div>
+    <div class="rating-popover-row">
+      <input id="rp-input" type="number" min="0" max="10" step="0.1"
+        value="${cur !== undefined ? cur.toFixed(1) : ''}" placeholder="0–10">
+      <button class="rp-set">Set</button>
+      ${cur !== undefined ? '<button class="rp-clear">Clear</button>' : ''}
+    </div>`;
+  document.body.appendChild(popover);
+  _ratingPopover = popover;
+
+  popover.querySelector('.rp-set').addEventListener('click', () => applyUserRating(name));
+  const clearBtn = popover.querySelector('.rp-clear');
+  if (clearBtn) clearBtn.addEventListener('click', () => clearUserRating(name));
+
+  const rect = anchorEl.getBoundingClientRect();
+  const pw = popover.offsetWidth, ph = popover.offsetHeight;
+  let top = rect.bottom + 6, left = rect.left;
+  if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+  if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
+  popover.style.top = top + 'px';
+  popover.style.left = left + 'px';
+
+  const inp = document.getElementById('rp-input');
+  inp.focus(); inp.select();
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') applyUserRating(name);
+    if (e.key === 'Escape') closeRatingPopover();
+  });
+}
+
+function closeRatingPopover() {
+  if (_ratingPopover) { _ratingPopover.remove(); _ratingPopover = null; }
+}
+
+function applyUserRating(name) {
+  if (!_ratingPopover) return;
+  const inp = _ratingPopover.querySelector('input');
+  let val = parseFloat(inp.value);
+  if (isNaN(val)) return;
+  val = Math.round(Math.min(10, Math.max(0, val)) * 10) / 10;
+  userRatings[name] = val;
+  saveUserRatings();
+  closeRatingPopover();
+  refreshCardRating(name);
+}
+
+function clearUserRating(name) {
+  delete userRatings[name];
+  saveUserRatings();
+  closeRatingPopover();
+  refreshCardRating(name);
+}
+
+function refreshCardRating(name) {
+  const g = gamesData.find(x => x.name === name);
+  document.querySelectorAll('.rating-tap').forEach(tap => {
+    if (tap.dataset.name !== name) return;
+    tap.innerHTML = (userRatings[name] !== undefined ? customRatingHTML(userRatings[name]) : '') +
+                    (g && g.rating ? ratingHTML(g) : '');
+  });
 }
 
 function makeCard(g, idx, extraClass = '', xAction = 'remove') {
@@ -2919,7 +3101,7 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
         title="${starred.has(g.name) ? 'Unstar' : 'Star this game'}"><canvas class="star-canvas" width="28" height="28"></canvas></button>
     </div>
     <div class="card-bottom-left">
-      ${g.rating ? ratingHTML(g) : ''}
+      ${g.rating ? `<div class="rating-tap" data-name="${g.name}" onclick="openRatingInput(this.dataset.name, this)" title="Set my rating">${userRatings[g.name] !== undefined ? customRatingHTML(userRatings[g.name]) : ''}${ratingHTML(g)}</div>` : ''}
     </div>
     <div class="card-bottom-center">
       <a class="store-btn" href="${storeUrl(g.name)}" target="_blank" rel="noopener" title="View in Meta Horizon Store">
