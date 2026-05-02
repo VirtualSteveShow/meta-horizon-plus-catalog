@@ -2149,6 +2149,10 @@
       <span>Clear all stars</span>
       <button class="opt-action-btn danger" onclick="clearAllStars()">Clear Stars</button>
     </div>
+    <div class="opt-row">
+      <span>Clear custom ratings</span>
+      <button class="opt-action-btn danger" onclick="clearAllUserRatings()">Clear Ratings</button>
+    </div>
     <div class="opt-row" style="border-bottom:1px solid rgba(255,255,255,0.05);padding:8px 0;flex-direction:column;align-items:flex-start;gap:6px;">
       <span style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.05em;">MY LIST</span>
       <button class="opt-action-btn" id="name-list-btn" onclick="promptListName()" style="width:100%;text-align:center;padding:6px;">✏️ Name List</button>
@@ -2606,6 +2610,25 @@ function toggleStar(name, btn) {
       });
     }
   }
+}
+
+function clearAllUserRatings() {
+  const n = Object.keys(userRatings).length;
+  if (!n) return;
+  showConfirmModal(
+    '★',
+    'Clear All Custom Ratings?',
+    `This will remove all ${n} custom rating${n !== 1 ? 's' : ''} you have set. This cannot be undone.`,
+    'Clear All Ratings',
+    'background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.5);color:#fca5a5;',
+    () => {
+      const names = Object.keys(userRatings);
+      for (const k of names) delete userRatings[k];
+      saveUserRatings();
+      names.forEach(refreshCardRating);
+      showToast(`Cleared ${n} custom rating${n !== 1 ? 's' : ''}`);
+    }
+  );
 }
 
 function clearAllStars() {
