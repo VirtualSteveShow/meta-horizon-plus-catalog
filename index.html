@@ -571,7 +571,6 @@
   .rating-tap {
     cursor: pointer;
     border-radius: 4px;
-    border: 1px solid rgba(34,197,94,0.5); /* temp visible — remove once placement confirmed */
     padding: 1px 4px;
     display: inline-flex;
     flex-direction: column;
@@ -652,7 +651,7 @@
   .rating-cycle-wrap > .r-green,
   .rating-cycle-wrap > .r-gold {
     grid-area: 1 / 1;
-    transition: clip-path 0.45s ease;
+    transition: clip-path 0.675s ease;
     white-space: nowrap;
   }
   /* default: green visible (clips 0% from right), gold hidden (clips 100% from right) */
@@ -1811,6 +1810,8 @@
     .game-rating .stars        { font-size: 18px; }
     .game-rating .rating-num   { font-size: 20px; }
     .game-rating .review-count { font-size: 16px; }
+    .custom-rating .c-star     { font-size: 18px; }
+    .custom-rating .c-num      { font-size: 20px; }
     /* ── PC LAYOUT ── */
     .monthly-grid { justify-content: center; }
     .monthly-card { max-width: 420px; }
@@ -3054,9 +3055,9 @@ function startCycleOnTap(tap) {
   function tick() {
     showingGold = !showingGold;
     wrap.classList.toggle('show-gold', showingGold);
-    tap._cycleTimer = setTimeout(tick, showingGold ? 2000 : 3500);
+    tap._cycleTimer = setTimeout(tick, showingGold ? 2500 : 4500);
   }
-  tap._cycleTimer = setTimeout(tick, 3500);
+  tap._cycleTimer = setTimeout(tick, 4500);
 }
 
 function stopCycleOnTap(tap) {
