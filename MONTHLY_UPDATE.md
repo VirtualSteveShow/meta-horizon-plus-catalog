@@ -221,11 +221,14 @@ Note: use `&amp;` for any `&` in game names within the HTML.
 ### 3o. Update counts and month references
 Search for each of these and update to the new month/count:
 - `stat-total` — total game count (e.g. "102 games")
+- `stat-lbl` on the first stat card — e.g. "March Free" → "June Free" (search for `Free</span>`)
+- `section-title` in the monthly section — e.g. "May 2026 Monthly Redeemables" (search for `Monthly Redeemables`)
 - `header-sub` — subtitle line (e.g. "102 games · April 2026")
 - `show-label` — label above the free monthly section
-- Footer meta tag — `content="102 games"`
+- `meta name="description"` — count and month in the description tag
+- OG meta tags — `og:title` and `og:description`
+- Page `<title>`
 - Canvas `fillText` — month/year string drawn on the share image
-- Page `<title>` and OG meta tags — title and description
 - `CLAIM DEADLINE` — search for `CLAIM DEADLINE` and update to the last day of the
   new month (e.g. `April 30, 2026` → `May 31, 2026`)
 
