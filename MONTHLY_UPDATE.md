@@ -45,12 +45,18 @@ Do not estimate or carry over ratings from a previous source — monthly games i
 particular tend to have ratings that differ from what appears in catalog dumps.
 
 ### 1e. App IDs for all new games
-After Step 2 confirms the add/remove lists, direct the user to `tools/id_lookup.html`
-(which you must update first — see Step 4a) to collect store IDs:
+There is a pre-built tool at `tools/id_lookup.html` specifically for collecting store IDs.
+**You must update it first** (see Step 4a — do that step now, before asking the user), then
+prompt the user to open it:
 
-> "Please open tools/id_lookup.html in a browser. For each game, click Search,
-> find the right store page, then paste the URL or numeric ID into the field.
-> When all are filled in, click Generate Export and paste the result here."
+> "Please open `tools/id_lookup.html` in a browser. I've already updated it with this
+> month's new games. For each game, click Search, find the right store page, then paste
+> the URL or numeric ID into the field. When all are filled in, click Generate Export
+> and paste the result here."
+
+The tool handles monthly redeemables, main catalog additions, and indie additions in
+separate labeled sections. The user only needs to open the file and look up each game —
+the export button formats everything for you.
 
 Do not proceed to Step 3m until you have a real ID for every new game.
 Do not use search URL fallback.
@@ -233,7 +239,8 @@ To get the new total count: count all entries across `gamesData` + `indieData` +
 These files in `tools/` need to reflect the new month's games only.
 
 ### 4a. `tools/id_lookup.html`
-Update this **before** directing the user to it in Step 1e.
+**Do this during Step 1 info gathering, before asking the user for IDs.**
+This tool is how the user looks up store links — update it first, then send them to it.
 
 - Change the `<title>` and `.header-title` to the new month.
 - Replace the `GAMES` array with the new month's additions only (both monthly

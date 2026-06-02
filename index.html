@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -16,8 +16,8 @@
 <!-- ── OPEN GRAPH (link previews on Discord, iMessage, etc.) ── -->
 <meta property="og:type"        content="website">
 <meta property="og:site_name"   content="Meta Horizon+ Catalog">
-<meta property="og:title"       content="Meta Horizon+ Full Catalog — May 2026">
-<meta property="og:description" content="Browse all 102 games in the Meta Horizon+ VR subscription. Filter by genre, rating, multiplayer, and more.">
+<meta property="og:title"       content="Meta Horizon+ Full Catalog — June 2026">
+<meta property="og:description" content="Browse all 101 games in the Meta Horizon+ VR subscription. Filter by genre, rating, multiplayer, and more.">
 <meta property="og:image"       content="https://virtualsteveshow.github.io/meta-horizon-plus-catalog/og_image.jpg">
 <meta property="og:url"         content="https://virtualsteveshow.github.io/meta-horizon-plus-catalog/">
 
@@ -46,7 +46,7 @@
   ]
 }">
 
-<title>Meta Horizon+ Full Catalog — May 2026</title>
+<title>Meta Horizon+ Full Catalog — June 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1249,6 +1249,21 @@
     margin-left: 2px;
     filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
   }
+  .tag-jun  { background: rgba(20,184,166,0.15);  color: #5eead4; border: 1px solid rgba(20,184,166,0.3); }
+  .tag-jun-inline {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(20,184,166,0.85);
+    color: #fff;
+    vertical-align: middle;
+    margin-left: 2px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+  }
   .tag-free { background: rgba(34,197,94,0.15);   color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
 
   /* ── MONTHLY CARDS ── */
@@ -1806,7 +1821,7 @@
     #list-name-display { font-size: 36px !important; }
     .mp-badge { font-size: 16px; padding: 5px 12px; }
     .claim-badge { font-size: 14px; padding: 5px 10px; }
-    .tag-mar-inline, .tag-jan-inline, .tag-apr-inline, .tag-may-inline { font-size: 13px; padding: 4px 9px; }
+    .tag-mar-inline, .tag-jan-inline, .tag-apr-inline, .tag-may-inline, .tag-jun-inline { font-size: 13px; padding: 4px 9px; }
     .game-rating .stars        { font-size: 18px; }
     .game-rating .rating-num   { font-size: 20px; }
     .game-rating .review-count { font-size: 16px; }
@@ -1997,6 +2012,17 @@
         <button class="help-close" onclick="toggleChangelog()">✕</button>
       </div>
       <div class="changelog-body">
+
+        <div class="changelog-entry">
+          <div class="changelog-version">Catalog Update <span class="changelog-date">June 2026</span></div>
+          <ul>
+            <li>Monthly redeemables: Maskmaker, Trombone Champ: Unflattened</li>
+            <li>Added: Crime Shop Simulator: A Prison Boss Game (renamed), Outta Hand, Last Stand, Little Thief, Survival Nation</li>
+            <li>Removed: Into Black, Make It Stable - Kids &amp; Family Fun!, Rogue Ascent VR, Space Elevator, Stupid Cars</li>
+          </ul>
+        </div>
+
+        <hr class="changelog-divider">
 
         <div class="changelog-entry">
           <div class="changelog-version">Catalog Update <span class="changelog-date">May 2026</span></div>
@@ -2193,9 +2219,9 @@
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="games"    onclick="menuSetCat('games',this)">Main</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="indie"    onclick="menuSetCat('indie',this)">Indie</button>
         <span class="filter-sep">|</span>
+        <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="JUN"      onclick="menuSetCat('JUN',this)">Jun</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="MAY"      onclick="menuSetCat('MAY',this)">May</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="APR"      onclick="menuSetCat('APR',this)">Apr</button>
-        <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="MAR"      onclick="menuSetCat('MAR',this)">Mar</button>
         <button class="filter-btn cat-filter-btn menu-cat-btn" data-cat="UNSTARRED" onclick="menuSetCat('UNSTARRED',this)">Not Starred</button>
       </div>
       <div class="filter-bar" style="flex-wrap:wrap;gap:5px;margin-bottom:5px;">
@@ -2216,10 +2242,10 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="show-label">⬡ Meta Horizon+ Full Games Catalog — May 2026</div>
+    <div class="show-label">⬡ Meta Horizon+ Full Games Catalog — June 2026</div>
     <h1>Meta Horizon+ Catalog</h1>
     <div id="list-name-display" style="display:none;font-size:18px;font-weight:700;letter-spacing:0.02em;color:#f59e0b;margin-bottom:6px;text-shadow:0 0 20px rgba(245,158,11,0.3);"></div>
-    <div class="header-sub">Complete game list · <span>May 2026</span> · <span id="header-total">102</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
+    <div class="header-sub">Complete game list · <span>June 2026</span> · <span id="header-total">101</span> titles · $7.99/mo · <span style="color:var(--green);font-weight:500;">First month free — cancel anytime</span></div>
     <div class="header-byline">A tool by <a href="https://www.youtube.com/@virtualsteven/streams" target="_blank" rel="noopener" style="color:#f59e0b;font-weight:700;text-decoration:none;">Virtual Steve</a></div>
     <div><span class="version-badge" onclick="toggleChangelog()" title="View patch notes">V 2.2</span></div>
   </header>
@@ -2231,7 +2257,7 @@
       <span class="stat-lbl">March Free</span>
     </div>
     <div class="stat gold">
-      <span class="stat-num" id="stat-total">102</span>
+      <span class="stat-num" id="stat-total">101</span>
       <span class="stat-lbl">Total Titles</span>
     </div>
     <div class="stat blue">
@@ -2253,7 +2279,7 @@
       <span id="monthly-chevron" style="margin-left:10px;font-size:13px;color:var(--muted);">▼</span>
     </div>
     <div id="monthly-body">
-    <div class="deadline">⏰ CLAIM DEADLINE: May 31, 2026 — these leave after this month</div>
+    <div class="deadline">⏰ CLAIM DEADLINE: June 30, 2026 — these leave after this month</div>
     <div class="game-grid" id="monthly-grid"></div>
     </div><!-- end monthly-body -->
   </section>
@@ -2291,9 +2317,9 @@
         <button class="filter-btn cat-filter-btn" data-cat="games"   onclick="setCatalogFilter('cat','games',this)">Main</button>
         <button class="filter-btn cat-filter-btn" data-cat="indie"   onclick="setCatalogFilter('cat','indie',this)">Indie</button>
         <span class="filter-sep">|</span>
+        <button class="filter-btn cat-filter-btn" data-cat="JUN"     onclick="setCatalogFilter('cat','JUN',this)">Jun</button>
         <button class="filter-btn cat-filter-btn" data-cat="MAY"     onclick="setCatalogFilter('cat','MAY',this)">May</button>
         <button class="filter-btn cat-filter-btn" data-cat="APR"     onclick="setCatalogFilter('cat','APR',this)">Apr</button>
-        <button class="filter-btn cat-filter-btn" data-cat="MAR"     onclick="setCatalogFilter('cat','MAR',this)">Mar</button>
         <button class="filter-btn cat-filter-btn" data-cat="UNSTARRED" onclick="setCatalogFilter('cat','UNSTARRED',this)">Not Starred</button>
       </div>
       <div class="filter-row-2 filter-bar" style="margin-bottom:4px;flex-wrap:wrap;gap:5px;">
@@ -2347,9 +2373,9 @@
       </div>
     </div>
     <div class="legend">
+      <div class="legend-item"><span class="tag tag-jun">JUN</span> Added June 2026</div>
       <div class="legend-item"><span class="tag tag-may">MAY</span> Added May 2026</div>
       <div class="legend-item"><span class="tag tag-apr">APR</span> Added April 2026</div>
-      <div class="legend-item"><span class="tag tag-mar">MAR</span> Added March 2026</div>
     </div>
     <div class="game-grid" id="catalog-grid"></div>
     </div><!-- end catalog-body -->
@@ -2403,6 +2429,7 @@ const gamesData = [
   { name: "Beat Saber",                       genre: "Rhythm",              tag: "MAR", type: "games", mp: ["multi"], rating: 4.5, reviews: 55000 },
   { name: "Blacktop Hoops",                   genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.9, reviews: 23000 },
   { name: "Breachers",                        genre: "Tactical Shooter",    tag: "APR", type: "games", mp: ["multi"], rating: 4.5, reviews: 6000 },
+  { name: "Crime Shop Simulator: A Prison Boss Game", genre: "Simulation",  tag: "APR", type: "games", mp: [], rating: 4.6, reviews: 629 },
   { name: "Deisim",                           genre: "Strategy / Sim",      tag: "", type: "games", mp: [], rating: 4.6, reviews: 1900 },
   { name: "Demeo",                            genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi","coop"], rating: 4.6, reviews: 7500 },
   { name: "Demeo Battles",                    genre: "Tabletop RPG",        tag: "", type: "games", mp: ["multi"], rating: 4.1, reviews: 330 },
@@ -2415,7 +2442,6 @@ const gamesData = [
   { name: "I Expect You To Die 3",            genre: "Puzzle / Spy",        tag: "", type: "games", mp: [], rating: 4.7, reviews: 1300 },
   { name: "iB Cricket",                       genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.2, reviews: 1700 },
   { name: "In Death: Unchained",              genre: "Roguelike Shooter",   tag: "", type: "games", mp: [], rating: 4.7, reviews: 4900 },
-  { name: "Into Black",                       genre: "Adventure",           tag: "JAN", type: "games", mp: [], rating: 4.7, reviews: 759 },
   { name: "Into the Radius",                  genre: "Survival Shooter",    tag: "", type: "games", mp: [], rating: 4.7, reviews: 7700 },
   { name: "Job Simulator",                    genre: "Simulation / Comedy", tag: "", type: "games", mp: [], rating: 4.6, reviews: 21000 },
   { name: "Les Mills Bodycombat",             genre: "Fitness",             tag: "", type: "games", mp: [], rating: 4.5, reviews: 5200 },
@@ -2423,10 +2449,10 @@ const gamesData = [
   { name: "Medieval Dynasty: New Settlement", genre: "Simulation",          tag: "", type: "games", mp: [], rating: 4.7, reviews: 7800 },
   { name: "Moss",                             genre: "Puzzle / Adventure",  tag: "", type: "games", mp: [], rating: 4.8, reviews: 7800 },
   { name: "Onward",                           genre: "Tactical Shooter",    tag: "", type: "games", mp: ["multi","coop"], rating: 4.2, reviews: 18000 },
+  { name: "Outta Hand",                       genre: "Platformer / Puzzle",  tag: "JUN", type: "games", mp: [], rating: 4.3, reviews: 611 },
   { name: "Pets & Stuff",                     genre: "Simulation",          tag: "", type: "games", mp: ["multi"], rating: 4.8, reviews: 5600 },
   { name: "Pistol Whip",                      genre: "Action / Rhythm",     tag: "", type: "games", mp: [], rating: 4.8, reviews: 10000 },
   { name: "Premium Bowling",                  genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 2100 },
-  { name: "Prison Boss Prohibition",          genre: "Simulation",          tag: "APR", type: "games", mp: [], rating: 4.6, reviews: 594 },
   { name: "Project Demigod",                  genre: "Action",              tag: "", type: "games", mp: [], rating: 3.9, reviews: 2500 },
   { name: "Puzzling Places",                  genre: "Puzzle",              tag: "", type: "games", mp: ["coop"], rating: 4.8, reviews: 2800 },
   { name: "Racket Club",                      genre: "Sports",              tag: "", type: "games", mp: ["multi"], rating: 4.3, reviews: 902 },
@@ -2475,19 +2501,18 @@ const indieData = [
   { name: "Iron Guard",                         genre: "Tower Defense",       tag: "", type: "indie", mp: [], rating: 4.6, reviews: 373 },
   { name: "Ironlights",                         genre: "Fighting",            tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 2300 },
   { name: "Killer Frequency",                   genre: "Simulation / Horror", tag: "", type: "indie", mp: [], rating: 4.4, reviews: 386 },
+  { name: "Last Stand",                          genre: "Survival Shooter",    tag: "JUN", type: "indie", mp: [], rating: 4.4, reviews: 1500 },
   { name: "Laser Thief",                        genre: "Puzzle / Stealth",    tag: "", type: "indie", mp: [], rating: 4.1, reviews: 119 },
-  { name: "Make It Stable - Kids & Family Fun!", genre: "Puzzle / Family",    tag: "", type: "indie", mp: [], rating: 4.5, reviews: 172 },
+  { name: "Little Thief",                       genre: "Platformer / Action", tag: "JUN", type: "indie", mp: [], rating: 4.8, reviews: 1600 },
   { name: "Motion Soccer PRO",                  genre: "Sports",              tag: "", type: "indie", mp: ["multi"], rating: 4.3, reviews: 237 },
   { name: "Mythic Realms",                      genre: "RPG / Action",        tag: "", type: "indie", mp: ["multi","coop"], rating: 4.4, reviews: 190 },
   { name: "Operation Serpens",                  genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.5, reviews: 319 },
   { name: "Retropolis 2: Never Say Goodbye",    genre: "Adventure",           tag: "", type: "indie", mp: [], rating: 4.7, reviews: 394 },
-  { name: "Rogue Ascent VR",                    genre: "Roguelike Shooter",   tag: "", type: "indie", mp: [], rating: 4.5, reviews: 176 },
   { name: "Rogue Piñatas: VRmageddon",          genre: "Action",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 284 },
   { name: "RUNNER",                             genre: "Platformer",          tag: "", type: "indie", mp: [], rating: 4.6, reviews: 397 },
   { name: "Shooty Fruity",                      genre: "Arcade Shooter",      tag: "", type: "indie", mp: [], rating: 4.1, reviews: 278 },
   { name: "Slot Car VR",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.4, reviews: 144 },
-  { name: "Space Elevator",                     genre: "Casual",              tag: "", type: "indie", mp: [], rating: 4.7, reviews: 39 },
-  { name: "Stupid Cars",                        genre: "Racing",              tag: "", type: "indie", mp: ["multi"], rating: 4.6, reviews: 109 },
+  { name: "Survival Nation",                    genre: "RPG / Survival",      tag: "JUN", type: "indie", mp: [], rating: 4.1, reviews: 761 },
   { name: "Sushi Ben",                          genre: "Social / Adventure",  tag: "", type: "indie", mp: [], rating: 4.5, reviews: 336 },
   { name: "Taiko Frenzy",                       genre: "Rhythm",              tag: "", type: "indie", mp: [], rating: 4.6, reviews: 75 },
   { name: "The Curious Tale of the Stolen Pets", genre: "Puzzle",             tag: "", type: "indie", mp: [], rating: 4.4, reviews: 786 },
@@ -2504,8 +2529,8 @@ const indieData = [
 ];
 
 const monthlyData = [
-  { name: "A Fisherman's Tale 2", genre: "Puzzle / Adventure",  tag: "", type: "monthly", mp: [], rating: 4.6, reviews: 250 },
-  { name: "Ancient Dungeon",      genre: "Roguelike Dungeon",   tag: "", type: "monthly", mp: [], rating: 4.8, reviews: 2400 },
+  { name: "Maskmaker",                  genre: "Puzzle / Adventure",  tag: "", type: "monthly", mp: [], rating: 4.5, reviews: 232 },
+  { name: "Trombone Champ: Unflattened", genre: "Rhythm / Party",     tag: "", type: "monthly", mp: [], rating: 4.8, reviews: 387 },
 ];
 const allData = [...monthlyData, ...gamesData, ...indieData];
 
@@ -2687,6 +2712,7 @@ let starredSearch = '';
 let starredOrder = JSON.parse(localStorage.getItem(ORDER_KEY) || '[]'); // manual sort order
 
 function tagClass(tag) {
+  if (tag === 'JUN') return 'tag-jun';
   if (tag === 'MAY') return 'tag-may';
   if (tag === 'APR') return 'tag-apr';
   if (tag === 'MAR') return 'tag-mar';
@@ -2697,8 +2723,8 @@ function tagClass(tag) {
 // Direct Meta Horizon Store app IDs for deep linking
 const APP_IDS = {
   // ── MONTHLY REDEEMABLES ──
-  "A Fisherman's Tale 2":             "4543286815791830",
-  "Ancient Dungeon":                  "5138511912885491",
+  "Maskmaker":                        "5028049290647430",
+  "Trombone Champ: Unflattened":      "25085547287757633",
   // ── GAMES CATALOG ──
   "After the Fall":                   "2160364850746031",
   "Alvo":                             "6937410016334124",
@@ -2707,6 +2733,7 @@ const APP_IDS = {
   "Beat Saber":                       "2448060205267927",
   "Blacktop Hoops":                   "4416817901687071",
   "Breachers":                        "5740397619319389",
+  "Crime Shop Simulator: A Prison Boss Game": "6710396435653866",
   "Deisim":                           "3526702020710931",
   "Demeo":                            "3634830803298285",
   "Demeo Battles":                    "4189524851131699",
@@ -2719,7 +2746,6 @@ const APP_IDS = {
   "I Expect You To Die 3":            "4676322075753574",
   "iB Cricket":                       "5437449896288644",
   "In Death: Unchained":              "2334376869949242",
-  "Into Black":                       "5289374691122516",
   "Into the Radius":                  "5817243991680545",
   "Job Simulator":                    "3235570703151406",
   "Les Mills Bodycombat":             "4015163475201433",
@@ -2727,9 +2753,9 @@ const APP_IDS = {
   "Medieval Dynasty: New Settlement": "5900444653303887",
   "Moss":                             "1654565391314903",
   "Onward":                           "2677344882310094",
+  "Outta Hand":                       "5344306855599112",
   "Pets & Stuff":                     "7818625474831202",
   "Pistol Whip":                      "2104963472963790",
-  "Prison Boss Prohibition":          "6710396435653866",
   "Premium Bowling":                  "2773034772778845",
   "Project Demigod":                  "5288522424560925",
   "Puzzling Places":                  "3931148300302917",
@@ -2777,19 +2803,18 @@ const APP_IDS = {
   "Iron Guard":                       "5153768677983339",
   "Ironlights":                       "2449350021843569",
   "Killer Frequency":                 "4629225960449550",
+  "Last Stand":                       "24613461608300906",
   "Laser Thief":                      "8601091189913934",
-  "Make It Stable - Kids & Family Fun!":   "26313534838289915",
+  "Little Thief":                     "7955818474542810",
   "Motion Soccer PRO":                "7304829872906558",
   "Mythic Realms":                    "8364993590228690",
   "Operation Serpens":                "5748603085165962",
   "Retropolis 2: Never Say Goodbye":  "6202929073076301",
-  "Rogue Ascent VR":                  "5395586720470296",
   "Rogue Piñatas: VRmageddon":        "5316449838479945",
   "RUNNER":                           "6501835653220720",
   "Shooty Fruity":                    "2807364355977144",
   "Slot Car VR":                      "5725168237605851",
-  "Space Elevator":                   "7107719756007453",
-  "Stupid Cars":                      "7376768975749759",
+  "Survival Nation":                  "6198564290223186",
   "Sushi Ben":                        "5459391390744272",
   "Taiko Frenzy":                     "5801769383179330",
   "The Curious Tale of the Stolen Pets":  "2439217169469931",
@@ -3151,7 +3176,7 @@ function makeCard(g, idx, extraClass = '', xAction = 'remove') {
   const isStarred = starred.has(g.name);
   const card = document.createElement('div');
   const isMonthlyFree = false;
-  const isClaimable = (g.name === "A Fisherman's Tale 2" || g.name === 'Ancient Dungeon');
+  const isClaimable = (g.name === 'Maskmaker' || g.name === 'Trombone Champ: Unflattened');
   card.className = 'game-card' + (g.type === 'indie' ? ' indie' : '') + (isClaimable ? ' claimable' : '') + (extraClass ? ' ' + extraClass : '');
   const gg = genreGroup(g.genre);
   card.dataset.genreGroup = gg;
@@ -3648,7 +3673,7 @@ function setCatalogFilter(key, val, btn) {
 
   if (key === 'cat') {
     const isType = val === 'games' || val === 'indie';
-    const isTag  = val === 'MAY' || val === 'APR' || val === 'MAR';
+    const isTag  = val === 'JUN' || val === 'MAY' || val === 'APR';
     const isActive = btn.classList.contains('active');
     if (isType) {
       // Toggle type filter; leave tag filter alone
@@ -3809,7 +3834,7 @@ function syncMenuFilters() {
       b.classList.toggle('active', catalogFilter.unstarred);
     } else if (b.dataset.cat === 'games' || b.dataset.cat === 'indie') {
       b.classList.toggle('active', b.dataset.cat === catalogFilter.catType);
-    } else if (b.dataset.cat === 'MAY' || b.dataset.cat === 'APR' || b.dataset.cat === 'MAR') {
+    } else if (b.dataset.cat === 'JUN' || b.dataset.cat === 'MAY' || b.dataset.cat === 'APR') {
       b.classList.toggle('active', catalogFilter.catTags.has(b.dataset.cat));
     }
   });
@@ -3939,8 +3964,8 @@ if (headerTotal) headerTotal.textContent = totalCount;
 
 const HERO_ART = {
   // ── MONTHLY GAMES ──
-  "A Fisherman's Tale 2":                  'hero_art/a-fishermans-tale-2.jpg',
-  'Ancient Dungeon':                       'hero_art/ancient-dungeon.jpg',
+  'Maskmaker':                             'hero_art/maskmaker.jpg',
+  'Trombone Champ: Unflattened':           'hero_art/trombone-champ-unflattened.jpg',
   // ── GAMES CATALOG ──
   'After the Fall':                        'hero_art/after-the-fall.jpg',
   'Alvo':                                  'hero_art/alvo.jpg',
@@ -3949,6 +3974,7 @@ const HERO_ART = {
   'Beat Saber':                            'hero_art/beat-saber.jpg',
   'Blacktop Hoops':                        'hero_art/blacktop-hoops.jpg',
   'Breachers':                             'hero_art/breachers.jpg',
+  'Crime Shop Simulator: A Prison Boss Game': 'hero_art/crime-shop-simulator-a-prison-boss-game.jpg',
   'Deisim':                                'hero_art/deisim.jpg',
   'Demeo':                                 'hero_art/demeo.jpg',
   'Demeo Battles':                         'hero_art/demeo-battles.jpg',
@@ -3961,7 +3987,6 @@ const HERO_ART = {
   'I Expect You To Die 3':                 'hero_art/i-expect-you-to-die-3.jpg',
   'iB Cricket':                            'hero_art/ib-cricket.jpg',
   'In Death: Unchained':                   'hero_art/in-death-unchained.jpg',
-  'Into Black':                            'hero_art/into-black.jpg',
   'Into the Radius':                       'hero_art/into-the-radius.jpg',
   'Job Simulator':                         'hero_art/job-simulator.jpg',
   'Les Mills Bodycombat':                  'hero_art/les-mills-bodycombat.jpg',
@@ -3969,10 +3994,10 @@ const HERO_ART = {
   'Medieval Dynasty: New Settlement':      'hero_art/medieval-dynasty-new-settlement.jpg',
   'Moss':                                  'hero_art/moss.jpg',
   'Onward':                                'hero_art/onward.jpg',
+  'Outta Hand':                            'hero_art/outta-hand.jpg',
   'Pets & Stuff':                          'hero_art/pets-stuff.jpg',
   'Pistol Whip':                           'hero_art/pistol-whip.jpg',
   'Premium Bowling':                       'hero_art/premium-bowling.jpg',
-  'Prison Boss Prohibition':               'hero_art/prison-boss-prohibition.jpg',
   'Project Demigod':                       'hero_art/project-demigod.jpg',
   'Puzzling Places':                       'hero_art/puzzling-places.jpg',
   'Racket Club':                           'hero_art/racket-club.jpg',
@@ -4019,19 +4044,18 @@ const HERO_ART = {
   'Iron Guard':                            'hero_art/iron-guard.jpg',
   'Ironlights':                            'hero_art/ironlights.jpg',
   'Killer Frequency':                      'hero_art/killer-frequency.jpg',
+  'Last Stand':                            'hero_art/last-stand.jpg',
   'Laser Thief':                           'hero_art/laser-thief.jpg',
-  'Make It Stable - Kids & Family Fun!':   'hero_art/make-it-stable-kids-family-fun.jpg',
+  'Little Thief':                          'hero_art/little-thief.jpg',
   'Motion Soccer PRO':                     'hero_art/motion-soccer-pro.jpg',
   'Mythic Realms':                         'hero_art/mythic-realms.jpg',
   'Operation Serpens':                     'hero_art/operation-serpens.jpg',
   'Retropolis 2: Never Say Goodbye':       'hero_art/retropolis-2-never-say-goodbye.jpg',
-  'Rogue Ascent VR':                       'hero_art/rogue-ascent-vr.jpg',
   'Rogue Piñatas: VRmageddon':             'hero_art/rogue-pinatas-vrmageddon.jpg',
   'RUNNER':                                'hero_art/runner.jpg',
   'Shooty Fruity':                         'hero_art/shooty-fruity.jpg',
   'Slot Car VR':                           'hero_art/slot-car-vr.jpg',
-  'Space Elevator':                        'hero_art/space-elevator.jpg',
-  'Stupid Cars':                           'hero_art/stupid-cars.jpg',
+  'Survival Nation':                       'hero_art/survival-nation.jpg',
   'Sushi Ben':                             'hero_art/sushi-ben.jpg',
   'Taiko Frenzy':                          'hero_art/taiko-frenzy.jpg',
   'The Curious Tale of the Stolen Pets':   'hero_art/the-curious-tale-of-the-stolen-pets.jpg',
@@ -4049,8 +4073,8 @@ const HERO_ART = {
 
 // ── MONTHLY ART — separate files sized 600×340, suffix -monthly ──
 const HERO_ART_MONTHLY = {
-  "A Fisherman's Tale 2": 'hero_art/a-fishermans-tale-2.jpg',
-  'Ancient Dungeon':       'hero_art/ancient-dungeon.jpg',
+  'Maskmaker':                   'hero_art/maskmaker.jpg',
+  'Trombone Champ: Unflattened': 'hero_art/trombone-champ-unflattened.jpg',
 };
 
 function applyMonthlyArt() {
@@ -4179,7 +4203,7 @@ function applyHeroArt(card, gameName, genreGroup) {
 // ══════════════════════════════════════════════════════════
 // COLLAPSIBLE MONTHLY SECTION
 // ══════════════════════════════════════════════════════════
-const MONTHLY_VERSION = '2026-05';
+const MONTHLY_VERSION = '2026-06';
 const MONTHLY_SEEN_KEY = 'mhplus_monthly_seen';
 
 function toggleMonthly() {
@@ -4195,7 +4219,7 @@ function renderMonthly() {
   const grid = document.getElementById('monthly-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  const monthlyNames = ["A Fisherman's Tale 2", 'Ancient Dungeon'];
+  const monthlyNames = ['Maskmaker', 'Trombone Champ: Unflattened'];
   monthlyNames.forEach(name => {
     const g = allData.find(x => x.name === name);
     if (!g) return;
@@ -4838,7 +4862,7 @@ function generateOgImage(download = false) {
   ctx.fillStyle = '#64748b';
   ctx.font = '22px monospace';
   ctx.letterSpacing = '1px';
-  ctx.fillText('102 games · May 2026 · Filter · Star · Track', 60, 370);
+  ctx.fillText('101 games · June 2026 · Filter · Star · Track', 60, 370);
 
   // Bottom tag row
   const tags = [

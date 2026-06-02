@@ -27,19 +27,15 @@ COLS        = 2
 ROWS        = 4
 JPG_QUALITY = 92
 
-# ── MAY 2026: ALL NEW GAMES (catalog + monthly, alphabetical = atlas order) ──
+# ── JUNE 2026: ALL NEW GAMES (catalog + monthly, alphabetical = atlas order) ──
 CATALOG_GAMES = sorted([
-    "A Fisherman's Tale 2",
-    'Action Hero',
-    'After the Fall',
-    'Ancient Dungeon',
-    'Banners & Bastions',
-    'Crisis Brigade 2 reloaded',
-    'Escaping Wonderland',
-    'First Person Tennis - The Real Tennis Simulator',
-    'Fruit Ninja',
-    'Shave & Stuff',
-    'Table Troopers',
+    'Crime Shop Simulator: A Prison Boss Game',
+    'Last Stand',
+    'Little Thief',
+    'Maskmaker',
+    'Outta Hand',
+    'Survival Nation',
+    'Trombone Champ: Unflattened',
 ])
 
 

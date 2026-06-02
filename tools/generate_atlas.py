@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-Meta Horizon+ Catalog — Atlas Generator  (April 2026 — NEW GAMES ONLY)
+Meta Horizon+ Catalog — Atlas Generator  (June 2026 — NEW GAMES ONLY)
 =======================================================================
 Renders UI overlays using the REAL catalog CSS via headless Chromium (Playwright),
 so overlays are pixel-perfect 1:1 with the actual app — same fonts, same emoji,
@@ -89,23 +89,19 @@ def genre_group(genre):
 
 
 # ══════════════════════════════════════════════════════════════
-# MAY 2026: NEW GAMES ONLY (catalog + monthly combined)
+# JUNE 2026: NEW GAMES ONLY (catalog + monthly combined)
 # ══════════════════════════════════════════════════════════════
 CATALOG_GAMES = sorted([
-    {'name': 'A Fisherman\'s Tale 2',   'genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.6, 'reviews': 250},
-    {'name': 'Action Hero',             'genre': 'Action',              'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.6, 'reviews': 313},
-    {'name': 'After the Fall',          'genre': 'Co-op Shooter',       'type': 'games', 'mp': ['multi','coop'],'tag': 'MAY', 'rating': 4.0, 'reviews': 3600},
-    {'name': 'Ancient Dungeon',         'genre': 'Roguelike Dungeon',   'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 2400},
-    {'name': 'Banners & Bastions',      'genre': 'Strategy',            'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.9, 'reviews': 144},
-    {'name': 'Crisis Brigade 2 reloaded','genre': 'Shooter',            'type': 'indie', 'mp': [],              'tag': 'MAY', 'rating': 4.4, 'reviews': 870},
-    {'name': 'Escaping Wonderland',     'genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 309},
-    {'name': 'First Person Tennis - The Real Tennis Simulator', 'genre': 'Sports / Simulation', 'type': 'indie', 'mp': ['multi'], 'tag': 'MAY', 'rating': 4.0, 'reviews': 1200},
-    {'name': 'Fruit Ninja',             'genre': 'Arcade',              'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.0, 'reviews': 1100},
-    {'name': 'Shave & Stuff',           'genre': 'Simulation',          'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 15000},
-    {'name': 'Table Troopers',          'genre': 'Strategy / Arcade',   'type': 'games', 'mp': [],              'tag': 'MAY', 'rating': 4.8, 'reviews': 410},
+    {'name': 'Crime Shop Simulator: A Prison Boss Game', 'genre': 'Simulation',          'type': 'games', 'mp': [], 'tag': 'APR', 'rating': 4.6, 'reviews': 629},
+    {'name': 'Last Stand',                               'genre': 'Survival Shooter',    'type': 'indie', 'mp': [], 'tag': 'JUN', 'rating': 4.4, 'reviews': 1500},
+    {'name': 'Little Thief',                             'genre': 'Platformer / Action', 'type': 'indie', 'mp': [], 'tag': 'JUN', 'rating': 4.8, 'reviews': 1600},
+    {'name': 'Maskmaker',                                'genre': 'Puzzle / Adventure',  'type': 'games', 'mp': [], 'tag': '',    'rating': 4.5, 'reviews': 232},
+    {'name': 'Outta Hand',                               'genre': 'Platformer / Puzzle',  'type': 'games', 'mp': [], 'tag': 'JUN', 'rating': 4.3, 'reviews': 611},
+    {'name': 'Survival Nation',                          'genre': 'RPG / Survival',      'type': 'indie', 'mp': [], 'tag': 'JUN', 'rating': 4.1, 'reviews': 761},
+    {'name': 'Trombone Champ: Unflattened',              'genre': 'Rhythm / Party',      'type': 'games', 'mp': [], 'tag': '',    'rating': 4.8, 'reviews': 387},
 ], key=lambda g: g['name'])
 
-CLAIMABLE = {"A Fisherman's Tale 2", 'Ancient Dungeon'}
+CLAIMABLE = {'Maskmaker', 'Trombone Champ: Unflattened'}
 
 
 # ══════════════════════════════════════════════════════════════
